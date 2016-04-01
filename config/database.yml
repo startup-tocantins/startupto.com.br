@@ -1,0 +1,29 @@
+development:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: startupbase_development
+  pool: 5
+  username: postgres
+  password: postgres
+
+
+test:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: startupbase_test
+  pool: 5
+  username: postgres
+  password: postgres
+
+
+production:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: startupbase_production
+  pool: 5
+  username: postgres
+  password: postgres
+  min_messages: WARNING

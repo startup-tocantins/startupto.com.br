@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Startups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Logo</th>
+      <th>Category</th>
+      <th>Stage</th>
+      <th>Country</th>
+      <th>State</th>
+      <th>City</th>
+      <th>Site</th>
+      <th>Contact</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Group</th>
+      <th>Fundation</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @startups.each do |startup| %>
+      <tr>
+        <td><%= startup.name %></td>
+        <td><%= startup.description %></td>
+        <td><%= startup.logo %></td>
+        <td><%= startup.category %></td>
+        <td><%= startup.stage %></td>
+        <td><%= startup.country %></td>
+        <td><%= startup.state %></td>
+        <td><%= startup.city %></td>
+        <td><%= startup.site %></td>
+        <td><%= startup.contact %></td>
+        <td><%= startup.latitude %></td>
+        <td><%= startup.longitude %></td>
+        <td><%= startup.group %></td>
+        <td><%= startup.fundation %></td>
+        <td><%= link_to 'Show', startup %></td>
+        <td><%= link_to 'Edit', edit_startup_path(startup) %></td>
+        <td><%= link_to 'Destroy', startup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Startup', new_startup_path %>

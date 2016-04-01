@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @startup.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @startup.description %>
+</p>
+
+<p>
+  <strong>Logo:</strong>
+  <%= @startup.logo %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @startup.category %>
+</p>
+
+<p>
+  <strong>Stage:</strong>
+  <%= @startup.stage %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @startup.country %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @startup.state %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @startup.city %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @startup.site %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @startup.contact %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @startup.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @startup.longitude %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @startup.group %>
+</p>
+
+<p>
+  <strong>Fundation:</strong>
+  <%= @startup.fundation %>
+</p>
+
+<%= link_to 'Edit', edit_startup_path(@startup) %> |
+<%= link_to 'Back', startups_path %>
