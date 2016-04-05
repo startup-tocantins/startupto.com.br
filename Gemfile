@@ -32,6 +32,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-byebug'
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -43,6 +44,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails', require: false
   gem 'rubocop', require: false
+  gem 'codeclimate-test-reporter', require: false
 end
 
 group :development do

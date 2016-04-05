@@ -2,22 +2,21 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
+
 require 'spec_helper'
 require 'rspec/rails'
 require 'factory_girl_rails'
 require 'simplecov'
-require 'simplecov-badge'
+require 'codeclimate-test-reporter'
 
+CodeClimate::TestReporter.start
 SimpleCov.start 'rails' do
-  add_filter "/app/helpers/"
-  SimpleCov::Formatter::BadgeFormatter.generate_groups = false
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-      SimpleCov::Formatter::HTMLFormatter,
-      SimpleCov::Formatter::BadgeFormatter,
-  ]  
+  formatter SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    CodeClimate::TestReporter::Formatter
+  ]
 end
-
 
 ActiveRecord::Migration.maintain_test_schema!
 
