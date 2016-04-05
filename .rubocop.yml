@@ -1,0 +1,13 @@
+AllCops:
+  Exclude:
+    - 'lib/templates/**/*'
+    - 'lib/**/*'
+    - 'spec/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
