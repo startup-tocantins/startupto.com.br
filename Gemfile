@@ -39,7 +39,7 @@ group :test do
   gem 'simplecov', '0.10.0', require: false
   gem 'simplecov-badge', require: false
   gem 'faker'
-  gem 'rspec-rails', '~> 3.3.3'
+  gem 'rspec-rails', '~> 3.4.2'
   gem 'database_cleaner'
   gem 'factory_girl_rails', require: false
   gem 'rubocop', require: false
