@@ -30,6 +30,19 @@ gem "twitter-bootstrap-rails"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'pry-rails'
+  gem 'pry-remote'
+  gem 'pry-byebug'
+end
+
+group :test do
+  gem 'autotest-rails', require: false
+  gem 'simplecov', '0.10.0', require: false
+  gem 'simplecov-badge', require: false
+  gem 'faker'
+  gem 'rspec-rails', '~> 3.3.3'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails', require: false
 end
 
 group :development do

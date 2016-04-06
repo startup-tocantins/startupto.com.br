@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401164749) do
+ActiveRecord::Schema.define(version: 20160406173929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20160401164749) do
   create_table "links", force: :cascade do |t|
     t.string   "kind"
     t.string   "url"
-    t.string   "description"
+    t.text     "description"
     t.integer  "startup_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -27,13 +27,24 @@ ActiveRecord::Schema.define(version: 20160401164749) do
 
   add_index "links", ["startup_id"], name: "index_links_on_startup_id", using: :btree
 
-  create_table "media", force: :cascade do |t|
-    t.string   "kind"
-    t.string   "url"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "members", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "email"
+    t.string   "linkedin"
+    t.string   "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  create_table "startup_members", force: :cascade do |t|
+    t.integer  "startup_id"
+    t.integer  "member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "startup_members", ["member_id"], name: "index_startup_members_on_member_id", using: :btree
+  add_index "startup_members", ["startup_id"], name: "index_startup_members_on_startup_id", using: :btree
 
   create_table "startups", force: :cascade do |t|
     t.string   "name"
@@ -54,14 +65,7 @@ ActiveRecord::Schema.define(version: 20160401164749) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "team_members", force: :cascade do |t|
-    t.string   "nome"
-    t.string   "email"
-    t.string   "linkedin"
-    t.string   "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "links", "startups"
+  add_foreign_key "startup_members", "members"
+  add_foreign_key "startup_members", "startups"
 end
