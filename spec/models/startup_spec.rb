@@ -17,7 +17,6 @@ RSpec.describe Startup, type: :model do
       expect(startup.errors.messages).to have_key(:description)      
     end
 
-
   end
 
 end

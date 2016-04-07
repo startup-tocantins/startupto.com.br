@@ -154,6 +154,8 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     ref (2.0.0)
+    rspec-autotest (1.0.0)
+      rspec-core (>= 2.99.0.beta1, < 4.0.0)
     rspec-core (3.4.4)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
@@ -247,6 +249,7 @@ DEPENDENCIES
   pry-rails
   pry-remote
   rails (= 4.2.6)
+  rspec-autotest
   rspec-rails (~> 3.4.2)
   rubocop
   sass-rails (~> 5.0)

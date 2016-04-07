@@ -62,13 +62,14 @@ class StartupsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_startup
-      @startup = Startup.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def startup_params
-      params.require(:startup).permit(:name, :description, :logo, :category, :stage, :country, :state, :city, :site, :contact, :latitude, :longitude, :group, :fundation)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_startup
+    @startup = Startup.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def startup_params
+    params.require(:startup).permit(:name, :description, :logo, :category, :stage, :country, :state, :city, :site, :contact, :latitude, :longitude, :group, :fundation)
+  end
 end

@@ -37,6 +37,7 @@ end
 
 group :test do
   gem 'autotest-rails', require: false
+  gem 'rspec-autotest', require: false
   gem 'simplecov', '0.10.0', require: false
   gem 'simplecov-badge', require: false
   gem 'faker'
