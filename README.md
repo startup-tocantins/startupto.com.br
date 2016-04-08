@@ -17,3 +17,8 @@ Visit: [http://startupbase.info](http://startupbase.info)
   rails s
 ```
 Make sure the Rails and PostgreSQL is properly installed on your machine.
+
+
+### Developers
+* [Luiz Carvalho](http://luizcarvalho.com) - contato@luizcarvalho.com
+* [Charles Rockenbach](https://www.facebook.com/charlesrockenbach) - charlesrockenbach@gmail.com
