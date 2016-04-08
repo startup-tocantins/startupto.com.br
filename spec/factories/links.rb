@@ -3,6 +3,10 @@ FactoryGirl.define do
     kind "MyString"
     url "MyString"
     description "MyText"
-    startup nil
+    startup { FactoryGirl.create(:startup) }
+
+    factory :link_invalid do
+      url nil
+    end
   end
 end

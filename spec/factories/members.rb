@@ -1,8 +1,13 @@
 FactoryGirl.define do
   factory :member do
-    nome "MyString"
-    email "MyString"
+    name "Mark Zuckerberg"
+    email "mark@facebook.com"
     linkedin "MyString"
-    role "MyString"
+    role "CEO"
+
+    factory :member_invalid do
+      name nil 
+    end
+
   end
 end

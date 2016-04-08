@@ -14,5 +14,10 @@ FactoryGirl.define do
     longitude nil
     group :movimento_statup_tocantins
     fundation "2015-04-06"
+
+    factory :startup_invalid do
+      name nil
+    end
+
   end
 end

@@ -1,3 +1,3 @@
 class Startup < ActiveRecord::Base
-  validates_presence_of :name, :description
+  validates :name, :description, :contact, presence: true, allow_blank: false
 end
