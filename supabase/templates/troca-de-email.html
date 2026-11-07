@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<body style="margin:0;padding:24px 0;background:#EEF2F7;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#0B1E36">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
+    <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FFFFFF">
+      <tr><td style="background:#0C4D9F;padding:20px 32px">
+        <p style="margin:0;color:#FFFFFF;font-size:17px;font-weight:700;line-height:22px">Associação Tocantinense<br>de Startups</p>
+        <div style="height:4px;width:48px;background:#FB9A17;margin-top:10px"></div>
+      </td></tr>
+      <tr><td style="padding:28px 32px 8px;font-size:16px;line-height:26px">
+        <p style="margin:0 0 16px">Olá!</p>
+        <p style="margin:0 0 16px">Você pediu para trocar o e-mail da sua conta para <strong>{{ .NewEmail }}</strong>. Confirme no botão abaixo:</p>
+        <p style="margin:8px 0 24px"><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email_change&proximo=/associado" style="background:#FB9A17;color:#0B1E36;font-weight:700;font-size:16px;padding:14px 24px;text-decoration:none;display:inline-block">Confirmar novo e-mail</a></p>
+        <p style="margin:0 0 16px">Se não foi você, ignore este e-mail e seu endereço atual continuará valendo.</p>
+      </td></tr>
+      <tr><td style="padding:16px 32px 28px;border-top:1px solid #D5DEE9">
+        <p style="margin:0;color:#4A5B70;font-size:13px;line-height:20px">
+          Associação Tocantinense de Startups · CNPJ 57.921.002/0001-30 · Palmas – TO<br>
+          Dúvidas? Responda este e-mail ou fale com a gente no WhatsApp (63) 99235-3262.<br>
+          <a href="{{ .SiteURL }}/privacidade" style="color:#0C4D9F">Política de Privacidade</a>
+        </p>
+      </td></tr>
+    </table>
+  </td></tr></table>
+</body>
+</html>
