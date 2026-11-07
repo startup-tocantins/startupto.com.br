@@ -1,6 +1,7 @@
 import 'server-only'
 import {cache} from 'react'
 import {redirect} from 'next/navigation'
+import {connection} from 'next/server'
 import {supabaseConfigurado} from '@/lib/env'
 import {createAdminClient, createClient} from '@/lib/supabase/server'
 import type {Perfil, StatusAssociado} from '@/lib/supabase/types'
@@ -9,6 +10,8 @@ export type Sessao = {userId: string; email: string; perfil: Perfil | null}
 
 /** Usuário logado + perfil (null se não logado ou Supabase não configurado). */
 export const getSessao = cache(async (): Promise<Sessao | null> => {
+  // Sessão é sempre por requisição (e o SDK lê o relógio): nunca entra no prerender.
+  await connection()
   if (!supabaseConfigurado()) return null
   const supabase = await createClient()
   const {data, error} = await supabase.auth.getUser()

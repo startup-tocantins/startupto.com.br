@@ -6,6 +6,9 @@ import {FormAta} from '../_componentes/Acoes'
 
 export const metadata = {title: 'Atas'}
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function AdminAtasPage() {
   const {data: atas} = await createAdminClient().from('atas').select('*').order('data_assembleia', {ascending: false})
   return (

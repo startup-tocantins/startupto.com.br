@@ -6,6 +6,7 @@ import {CabecaConta} from '../_componentes/Cabeca'
 import {FormEntrar} from '../_componentes/FormEntrar'
 
 export const metadata: Metadata = {title: 'Entrar', robots: {index: false}}
+export const instant = false
 
 const ERROS: Record<string, string> = {
   link: 'O link de acesso expirou ou já foi usado. Peça um novo abaixo.',

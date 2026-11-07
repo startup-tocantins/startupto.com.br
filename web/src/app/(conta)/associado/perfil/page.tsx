@@ -9,6 +9,9 @@ import {FormPerfil} from '../../_componentes/FormsArea'
 
 export const metadata: Metadata = {title: 'Editar dados', robots: {index: false}}
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function PerfilPage() {
   const {perfil} = await exigirSessao('/associado/perfil')
   const listas = await getListas()

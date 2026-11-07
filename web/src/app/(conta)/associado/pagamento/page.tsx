@@ -10,6 +10,9 @@ import {iniciarPagamento} from '../acoes'
 
 export const metadata: Metadata = {title: 'Pagar anuidade', robots: {index: false}}
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function PagamentoPage({searchParams}: PageProps<'/associado/pagamento'>) {
   const sp = await searchParams
   const {perfil: p} = await exigirSessao('/associado/pagamento')

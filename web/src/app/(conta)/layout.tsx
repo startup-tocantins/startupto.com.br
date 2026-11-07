@@ -12,6 +12,9 @@ function Carregando() {
   )
 }
 
+/** Páginas por usuário (sessão): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default function ContaLayout({children}: {children: React.ReactNode}) {
   return (
     <>

@@ -13,11 +13,12 @@ const revogar = process.argv.includes('--revogar')
 if (!url || !key) throw new Error('Defina NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SECRET_KEY.')
 if (!email) throw new Error('Informe o e-mail: npm run admin:grant -- email@exemplo.com')
 
-const db = createClient(url, key, {auth: {persistSession: false}})
+async function main() {
+const db = createClient(url!, key!, {auth: {persistSession: false}})
 const {data, error} = await db
   .from('perfis')
   .update({papel: revogar ? 'membro' : 'admin'})
-  .ilike('email', email)
+  .ilike('email', email!)
   .select('nome, email, papel')
 if (error) throw error
 if (!data?.length) {
@@ -25,3 +26,9 @@ if (!data?.length) {
   process.exit(1)
 }
 console.log(`✓ ${data[0].nome} <${data[0].email}> agora é ${data[0].papel}.`)
+}
+
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

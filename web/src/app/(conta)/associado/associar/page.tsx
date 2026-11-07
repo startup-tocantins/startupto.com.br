@@ -11,6 +11,9 @@ import {FormAssociar} from '../../_componentes/FormsArea'
 
 export const metadata: Metadata = {title: 'Quero ser Associado', robots: {index: false}}
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function AssociarPage() {
   const {perfil} = await exigirSessao('/associado/associar')
   if (!['comunidade', 'recusado', 'cancelado'].includes(perfil.status)) redirect('/associado')

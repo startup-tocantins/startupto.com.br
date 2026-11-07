@@ -4,6 +4,9 @@ import {FormGrupoWhatsapp} from '../_componentes/Acoes'
 
 export const metadata = {title: 'Configurações'}
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function AdminConfiguracoesPage() {
   const {data} = await createAdminClient().from('configuracoes_privadas').select('valor').eq('chave', 'whatsapp_grupo_comunidade').maybeSingle()
   return (

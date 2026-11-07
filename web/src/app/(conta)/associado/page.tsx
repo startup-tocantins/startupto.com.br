@@ -25,6 +25,9 @@ const TOM: Record<StatusAssociado, 'azul' | 'laranja' | 'buriti' | 'neutro' | 'e
   cancelado: 'neutro',
 }
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function AreaAssociadoPage({searchParams}: PageProps<'/associado'>) {
   const sp = await searchParams
   const {perfil: p} = await exigirSessao()

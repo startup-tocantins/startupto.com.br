@@ -5,6 +5,9 @@ import {FormConcluirExclusao} from '../_componentes/Acoes'
 
 export const metadata = {title: 'Pedidos de exclusão (LGPD)'}
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function AdminExclusoesPage() {
   const {data: pedidos} = await createAdminClient()
     .from('solicitacoes_exclusao')

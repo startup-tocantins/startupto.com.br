@@ -26,6 +26,12 @@ export async function enviarEmail(para: string | string[], email: Email): Promis
     whatsappContato: formatarWhatsapp(WHATSAPP_CONTATO),
     urlPrivacidade: `${env.siteUrl()}/privacidade`,
   }
+  if (process.env.EMAIL_DESATIVADO === '1') {
+    // Testes: renderiza (valida o template) mas não envia.
+    const texto = await render(email.corpo(rodape), {plainText: true})
+    console.info(`[email:desativado] "${email.assunto}" → ${destinatarios.join(', ')} (${texto.length} caracteres)`)
+    return true
+  }
   const cliente = resend()
   if (!cliente) {
     console.warn(`[email] Resend não configurado — "${email.assunto}" não enviado para ${destinatarios.join(', ')}`)

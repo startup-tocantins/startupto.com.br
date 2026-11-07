@@ -20,6 +20,9 @@ async function contagens() {
   return status.map((s, i) => ({status: s, total: res[i].count ?? 0}))
 }
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function AdminAssociadosPage({searchParams}: PageProps<'/admin'>) {
   const sp = await searchParams
   const f = filtrosDe(sp)

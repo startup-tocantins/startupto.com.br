@@ -48,7 +48,11 @@ export function tamanhoArquivo(bytes?: number) {
 }
 
 export function iniciais(nome: string) {
-  const partes = nome.split(/\s+/).filter((p) => p.length > 2 || /^[A-ZÀ-Ý]/.test(p))
+  const partes = nome
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .split(/\s+/)
+    .filter((p) => p.length > 2 || /^[A-ZÀ-Ý0-9]/.test(p))
   const primeira = partes[0]?.[0] ?? ''
   const ultima = partes.length > 1 ? partes[partes.length - 1][0] : ''
   return (primeira + ultima).toUpperCase()

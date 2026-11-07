@@ -23,6 +23,9 @@ const ACOES: Record<string, string> = {
   categoria: 'Categoria alterada',
 }
 
+/** Página por usuário (sessão/banco): fora da validação de navegação instantânea. */
+export const instant = false
+
 export default async function AdminAssociadoPage({params}: PageProps<'/admin/associados/[id]'>) {
   const {id} = await params
   if (!/^[0-9a-f-]{36}$/.test(id)) notFound()
