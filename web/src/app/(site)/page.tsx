@@ -1,3 +1,4 @@
+import {agoraMs} from '@/lib/formatos'
 import Image from 'next/image'
 import Link from 'next/link'
 import {Suspense} from 'react'
@@ -113,7 +114,7 @@ async function Introducao() {
 
 async function ProximosEventos() {
   await connection()
-  const agora = Date.now()
+  const agora = agoraMs()
   const eventos = (await getEventos())
     .filter((e) => new Date(e.fim ?? e.inicio).getTime() >= agora)
     .slice(0, 3)

@@ -15,7 +15,6 @@ export default async function Imagem() {
     (
       <div style={{width: '100%', height: '100%', display: 'flex', background: '#0a3f84', position: 'relative'}}>
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 0 0 72px', width: 760}}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={src} width={600} height={206} alt="" />
           <div style={{marginTop: 40, fontSize: 34, color: 'rgba(255,255,255,0.88)', lineHeight: 1.3, display: 'flex'}}>
             Representamos startups, conectamos oportunidades e fortalecemos a inovação no Tocantins.

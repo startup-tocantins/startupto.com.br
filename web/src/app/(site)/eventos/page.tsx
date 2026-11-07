@@ -1,3 +1,4 @@
+import {agoraMs} from '@/lib/formatos'
 import type {Metadata} from 'next'
 import {Suspense} from 'react'
 import {connection} from 'next/server'
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 
 async function Agenda() {
   await connection()
-  const agora = Date.now()
+  const agora = agoraMs()
   const eventos = await getEventos()
   const proximos = eventos.filter((e) => new Date(e.fim ?? e.inicio).getTime() >= agora)
   const passados = eventos.filter((e) => new Date(e.fim ?? e.inicio).getTime() < agora).reverse()

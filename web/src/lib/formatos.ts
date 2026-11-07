@@ -53,3 +53,8 @@ export function iniciais(nome: string) {
   const ultima = partes.length > 1 ? partes[partes.length - 1][0] : ''
   return (primeira + ultima).toUpperCase()
 }
+
+/** Instante atual (fora do corpo de componentes, para a regra de pureza do React). */
+export function agoraMs() {
+  return Date.now()
+}

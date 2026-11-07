@@ -1,0 +1,124 @@
+'use server'
+
+import {revalidatePath} from 'next/cache'
+import {redirect} from 'next/navigation'
+import {env} from '@/lib/env'
+import {errosDe, perfilSchema, validarLogo, valoresDe, type EstadoForm} from '@/lib/associados/esquemas'
+import {enviarLogo} from '@/lib/associados/logo'
+import {notificar} from '@/lib/associados/notificacoes'
+import {exigirSessao, getSessao} from '@/lib/associados/sessao'
+import {getStripe} from '@/lib/stripe'
+import {getPrecoAssociado} from '@/lib/stripe/preco'
+import {createAdminClient, createClient} from '@/lib/supabase/server'
+import type {Perfil} from '@/lib/supabase/types'
+
+export async function atualizarPerfil(_: EstadoForm, fd: FormData): Promise<EstadoForm> {
+  const valores = valoresDe(fd)
+  const sessao = await getSessao()
+  if (!sessao?.perfil) return {mensagem: 'Sua sessão expirou. Entre novamente.', valores}
+
+  const r = perfilSchema.safeParse(Object.fromEntries([...fd.entries()].filter(([, v]) => typeof v === 'string')))
+  const logo = validarLogo(fd.get('logo'))
+  if (!r.success || logo.erro) {
+    const erros = r.success ? {} : errosDe(r.error)
+    if (logo.erro) erros.logo = [logo.erro]
+    return {erros, valores}
+  }
+  const p = sessao.perfil
+  if (p.modalidade === 'associado' && (!r.data.startup_nome || !r.data.setor || !r.data.estagio)) {
+    return {
+      erros: {
+        ...(r.data.startup_nome ? {} : {startup_nome: ['Informe o nome da startup.']}),
+        ...(r.data.setor ? {} : {setor: ['Escolha o setor.']}),
+        ...(r.data.estagio ? {} : {estagio: ['Escolha o estágio.']}),
+      },
+      valores,
+    }
+  }
+
+  let logo_path = p.logo_path
+  if (logo.arquivo) logo_path = await enviarLogo(p.id, logo.arquivo)
+
+  // Cliente com a sessão do usuário: RLS + privilégios de coluna limitam o que pode mudar.
+  const supabase = await createClient()
+  const {error} = await supabase
+    .from('perfis')
+    .update({...r.data, logo_path})
+    .eq('id', p.id)
+  if (error) {
+    console.error('[perfil]', error.message)
+    return {mensagem: 'Não foi possível salvar agora. Tente novamente.', valores}
+  }
+  revalidatePath('/associado')
+  revalidatePath('/vitrine')
+  return {ok: true, mensagem: 'Dados salvos.'}
+}
+
+/** Garante um cliente no Stripe para o perfil e devolve o id. */
+async function clienteStripe(p: Perfil): Promise<string> {
+  if (p.stripe_customer_id) return p.stripe_customer_id
+  const stripe = getStripe()
+  const cliente = await stripe.customers.create({
+    email: p.email,
+    name: p.startup_nome ? `${p.startup_nome} (${p.nome})` : p.nome,
+    metadata: {perfil_id: p.id},
+  })
+  await createAdminClient().from('perfis').update({stripe_customer_id: cliente.id}).eq('id', p.id)
+  return cliente.id
+}
+
+export async function iniciarPagamento(): Promise<void> {
+  const {perfil: p} = await exigirSessao('/associado/pagamento')
+  if (p.isento) redirect('/associado')
+  if (p.status === 'inadimplente' && p.stripe_customer_id) redirect('/associado/portal')
+  if (p.status !== 'aguardando_pagamento') redirect('/associado')
+
+  const preco = await getPrecoAssociado()
+  if (!preco) redirect('/associado/pagamento?erro=indisponivel')
+
+  const stripe = getStripe()
+  const customer = await clienteStripe(p)
+  const sessao = await stripe.checkout.sessions.create({
+    mode: 'subscription',
+    customer,
+    client_reference_id: p.id,
+    line_items: [{price: preco.id, quantity: 1}],
+    allowed_payment_method_types: ['card'],
+    locale: 'pt-BR',
+    subscription_data: {metadata: {perfil_id: p.id}, description: 'Anuidade — Associação Tocantinense de Startups'},
+    metadata: {perfil_id: p.id},
+    success_url: `${env.siteUrl()}/associado?pagamento=confirmado`,
+    cancel_url: `${env.siteUrl()}/associado/pagamento?cancelado=1`,
+  })
+  if (!sessao.url) redirect('/associado/pagamento?erro=indisponivel')
+  redirect(sessao.url)
+}
+
+export async function solicitarExclusao(_: EstadoForm, fd: FormData): Promise<EstadoForm> {
+  const sessao = await getSessao()
+  if (!sessao?.perfil) return {mensagem: 'Sua sessão expirou. Entre novamente.'}
+  if (fd.get('confirmacao') !== 'on') {
+    return {erros: {confirmacao: ['Marque a confirmação para enviar o pedido.']}}
+  }
+  const p = sessao.perfil
+  const admin = createAdminClient()
+  const {data: aberto} = await admin
+    .from('solicitacoes_exclusao')
+    .select('id')
+    .eq('perfil_id', p.id)
+    .is('concluida_em', null)
+    .maybeSingle()
+  if (aberto) return {ok: true, mensagem: 'Seu pedido de exclusão já está com a Diretoria.'}
+
+  const {data, error} = await admin
+    .from('solicitacoes_exclusao')
+    .insert({perfil_id: p.id, nome: p.nome, email: p.email})
+    .select('criado_em, prazo')
+    .single()
+  if (error || !data) {
+    console.error('[exclusão]', error?.message)
+    return {mensagem: 'Não foi possível registrar o pedido agora. Tente novamente ou escreva para startuptocantins@gmail.com.'}
+  }
+  await notificar.exclusaoSolicitada(p, new Date(data.criado_em), new Date(`${data.prazo}T12:00:00`))
+  return {ok: true, mensagem: 'Pedido registrado. Você receberá a resposta por e-mail em até 15 dias.'}
+}

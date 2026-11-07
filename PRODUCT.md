@@ -102,7 +102,7 @@ Sucesso = novos cadastros na Comunidade, conversão Comunidade → Associado, an
 
 - `sobre.md` — Visão, duas Missões (a curta, entre aspas, é a frase de destaque; a longa vai no corpo), Valores, texto de introdução (1º bloco → introdução da Home), bloco "Quem Somos" (→ página Quem somos) e **lista oficial de nomes e cargos da Diretoria** (fonte de verdade para nomes e cargos).
 - `diretoria/minibios.md` — mini bios dos 11 membros (texto das bios; nomes e cargos seguem o `sobre.md`).
-- `diretoria/*.{jpeg,jpg,PNG}` — fotos de Rai, Lecticia, Thatyana, Kamylla, Gleyciane e Luiz. **Sem foto**: Luana, Karoline, Gabriela, Romualdo, Emerson → placeholder com iniciais.
+- `diretoria/*.{jpeg,jpg,PNG}` — fotos de Luana, Rai, Lecticia, Thatyana, Kamylla, Gleyciane e Luiz. **Sem foto**: Karoline, Gabriela, Romualdo, Emerson → placeholder com iniciais.
 - `documentos/Regimento Interno - Final (29-10-2026)-2.docx` — Regimento aprovado em 02/11/2026.
 - `documentos/estatuto.pdf` — Estatuto Social (15 páginas).
 - `manifesto.md` — Manifesto aprovado.

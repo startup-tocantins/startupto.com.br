@@ -1,4 +1,6 @@
 import type {NextConfig} from 'next'
+import {dirname} from 'node:path'
+import {fileURLToPath} from 'node:url'
 import {sanity} from 'next-sanity/live/cache-life'
 
 const supabaseHost = (() => {
@@ -22,6 +24,8 @@ const nextConfig: NextConfig = {
     ],
   },
   turbopack: {
+    // o monorepo tem lockfile na raiz; a app é web/
+    root: dirname(fileURLToPath(import.meta.url)),
     rules: {
       '*.css': {
         loaders: ['@tailwindcss/turbopack'],

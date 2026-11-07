@@ -16,15 +16,21 @@ const tintaAba: Record<Tinta, {base: string; ativa: string}> = {
 
 export function Cabecalho() {
   const pathname = usePathname()
-  const [aberto, setAberto] = useState(false)
+  // O menu fica aberto só na rota em que foi aberto: navegar o fecha sem efeito colateral.
+  const [abertoEm, setAbertoEm] = useState<string | null>(null)
+  const aberto = abertoEm === pathname
+  const setAberto = (v: boolean | ((atual: boolean) => boolean)) =>
+    setAbertoEm((atualEm) => {
+      const novo = typeof v === 'function' ? v(atualEm === pathname) : v
+      return novo ? pathname : null
+    })
   const botaoRef = useRef<HTMLButtonElement>(null)
 
-  useEffect(() => setAberto(false), [pathname])
   useEffect(() => {
     if (!aberto) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setAberto(false)
+        setAbertoEm(null)
         botaoRef.current?.focus()
       }
     }

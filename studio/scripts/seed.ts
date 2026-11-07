@@ -138,6 +138,7 @@ function parseBios(diretoria: {nome: string; cargo: string}[]) {
 }
 
 const FOTOS: Record<string, string> = {
+  luana: 'diretoria/luana.PNG',
   rai: 'diretoria/rai.jpeg',
   lecticia: 'diretoria/lecticia.jpeg',
   thatyana: 'diretoria/thatyana.PNG',
