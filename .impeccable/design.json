@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-07T20:35:47.589861Z",
+  "title": "Design System: Associação Tocantinense de Startups",
+  "extensions": {
+    "colorMeta": {
+      "azul-tocantins": {
+        "role": "primary",
+        "displayName": "Azul Tocantins"
+      },
+      "laranja-sol": {
+        "role": "secondary",
+        "displayName": "Laranja-sol (ipê)"
+      },
+      "buriti": {
+        "role": "tertiary",
+        "displayName": "Verde-buriti"
+      },
+      "papel": {
+        "role": "neutral",
+        "displayName": "Papel"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Abertura e Manifesto."
+      },
+      "body": {
+        "displayName": "Leitura",
+        "purpose": "Texto corrido, legendas e cargos (itálico)."
+      },
+      "label": {
+        "displayName": "Rótulo de etiqueta",
+        "purpose": "Rótulos de ficha de herbário e cabeçalhos do rodapé."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ficha",
+        "value": "0 1px 2px rgb(8 38 77 / 0.06), 0 6px 18px -8px rgb(8 38 77 / 0.18)",
+        "purpose": "Ficha em repouso."
+      },
+      {
+        "name": "ficha-alta",
+        "value": "0 2px 4px rgb(8 38 77 / 0.08), 0 18px 36px -14px rgb(8 38 77 / 0.28)",
+        "purpose": "Hover e destaque."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-saida",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Todas as transições de estado e a entrada do mapa."
+      },
+      {
+        "name": "ponto-surge",
+        "value": "700ms ease-saida, atraso proporcional à latitude",
+        "purpose": "Pontos do mapa acendem de norte a sul."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão primário",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA principal (Associe-se).",
+      "html": "<button class=\"ds-btn-primario\">Associe-se</button>",
+      "css": ".ds-btn-primario{background:#fb9a17;color:#08264d;min-height:44px;padding:0 20px;border:0;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;transition:background-color .2s cubic-bezier(.16,1,.3,1)}.ds-btn-primario:hover{background:#ffab3d}.ds-btn-primario:focus-visible{outline:3px solid #fb9a17;outline-offset:3px}"
+    },
+    {
+      "name": "Ficha de herbário",
+      "kind": "card",
+      "refersTo": "ficha",
+      "description": "Card de startup na Vitrine com etiqueta tabular.",
+      "html": "<article class=\"ds-ficha\"><h3>Startup</h3><dl><div><dt>Localidade</dt><dd>Gurupi – TO</dd></div><div><dt>Setor</dt><dd>Agro / AgTech</dd></div></dl></article>",
+      "css": ".ds-ficha{background:#fff;border-radius:6px;padding:16px;box-shadow:0 0 0 1px #d9dde4,0 1px 2px rgb(8 38 77/.06),0 6px 18px -8px rgb(8 38 77/.18);font-family:'Bricolage Grotesque',sans-serif;color:#14213a}.ds-ficha h3{margin:0 0 12px;font-size:18px;color:#08264d}.ds-ficha dl{margin:0;border-top:1px solid #d9dde4}.ds-ficha div{display:grid;grid-template-columns:6.5rem 1fr;gap:12px;padding:6px 0;border-bottom:1px solid #d9dde4}.ds-ficha dt{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6a7489}.ds-ficha dd{margin:0;font-family:Alegreya,serif;font-size:16px}"
+    },
+    {
+      "name": "Aba de índice",
+      "kind": "nav",
+      "refersTo": "aba-indice",
+      "description": "Navegação principal: abas pendendo do topo.",
+      "html": "<a class=\"ds-aba\" href=\"#\">Eventos</a>",
+      "css": ".ds-aba{display:inline-flex;align-items:flex-end;height:48px;padding:0 16px 8px;background:#1f6b4a;color:#fff;border-radius:0 0 6px 6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;text-decoration:none;transition:height .3s cubic-bezier(.16,1,.3,1)}.ds-aba:hover{height:53px}.ds-aba:focus-visible{outline:3px solid #fb9a17;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Guia de campo do cerrado tocantinense",
+    "overview": "O ecossistema de startups lido como o ecossistema do cerrado: pranchas, abas de índice, fichas de herbário e o mapa de coleta com os 139 municípios.",
+    "keyCharacteristics": [
+      "Campos inteiros de azul e laranja",
+      "Fichas de herbário com etiqueta tabular",
+      "Mapa de coleta com 139 pontos",
+      "Bricolage Grotesque + Alegreya"
+    ],
+    "rules": [
+      {
+        "name": "Regra do Sol",
+        "body": "No máximo um campo laranja dominante por tela.",
+        "section": "colors"
+      },
+      {
+        "name": "Cada aba, uma tinta",
+        "body": "Cada seção tem sua cor de aba, que reaparece na página.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Use estados vazios honestos com convite"
+    ],
+    "donts": [
+      "Não use texto laranja-sol sobre fundo claro",
+      "Não ponha kicker acima de títulos"
+    ]
+  }
+}
