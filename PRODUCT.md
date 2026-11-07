@@ -10,7 +10,7 @@ web
 
 Monorepo greenfield na raiz desta pasta:
 
-- `studio/` — Sanity Studio **standalone** (não embutido no Next). Projeto `hy28b6oa`, dataset `production`. Todo o conteúdo editorial.
+- `studio/` — Sanity Studio **standalone** (não embutido no Next). Projeto `megra9kk`, dataset `production`. Todo o conteúdo editorial.
 - `web/` — Next.js (App Router, TypeScript, Tailwind, `src/`, alias `@/*`).
 - **Supabase** — autenticação (link mágico, sem senha), Postgres dos associados com RLS, Storage para logos da Vitrine e documentos restritos.
 - **Stripe** — assinatura anual do Associado, **somente cartão de crédito**.

@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Mundo visual: guia de campo do cerrado tocantinense.
+ * Pranchas brancas, campos inteiros em azul (tecido da capa) e laranja (ipê),
+ * verde-buriti como terceira tinta. Tipos: Bricolage Grotesque (display/UI)
+ * e Alegreya (leitura e legendas).
+ */
+
+@theme {
+  --color-papel: #f7f6f2;
+  --color-prancha: #ffffff;
+  --color-linha: #d9dde4;
+  --color-linha-forte: #b7bfcc;
+
+  --color-azul: #0c4d9f;
+  --color-azul-fundo: #0a3f84;
+  --color-azul-noite: #08264d;
+  --color-azul-claro: #e6eef8;
+  --color-azul-tinta: #b9cdea;
+
+  --color-laranja: #fb9a17;
+  --color-laranja-claro: #fff1dc;
+  --color-laranja-tinta: #8a4a00;
+
+  --color-buriti: #1f6b4a;
+  --color-buriti-claro: #e3f0e8;
+
+  --color-tinta: #14213a;
+  --color-tinta-suave: #44516a;
+  --color-tinta-fraca: #6a7489;
+
+  --color-erro: #b3261e;
+  --color-erro-claro: #fde8e6;
+  --color-sucesso: #1f6b4a;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-texto: var(--font-alegreya), ui-serif, Georgia, serif;
+
+  --radius-ficha: 6px;
+  --radius-botao: 999px;
+
+  --shadow-ficha: 0 1px 2px rgb(8 38 77 / 0.06), 0 6px 18px -8px rgb(8 38 77 / 0.18);
+  --shadow-ficha-alta: 0 2px 4px rgb(8 38 77 / 0.08), 0 18px 36px -14px rgb(8 38 77 / 0.28);
+
+  --ease-saida: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 5.5rem;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: var(--color-papel);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01" on;
+  }
+
+  ::selection {
+    background: var(--color-laranja);
+    color: var(--color-azul-noite);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-laranja);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  input,
+  textarea,
+  select {
+    caret-color: var(--color-azul);
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+
+  html {
+    scrollbar-color: var(--color-linha-forte) var(--color-papel);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes ponto-surge {
+  from {
+    opacity: 0.25;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer components {
+  /* Assinatura: os pontos do mapa acendem de norte a sul */
+  .mapa-ponto {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ponto-surge 700ms var(--ease-saida) both;
+  }
+
+  /* Texto corrido (Portable Text, manifesto, privacidade, notícias) */
+  .leitura {
+    font-family: var(--font-texto);
+    font-size: 1.1875rem;
+    line-height: 1.65;
+    color: var(--color-tinta);
+    max-width: 68ch;
+  }
+  .leitura > * + * {
+    margin-top: 1.05em;
+  }
+  .leitura h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.15;
+    color: var(--color-azul-noite);
+    margin-top: 2.2em;
+  }
+  .leitura h3 {
+    font-family: var(--font-display);
+    font-weight: 650;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: var(--color-azul-noite);
+    margin-top: 1.8em;
+  }
+  .leitura strong {
+    font-weight: 700;
+    color: var(--color-azul-noite);
+  }
+  .leitura a {
+    color: var(--color-azul);
+    text-decoration: underline;
+  }
+  .leitura a:hover {
+    color: var(--color-azul-noite);
+    text-decoration-thickness: 2px;
+  }
+  .leitura ul,
+  .leitura ol {
+    padding-left: 1.3em;
+  }
+  .leitura ul {
+    list-style: none;
+  }
+  .leitura ul > li {
+    position: relative;
+  }
+  .leitura ul > li::before {
+    content: "";
+    position: absolute;
+    left: -1.05em;
+    top: 0.62em;
+    width: 0.42em;
+    height: 0.42em;
+    border-radius: 999px;
+    background: var(--color-laranja);
+  }
+  .leitura ol {
+    list-style: decimal;
+  }
+  .leitura li + li {
+    margin-top: 0.4em;
+  }
+  .leitura blockquote {
+    border-left: 1px solid var(--color-laranja);
+    padding-left: 1.1em;
+    font-style: italic;
+    color: var(--color-tinta-suave);
+  }
 }
