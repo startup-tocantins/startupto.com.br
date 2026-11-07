@@ -11,7 +11,7 @@ colors:
   laranja-tinta: "#8A4A00"
   buriti: "#1F6B4A"
   buriti-claro: "#E3F0E8"
-  papel: "#F7F6F2"
+  papel: "#F3F6FA"
   prancha: "#FFFFFF"
   linha: "#D9DDE4"
   linha-forte: "#B7BFCC"
@@ -114,7 +114,7 @@ Estratégia **comprometida**: o azul ocupa campos inteiros (abertura, missão, r
 
 ### Neutral
 
-- **Papel `#F7F6F2`** (fundo do site), **prancha `#FFFFFF`** (fichas e seções alternadas), **linha `#D9DDE4`** / **linha-forte `#B7BFCC`** (réguas e bordas). Texto: **tinta `#14213A`**, **tinta-suave `#44516A`**, **tinta-fraca `#6A7489`** (rótulos de etiqueta, nunca texto corrido).
+- **Papel `#F3F6FA`** (fundo do site, quase-branco frio puxado do azul; nunca creme), **prancha `#FFFFFF`** (fichas e seções alternadas), **linha `#D9DDE4`** / **linha-forte `#B7BFCC`** (réguas e bordas). Texto: **tinta `#14213A`**, **tinta-suave `#44516A`**, **tinta-fraca `#6A7489`** (rótulos de etiqueta, nunca texto corrido).
 
 ### Named Rules
 

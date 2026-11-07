@@ -21,7 +21,7 @@ export default async function EntrarPage({searchParams}: PageProps<'/entrar'>) {
   const erro = typeof sp.erro === 'string' ? ERROS[sp.erro] : undefined
   return (
     <>
-      <CabecaConta rotulo="Área do associado" titulo="Entrar">
+      <CabecaConta titulo="Entrar">
         Sem senha: digite o e-mail do seu cadastro e enviamos um link de acesso.
       </CabecaConta>
       <Container className="py-12 sm:py-16">

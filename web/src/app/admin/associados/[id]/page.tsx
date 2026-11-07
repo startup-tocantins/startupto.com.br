@@ -63,7 +63,7 @@ export default async function AdminAssociadoPage({params}: PageProps<'/admin/ass
       </div>
 
       {p.status === 'pendente_aprovacao' && (
-        <Ficha className="border-l-4 border-laranja p-6" como="section">
+        <Ficha className="bg-laranja-claro p-6 ring-laranja/50" como="section">
           <h2 className="font-display text-xl font-extrabold text-azul-noite">Pedido aguardando análise</h2>
           <p className="mb-4 mt-1 font-texto text-[1.0625rem] text-tinta-suave">
             Ao aprovar, a pessoa recebe por e-mail o link para pagar a anuidade. Ao recusar, ela continua na Comunidade.

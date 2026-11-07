@@ -22,7 +22,7 @@ export default async function PagamentoPage({searchParams}: PageProps<'/associad
 
   return (
     <>
-      <CabecaConta rotulo="Associado" titulo="Pagar anuidade">
+      <CabecaConta titulo="Pagar anuidade">
         Seu pedido foi aprovado pela Diretoria. Conclua o pagamento para ativar a associação.
       </CabecaConta>
       <Container className="py-12 sm:py-14">

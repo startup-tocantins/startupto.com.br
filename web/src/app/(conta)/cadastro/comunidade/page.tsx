@@ -14,7 +14,7 @@ export default async function CadastroComunidadePage() {
   const listas = await getListas()
   return (
     <>
-      <CabecaConta rotulo="Comunidade · gratuita" titulo="Entre na Comunidade">
+      <CabecaConta titulo="Entre na Comunidade">
         Cadastro rápido e sem custo. Você entra no grupo Startup Tocantins no WhatsApp e participa dos eventos
         gratuitos da Associação.
       </CabecaConta>

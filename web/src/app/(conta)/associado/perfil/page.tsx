@@ -17,7 +17,7 @@ export default async function PerfilPage() {
   const listas = await getListas()
   return (
     <>
-      <CabecaConta rotulo="Minha área" titulo="Editar dados" />
+      <CabecaConta titulo="Editar dados" />
       <Container className="py-12 sm:py-14">
         <Link href="/associado" className="font-semibold text-azul underline underline-offset-4">
           ← Voltar para minha área

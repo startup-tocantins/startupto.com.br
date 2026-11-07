@@ -20,7 +20,7 @@ export default async function AssociarPage() {
   const [listas, preco] = await Promise.all([getListas(), getPrecoAssociado()])
   return (
     <>
-      <CabecaConta rotulo="Comunidade → Associado" titulo="Quero ser Associado">
+      <CabecaConta titulo="Quero ser Associado">
         Complete os dados da startup. A Diretoria analisa o pedido e, se aprovado, você recebe o link para pagar a
         anuidade{preco ? ` de ${preco.formatado}` : ''} no cartão de crédito.
       </CabecaConta>

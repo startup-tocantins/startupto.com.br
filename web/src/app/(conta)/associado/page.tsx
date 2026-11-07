@@ -43,7 +43,7 @@ export default async function AreaAssociadoPage({searchParams}: PageProps<'/asso
 
   return (
     <>
-      <CabecaConta rotulo="Minha área" titulo={`Olá, ${p.nome.split(' ')[0]}`}>
+      <CabecaConta titulo={`Olá, ${p.nome.split(' ')[0]}`}>
         {DESCRICAO_STATUS[p.status]}
       </CabecaConta>
       <Container className="flex flex-col gap-10 py-12 sm:py-14">

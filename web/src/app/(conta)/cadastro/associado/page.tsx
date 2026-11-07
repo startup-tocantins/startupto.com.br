@@ -22,14 +22,14 @@ export default async function CadastroAssociadoPage() {
   const [listas, preco] = await Promise.all([getListas(), getPrecoAssociado()])
   return (
     <>
-      <CabecaConta rotulo="Associado" titulo="Pedido de associação">
+      <CabecaConta titulo="Pedido de associação">
         {preco ? `Anuidade de ${preco.formatado}, paga no cartão de crédito depois da aprovação.` : 'Anuidade paga no cartão de crédito depois da aprovação.'}{' '}
         Pessoas físicas e jurídicas preenchem os mesmos campos.
       </CabecaConta>
       <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,40rem)_1fr]">
         <FormAssociado listas={listas} declaracao={[...DECLARACAO_ADESAO]} />
         <aside className="lg:sticky lg:top-28 lg:self-start">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-tinta-fraca">Como funciona</p>
+          <h2 className="font-display text-xl font-extrabold text-azul-noite">Como funciona</h2>
           <ol className="mt-4 flex flex-col">
             {PASSOS.map((p, i) => (
               <li key={p.t} className="relative flex gap-4 pb-6 last:pb-0">
