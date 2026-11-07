@@ -2,6 +2,7 @@ import {EstadoVazio, Ficha, Selo} from '@/components/ui'
 import {formatarData} from '@/lib/associados/status'
 import {createAdminClient} from '@/lib/supabase/server'
 import {FormConcluirExclusao} from '../_componentes/Acoes'
+import {exigirAdmin} from '@/lib/associados/sessao'
 
 export const metadata = {title: 'Pedidos de exclusão (LGPD)'}
 
@@ -9,6 +10,8 @@ export const metadata = {title: 'Pedidos de exclusão (LGPD)'}
 export const instant = false
 
 export default async function AdminExclusoesPage() {
+  // A checagem do layout não protege a página (renderizam em paralelo): cada página verifica.
+  await exigirAdmin()
   const {data: pedidos} = await createAdminClient()
     .from('solicitacoes_exclusao')
     .select('*')

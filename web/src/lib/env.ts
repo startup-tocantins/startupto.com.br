@@ -2,7 +2,11 @@ import 'server-only'
 
 /** Variáveis de ambiente do servidor. Funções retornam null quando o serviço não está configurado. */
 export const env = {
-  siteUrl: () => (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, ''),
+  siteUrl: () =>
+    (
+      process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+    ).replace(/\/$/, ''),
   supabaseUrl: () => process.env.NEXT_PUBLIC_SUPABASE_URL ?? null,
   supabaseAnonKey: () =>
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? null,

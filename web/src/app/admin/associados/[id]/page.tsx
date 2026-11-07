@@ -9,6 +9,7 @@ import type {Historico, Perfil} from '@/lib/supabase/types'
 import {logoPublicUrl} from '@/lib/supabase/vitrine'
 import {formatarDocumento, formatarWhatsapp} from '@/lib/validacao/documento'
 import {DecisaoPedido, FormCategoria, FormIsencao} from '../../_componentes/Acoes'
+import {exigirAdmin} from '@/lib/associados/sessao'
 
 const ACOES: Record<string, string> = {
   cadastro_comunidade: 'Cadastro na Comunidade',
@@ -27,6 +28,8 @@ const ACOES: Record<string, string> = {
 export const instant = false
 
 export default async function AdminAssociadoPage({params}: PageProps<'/admin/associados/[id]'>) {
+  // A checagem do layout não protege a página (renderizam em paralelo): cada página verifica.
+  await exigirAdmin()
   const {id} = await params
   if (!/^[0-9a-f-]{36}$/.test(id)) notFound()
   const db = createAdminClient()

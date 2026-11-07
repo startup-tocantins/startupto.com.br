@@ -1,6 +1,7 @@
 import {Ficha} from '@/components/ui'
 import {createAdminClient} from '@/lib/supabase/server'
 import {FormGrupoWhatsapp} from '../_componentes/Acoes'
+import {exigirAdmin} from '@/lib/associados/sessao'
 
 export const metadata = {title: 'Configurações'}
 
@@ -8,6 +9,8 @@ export const metadata = {title: 'Configurações'}
 export const instant = false
 
 export default async function AdminConfiguracoesPage() {
+  // A checagem do layout não protege a página (renderizam em paralelo): cada página verifica.
+  await exigirAdmin()
   const {data} = await createAdminClient().from('configuracoes_privadas').select('valor').eq('chave', 'whatsapp_grupo_comunidade').maybeSingle()
   return (
     <div className="flex flex-col gap-8">

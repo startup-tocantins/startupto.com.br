@@ -5,6 +5,7 @@ import {getListas, tituloDe} from '@/lib/associados/listas'
 import {ROTULO_STATUS, formatarData} from '@/lib/associados/status'
 import {createAdminClient} from '@/lib/supabase/server'
 import type {StatusAssociado} from '@/lib/supabase/types'
+import {exigirAdmin} from '@/lib/associados/sessao'
 
 export const metadata = {title: 'Associados'}
 
@@ -24,6 +25,8 @@ async function contagens() {
 export const instant = false
 
 export default async function AdminAssociadosPage({searchParams}: PageProps<'/admin'>) {
+  // A checagem do layout não protege a página (renderizam em paralelo): cada página verifica.
+  await exigirAdmin()
   const sp = await searchParams
   const f = filtrosDe(sp)
   const [{associados, total}, listas, resumo] = await Promise.all([buscarAssociados(f), getListas(), contagens()])
