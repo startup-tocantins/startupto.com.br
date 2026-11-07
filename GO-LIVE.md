@@ -17,15 +17,16 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 
 ## 3. Sanity
 
-- [ ] `cd studio && npx sanity deploy` (publica o Studio, ex.: `startupto.sanity.studio`) e ajustar `NEXT_PUBLIC_STUDIO_URL`.
+- [x] Studio publicado em **https://startupto.sanity.studio** (`studioHost` e `appId` fixados em `studio/sanity.cli.ts`).
 - [ ] Convidar a Diretoria no projeto `megra9kk` (papel *Editor*).
-- [ ] CORS já liberado para `http://localhost:3000`, `https://startupto.com.br` e `https://www.startupto.com.br`. Se usar outro domínio (ex.: `*.vercel.app`), adicionar em *API → CORS origins*.
+- [x] CORS liberado para `http://localhost:3000`, `https://startupto.com.br`, `https://www.startupto.com.br` e `https://*.vercel.app` (previews). Dataset é público e sem credenciais, então o curinga não expõe nada a mais.
 
 ## 4. Vercel (Hobby)
 
-- [ ] Repositório GitHub **privado na conta pessoal** (o Hobby não faz deploy de repo de organização).
-- [ ] Projeto com **Root Directory = `web`**.
-- [ ] Variáveis de ambiente: as de `web/.env.example` (com `NEXT_PUBLIC_SITE_URL=https://startupto.com.br`). **Não** definir `EMAIL_DESATIVADO`.
+- [x] Projeto **`startupto`** criado no time *StartupTocantins* (Hobby), com `web/vercel.json` fixando o framework Next.js. Preview funcionando, protegido pelo login da Vercel: https://startupto-4fkp95lia-startup-tocantins.vercel.app
+- [x] Variáveis de **Preview** cadastradas (chaves de teste; `EMAIL_DESATIVADO=1` para o preview não enviar e-mails).
+- [ ] Variáveis de **Production**: as de `web/.env.example`, com `NEXT_PUBLIC_SITE_URL=https://startupto.com.br` e o `STRIPE_WEBHOOK_SECRET` do endpoint de produção. **Não** definir `EMAIL_DESATIVADO`.
+- [ ] Opcional: conectar um repositório GitHub **privado na conta pessoal** para deploy automático (o Hobby não faz deploy de repo de organização). Sem isso, publicar com `cd web && vercel deploy --prod`.
 - [ ] Lembrete: a Diretoria aceitou o risco da cláusula de uso não comercial do plano Hobby.
 
 ## 5. Stripe
