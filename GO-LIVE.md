@@ -4,14 +4,15 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 
 ## 1. Supabase — Authentication (painel do projeto `gcbeufdcjygmrogjyavw`)
 
-- [ ] **Desligar cadastro público, URLs e templates** — `npx supabase login` e depois `node supabase/configurar-auth.mjs` (aplica `disable_signup`, Site URL, Redirect URLs e os dois templates).
+- [x] **Cadastro público bloqueado** (08/11/2026) — trigger em `auth.users` (migration `20261108090000_bloquear_cadastro_publico.sql`): só o servidor do site, com `SUPABASE_CHAVE_CADASTRO`, cria contas. Verificado: `signup` e OTP com criação de usuário pela API pública são recusados; cadastro pelo site funciona em produção.
+- [ ] **URLs e templates do Auth** — junto com o SMTP (abaixo): `npx supabase login` e `node supabase/configurar-auth.mjs` (Site URL, Redirect URLs, templates e também `disable_signup` no painel, como segunda camada).
 - [ ] **SMTP próprio (Resend)** — depois de verificar o domínio no Resend: `node supabase/configurar-auth.mjs --smtp`. Sem isso o Supabase só envia link de acesso para membros da equipe do projeto e com limite baixo.
 
 ## 2. Resend
 
 - [ ] Verificar o domínio `startupto.com.br` (registros DNS SPF/DKIM indicados pelo Resend).
 - [ ] Criar a caixa `contato@startupto.com.br` (ou ajustar `EMAIL_FROM`). Respostas vão para `startuptocantins@gmail.com` (`EMAIL_REPLY_TO`).
-- [ ] A chave atual é "somente envio" — está correta para produção.
+- [x] A chave atual é "somente envio" — está correta para produção.
 
 ## 3. Sanity
 
