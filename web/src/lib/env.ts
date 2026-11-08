@@ -1,12 +1,23 @@
 import 'server-only'
 
+/**
+ * URL pública do site: NEXT_PUBLIC_SITE_URL; senão o domínio de produção da Vercel
+ * (em produção) ou o endereço do deploy (em preview); senão localhost.
+ */
+export function urlDoSite(): string {
+  const vercel =
+    process.env.VERCEL_ENV === 'production'
+      ? process.env.VERCEL_PROJECT_PRODUCTION_URL
+      : process.env.VERCEL_URL
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (vercel ? `https://${vercel}` : 'http://localhost:3000')
+  ).replace(/\/$/, '')
+}
+
 /** Variáveis de ambiente do servidor. Funções retornam null quando o serviço não está configurado. */
 export const env = {
-  siteUrl: () =>
-    (
-      process.env.NEXT_PUBLIC_SITE_URL ??
-      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
-    ).replace(/\/$/, ''),
+  siteUrl: () => urlDoSite(),
   supabaseUrl: () => process.env.NEXT_PUBLIC_SUPABASE_URL ?? null,
   supabaseAnonKey: () =>
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? null,
