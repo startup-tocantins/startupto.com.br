@@ -1,14 +1,13 @@
 /** Captura telas da área logada para revisão visual. Uso: npx tsx e2e/capturas.ts */
 import {chromium} from '@playwright/test'
-import {apagarUsuario, db, gerarCNPJ, linkDeAcesso} from './apoio'
+import {apagarUsuario, criarUsuarioTeste, db, gerarCNPJ, linkDeAcesso} from './apoio'
 
 const BASE = process.env.E2E_BASE_URL ?? 'http://localhost:3000'
 const OUT = process.env.CAPTURAS_DIR ?? '../.impeccable/review'
 
 async function main() {
   const email = `captura.${Date.now()}@example.com`
-  const {data} = await db.auth.admin.createUser({email, email_confirm: true})
-  const id = data.user!.id
+  const id = (await criarUsuarioTeste(email)).id
   await db.from('perfis').insert({
     id, nome: 'Maria Captura', email, whatsapp: '63999990009', cidade: 'porto-nacional',
     aceite_privacidade_em: new Date().toISOString(), aceite_estatuto_em: new Date().toISOString(),

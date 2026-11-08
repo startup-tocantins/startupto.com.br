@@ -1,5 +1,5 @@
 import {expect, test} from '@playwright/test'
-import {apagarUsuario, db, gerarCNPJ, linkDeAcesso, perfilPorEmail} from './apoio'
+import {apagarUsuario, criarUsuarioTeste, db, gerarCNPJ, linkDeAcesso, perfilPorEmail} from './apoio'
 
 const sufixo = Date.now()
 const comunidade = `e2e.comunidade.${sufixo}@example.com`
@@ -58,7 +58,7 @@ test('ciclo completo: pedido → aprovação → pagamento → Vitrine', async (
   await expect(page.getByText('Aguardando aprovação')).toBeVisible()
 
   // 3. Admin aprova no painel
-  const {data: u} = await db.auth.admin.createUser({email: admin, email_confirm: true})
+  const u = {user: await criarUsuarioTeste(admin)}
   await db.from('perfis').insert({
     id: u.user!.id, nome: 'Admin E2E', email: admin, whatsapp: '63999990003', cidade: 'palmas',
     aceite_privacidade_em: new Date().toISOString(), papel: 'admin',

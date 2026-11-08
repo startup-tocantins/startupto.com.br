@@ -39,7 +39,21 @@ async function enviarLinkDeAcesso(email: string) {
 /** Cria o usuário no Supabase Auth. Retorna o id ou um erro amigável. */
 async function criarUsuario(email: string, nome: string): Promise<{id: string} | {erro: EstadoForm}> {
   const admin = createAdminClient()
-  const {data, error} = await admin.auth.admin.createUser({email, email_confirm: true, user_metadata: {nome}})
+  const chave = process.env.SUPABASE_CHAVE_CADASTRO
+  if (!chave) {
+    console.error('[cadastro] SUPABASE_CHAVE_CADASTRO ausente')
+    return {erro: {mensagem: 'Os cadastros estão temporariamente indisponíveis. Tente novamente mais tarde.'}}
+  }
+  // A chave prova ao trigger do banco que a conta vem do servidor (cadastro público bloqueado).
+  const {data, error} = await admin.auth.admin.createUser({
+    email,
+    email_confirm: true,
+    user_metadata: {nome, chave_cadastro: chave},
+  })
+  if (data?.user) {
+    // A chave não fica guardada na conta.
+    await admin.auth.admin.updateUserById(data.user.id, {user_metadata: {nome, chave_cadastro: null}})
+  }
   if (error || !data.user) {
     if (/already|exists|registered/i.test(error?.message ?? '')) {
       return {

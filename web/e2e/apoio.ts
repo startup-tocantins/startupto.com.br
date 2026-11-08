@@ -37,3 +37,15 @@ export async function apagarUsuario(email: string) {
   if (p?.logo_path) await db.storage.from('logos').remove([p.logo_path])
   if (p) await db.auth.admin.deleteUser(p.id)
 }
+
+/** Cria usuário como o servidor faz (com a chave exigida pelo trigger do banco). */
+export async function criarUsuarioTeste(email: string) {
+  const {data, error} = await db.auth.admin.createUser({
+    email,
+    email_confirm: true,
+    user_metadata: {chave_cadastro: process.env.SUPABASE_CHAVE_CADASTRO},
+  })
+  if (error || !data.user) throw error ?? new Error('createUser falhou')
+  await db.auth.admin.updateUserById(data.user.id, {user_metadata: {chave_cadastro: null}})
+  return data.user
+}
