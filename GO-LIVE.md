@@ -4,10 +4,8 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 
 ## 1. Supabase — Authentication (painel do projeto `gcbeufdcjygmrogjyavw`)
 
-- [ ] **Desligar cadastro público** — *Authentication → Sign In / Providers → Allow new users to sign up*: **off**. O site cria contas só pelo servidor; hoje a API aceita cadastros diretos.
-- [ ] **URL Configuration** — Site URL `https://startupto.com.br`; Redirect URLs: `https://startupto.com.br/**` e `http://localhost:3000/**`.
-- [ ] **SMTP próprio (Resend)** — *Authentication → Emails → SMTP Settings*: host `smtp.resend.com`, porta `465`, usuário `resend`, senha = chave do Resend, remetente `contato@startupto.com.br`. Sem isso o Supabase só envia link de acesso para membros da equipe do projeto e com limite baixo.
-- [ ] **Templates** — colar `supabase/templates/link-de-acesso.html` (Magic Link) e `troca-de-email.html` (Change Email). Ver `supabase/templates/README.md`.
+- [ ] **Desligar cadastro público, URLs e templates** — `npx supabase login` e depois `node supabase/configurar-auth.mjs` (aplica `disable_signup`, Site URL, Redirect URLs e os dois templates).
+- [ ] **SMTP próprio (Resend)** — depois de verificar o domínio no Resend: `node supabase/configurar-auth.mjs --smtp`. Sem isso o Supabase só envia link de acesso para membros da equipe do projeto e com limite baixo.
 
 ## 2. Resend
 
@@ -25,13 +23,14 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 
 - [x] Projeto **`startupto`** criado no time *StartupTocantins* (Hobby), com `web/vercel.json` fixando o framework Next.js. Preview funcionando, protegido pelo login da Vercel: https://startupto-4fkp95lia-startup-tocantins.vercel.app
 - [x] Variáveis de **Preview** cadastradas (chaves de teste; `EMAIL_DESATIVADO=1` para o preview não enviar e-mails).
-- [ ] Variáveis de **Production**: as de `web/.env.example`, com `NEXT_PUBLIC_SITE_URL=https://startupto.com.br` e o `STRIPE_WEBHOOK_SECRET` do endpoint de produção. **Não** definir `EMAIL_DESATIVADO`.
+- [x] **Produção no ar em https://startupto.vercel.app** (autorizado em 08/11/2026), com chaves de **teste** do Stripe e `EMAIL_DESATIVADO=1` até o Resend ser verificado.
+- [ ] Quando o DNS apontar: adicionar `startupto.com.br` no projeto da Vercel e definir `NEXT_PUBLIC_SITE_URL=https://startupto.com.br`. Depois do Resend verificado: **remover** `EMAIL_DESATIVADO`.
 - [ ] Opcional: conectar um repositório GitHub **privado na conta pessoal** para deploy automático (o Hobby não faz deploy de repo de organização). Sem isso, publicar com `cd web && vercel deploy --prod`.
 - [ ] Lembrete: a Diretoria aceitou o risco da cláusula de uso não comercial do plano Hobby.
 
 ## 5. Stripe
 
-- [ ] Webhook de produção: endpoint `https://startupto.com.br/api/stripe/webhook`, eventos `checkout.session.completed`, `invoice.paid`, `invoice.payment_failed`, `invoice.upcoming`, `customer.subscription.updated`, `customer.subscription.deleted`. Copiar o segredo para `STRIPE_WEBHOOK_SECRET`.
+- [x] Webhook (modo de teste) criado para `https://startupto.vercel.app/api/stripe/webhook`, com segredo em `STRIPE_WEBHOOK_SECRET` na Vercel. Ao ligar o modo real, criar o mesmo endpoint na conta live: eventos `checkout.session.completed`, `invoice.paid`, `invoice.payment_failed`, `invoice.upcoming`, `customer.subscription.updated`, `customer.subscription.deleted`. Copiar o segredo para `STRIPE_WEBHOOK_SECRET`.
 - [ ] *Settings → Billing → Subscriptions and emails*: ativar o evento de "upcoming renewal" (é ele que dispara o lembrete de renovação) com antecedência de 7 a 30 dias.
 - [ ] **Só com autorização da Diretoria:** trocar para as chaves de produção e rodar `STRIPE_ALLOW_LIVE=1 npm run stripe:setup` com a chave live.
 
@@ -44,6 +43,6 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 
 ## 7. Revisões de conteúdo
 
-- [ ] Política de Privacidade: revisão da Diretoria Jurídica (Gabriela) antes de publicar. A data de atualização é editável no Sanity.
+- [x] Política de Privacidade: revisão jurídica confirmada pela Diretoria (08/11/2026). A data de atualização é editável no Sanity.
 - [ ] Cadastrar Mantenedores (logo, nome, link) no Sanity — enquanto não houver nenhum, a faixa da Home mostra um convite em vez de logos.
 - [ ] Fotos que faltam na Diretoria: Karoline, Gabriela, Romualdo e Emerson (hoje aparecem as iniciais).
