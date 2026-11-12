@@ -9,9 +9,7 @@ import {logoPublicUrl} from '@/lib/supabase/vitrine'
 import {createClient} from '@/lib/supabase/server'
 import type {StatusAssociado} from '@/lib/supabase/types'
 import {formatarDocumento, formatarWhatsapp} from '@/lib/validacao/documento'
-import {sair} from '../acoes-auth'
 import {CabecaConta} from '../_componentes/Cabeca'
-import {FormExclusao} from '../_componentes/FormsArea'
 
 export const metadata: Metadata = {title: 'Minha área', robots: {index: false}}
 
@@ -187,27 +185,6 @@ export default async function AreaAssociadoPage({searchParams}: PageProps<'/asso
           </section>
         )}
 
-        <section aria-labelledby="privacidade-titulo" className="border-t border-linha pt-8">
-          <h2 id="privacidade-titulo" className="font-display text-xl font-extrabold text-azul-noite">
-            Seus dados pessoais
-          </h2>
-          <p className="mt-2 max-w-[62ch] font-texto text-[1.0625rem] text-tinta-suave">
-            Você pode pedir a exclusão dos seus dados a qualquer momento (LGPD, art. 18). Respondemos em até 15 dias.
-            Veja a{' '}
-            <Link href="/privacidade" className="text-azul underline underline-offset-2">
-              Política de Privacidade
-            </Link>
-            .
-          </p>
-          <div className="mt-4 max-w-2xl">
-            <FormExclusao />
-          </div>
-          <form action={sair} className="mt-8">
-            <button type="submit" className="font-semibold text-azul underline underline-offset-4">
-              Sair da conta
-            </button>
-          </form>
-        </section>
       </Container>
     </>
   )

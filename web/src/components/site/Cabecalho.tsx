@@ -5,7 +5,8 @@ import Link from 'next/link'
 import {usePathname} from 'next/navigation'
 import {useEffect, useRef, useState} from 'react'
 import {botaoClasse, cx, IconeFechar, IconeMenu} from '@/components/ui'
-import {ABAS, ROTAS_CONTA, type Tinta} from './navegacao'
+import {ContaMovel, MenuConta, useSessao} from './MenuConta'
+import {ABAS, type Tinta} from './navegacao'
 
 const tintaAba: Record<Tinta, {base: string; ativa: string}> = {
   azul: {base: 'bg-azul text-white', ativa: 'bg-azul text-white'},
@@ -25,6 +26,7 @@ export function Cabecalho() {
       return novo ? pathname : null
     })
   const botaoRef = useRef<HTMLButtonElement>(null)
+  const sessao = useSessao()
 
   useEffect(() => {
     if (!aberto) return
@@ -45,7 +47,7 @@ export function Cabecalho() {
   const ativa = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-linha bg-prancha/95 backdrop-blur-[6px]">
+    <header className="sticky top-0 z-40 border-b border-linha bg-prancha">
       <a
         href="#conteudo"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded focus:bg-azul-noite focus:px-4 focus:py-2 focus:text-white"
@@ -90,15 +92,12 @@ export function Cabecalho() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2 lg:ml-4">
-          <Link
-            href={ROTAS_CONTA.entrar}
-            className="hidden min-h-11 items-center rounded-botao px-3 text-[0.9375rem] font-semibold text-azul hover:bg-azul-claro sm:inline-flex"
-          >
-            Entrar
-          </Link>
-          <Link href="/associe-se" className={botaoClasse('primario', 'md', 'hidden sm:inline-flex')}>
-            Associe-se
-          </Link>
+          {!sessao?.logado && (
+            <Link href="/associe-se" className={botaoClasse('primario', 'md', 'hidden sm:inline-flex')}>
+              Associe-se
+            </Link>
+          )}
+          <MenuConta sessao={sessao} />
           <button
             ref={botaoRef}
             type="button"
@@ -135,14 +134,7 @@ export function Cabecalho() {
                   </Link>
                 </li>
               ))}
-              <li className="mt-4 grid grid-cols-2 gap-2">
-                <Link href={ROTAS_CONTA.entrar} className={botaoClasse('contorno', 'lg')}>
-                  Entrar
-                </Link>
-                <Link href="/associe-se" className={botaoClasse('primario', 'lg')}>
-                  Associe-se
-                </Link>
-              </li>
+              <ContaMovel sessao={sessao} />
               <li className="mt-6 flex flex-col gap-1 border-t border-linha pt-4 font-texto text-lg">
                 <Link href="/manifesto" className="py-2 text-azul-noite">Manifesto</Link>
                 <Link href="/mantenedores" className="py-2 text-azul-noite">Mantenedores</Link>
