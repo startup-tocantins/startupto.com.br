@@ -13,7 +13,7 @@ startupto/
 | Serviço | Para quê |
 |---|---|
 | **Sanity** | Notícias, editais, benefícios, eventos, Diretoria, Mantenedores, documentos e páginas |
-| **Supabase** | Login por link mágico e dados dos associados (nunca no Sanity) |
+| **Supabase** | Login por e-mail e senha (link por e-mail só para recuperar acesso) e dados dos associados (nunca no Sanity) |
 | **Stripe** | Assinatura anual do Associado, só cartão; Portal do Cliente |
 | **Resend** | E-mails transacionais (`web/src/emails`) |
 

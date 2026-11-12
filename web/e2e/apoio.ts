@@ -39,9 +39,10 @@ export async function apagarUsuario(email: string) {
 }
 
 /** Cria usuário como o servidor faz (com a chave exigida pelo trigger do banco). */
-export async function criarUsuarioTeste(email: string) {
+export async function criarUsuarioTeste(email: string, senha?: string) {
   const {data, error} = await db.auth.admin.createUser({
     email,
+    ...(senha ? {password: senha} : {}),
     email_confirm: true,
     user_metadata: {chave_cadastro: process.env.SUPABASE_CHAVE_CADASTRO},
   })

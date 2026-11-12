@@ -1,5 +1,6 @@
 'use client'
 
+import {useState} from 'react'
 import {useFormStatus} from 'react-dom'
 import type {ReactNode} from 'react'
 import {Aviso, Botao, Campo, Entrada, Selecao, descricaoCampo} from '@/components/ui'
@@ -90,6 +91,8 @@ export function CampoSelecao({
   return (
     <Campo id={nome} rotulo={rotulo} ajuda={ajuda} erro={erro} obrigatorio={obrigatorio}>
       <Selecao
+        // O React 19 limpa o formulário após a action; a key remonta a seleção com o valor digitado.
+        key={estado.valores?.[nome] ?? padrao ?? ''}
         id={nome}
         name={nome}
         required={obrigatorio}
@@ -104,6 +107,53 @@ export function CampoSelecao({
           </option>
         ))}
       </Selecao>
+    </Campo>
+  )
+}
+
+/** Campo de senha com botão para mostrar/ocultar. Nunca é repovoado após erro. */
+export function CampoSenha({
+  nome = 'senha',
+  rotulo = 'Senha',
+  estado,
+  ajuda,
+  autoComplete = 'current-password',
+}: {
+  nome?: string
+  rotulo?: ReactNode
+  estado: EstadoForm
+  ajuda?: ReactNode
+  autoComplete?: 'current-password' | 'new-password'
+}) {
+  const [visivel, setVisivel] = useState(false)
+  const erro = estado.erros?.[nome]
+  return (
+    <Campo id={nome} rotulo={rotulo} ajuda={ajuda} erro={erro} obrigatorio>
+      <div className="relative">
+        <Entrada
+          id={nome}
+          name={nome}
+          type={visivel ? 'text' : 'password'}
+          required
+          minLength={autoComplete === 'new-password' ? 8 : undefined}
+          maxLength={72}
+          autoComplete={autoComplete}
+          autoCapitalize="none"
+          spellCheck={false}
+          aria-invalid={erro ? true : undefined}
+          aria-describedby={descricaoCampo(nome, Boolean(erro), Boolean(ajuda))}
+          className="pr-24"
+        />
+        <button
+          type="button"
+          onClick={() => setVisivel((v) => !v)}
+          aria-pressed={visivel}
+          aria-controls={nome}
+          className="absolute inset-y-1 right-1 rounded-[4px] px-3 text-sm font-semibold text-azul hover:bg-azul-claro focus-visible:bg-azul-claro"
+        >
+          {visivel ? 'Ocultar' : 'Mostrar'}
+        </button>
+      </div>
     </Campo>
   )
 }

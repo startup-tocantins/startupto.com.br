@@ -1,7 +1,7 @@
 'use server'
 
 import {revalidatePath} from 'next/cache'
-import {env, supabaseConfigurado} from '@/lib/env'
+import {supabaseConfigurado} from '@/lib/env'
 import {
   associadoSchema,
   comunidadeSchema,
@@ -27,17 +27,15 @@ async function linkGrupoWhatsapp(): Promise<string | null> {
   return data?.valor || null
 }
 
-async function enviarLinkDeAcesso(email: string) {
+/** Abre a sessão logo após o cadastro (sem e-mail de link). Falha aqui não desfaz o cadastro. */
+async function abrirSessao(email: string, senha: string) {
   const supabase = await createClient()
-  const {error} = await supabase.auth.signInWithOtp({
-    email,
-    options: {shouldCreateUser: false, emailRedirectTo: `${env.siteUrl()}/auth/confirm?proximo=/associado`},
-  })
-  if (error) console.error('[cadastro] link de acesso', error.message)
+  const {error} = await supabase.auth.signInWithPassword({email, password: senha})
+  if (error) console.error('[cadastro] sessão', error.message)
 }
 
 /** Cria o usuário no Supabase Auth. Retorna o id ou um erro amigável. */
-async function criarUsuario(email: string, nome: string): Promise<{id: string} | {erro: EstadoForm}> {
+async function criarUsuario(email: string, nome: string, senha: string): Promise<{id: string} | {erro: EstadoForm}> {
   const admin = createAdminClient()
   const chave = process.env.SUPABASE_CHAVE_CADASTRO
   if (!chave) {
@@ -47,6 +45,7 @@ async function criarUsuario(email: string, nome: string): Promise<{id: string} |
   // A chave prova ao trigger do banco que a conta vem do servidor (cadastro público bloqueado).
   const {data, error} = await admin.auth.admin.createUser({
     email,
+    password: senha,
     email_confirm: true,
     user_metadata: {nome, chave_cadastro: chave},
   })
@@ -61,6 +60,9 @@ async function criarUsuario(email: string, nome: string): Promise<{id: string} |
           erros: {email: ['Este e-mail já tem cadastro. Entre na sua área para continuar.']},
         },
       }
+    }
+    if (/password/i.test(error?.message ?? '')) {
+      return {erro: {erros: {senha: ['Escolha uma senha mais forte, com pelo menos 8 caracteres.']}}}
     }
     console.error('[cadastro] createUser', error?.message)
     return {erro: {mensagem: 'Não foi possível concluir o cadastro agora. Tente novamente em alguns minutos.'}}
@@ -78,7 +80,7 @@ export async function cadastrarComunidade(_: EstadoForm, fd: FormData): Promise<
   if (!r.success) return {erros: errosDe(r.error), valores}
   if (!supabaseConfigurado()) return {...INDISPONIVEL, valores}
 
-  const u = await criarUsuario(r.data.email, r.data.nome)
+  const u = await criarUsuario(r.data.email, r.data.nome, r.data.senha)
   if ('erro' in u) return {...u.erro, valores}
 
   const admin = createAdminClient()
@@ -116,7 +118,7 @@ export async function cadastrarComunidade(_: EstadoForm, fd: FormData): Promise<
 
   await registrarHistorico({perfilId: u.id, acao: 'cadastro_comunidade', novo: 'comunidade'})
   await notificar.boasVindasComunidade(perfil as Perfil, await linkGrupoWhatsapp())
-  await enviarLinkDeAcesso(r.data.email)
+  await abrirSessao(r.data.email, r.data.senha)
   return {ok: true, mensagem: r.data.email}
 }
 
@@ -131,7 +133,7 @@ export async function cadastrarAssociado(_: EstadoForm, fd: FormData): Promise<E
   }
   if (!supabaseConfigurado()) return {...INDISPONIVEL, valores}
 
-  const u = await criarUsuario(r.data.email, r.data.nome)
+  const u = await criarUsuario(r.data.email, r.data.nome, r.data.senha)
   if ('erro' in u) return {...u.erro, valores}
 
   let logoPath: string | null = null
@@ -178,7 +180,7 @@ export async function cadastrarAssociado(_: EstadoForm, fd: FormData): Promise<E
 
   await registrarHistorico({perfilId: u.id, acao: 'pedido_associacao', novo: 'pendente_aprovacao'})
   await notificar.pedidoRecebido(perfil as Perfil)
-  await enviarLinkDeAcesso(r.data.email)
+  await abrirSessao(r.data.email, r.data.senha)
   return {ok: true, mensagem: r.data.email}
 }
 

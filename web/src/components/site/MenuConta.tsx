@@ -136,6 +136,9 @@ export function MenuConta({sessao}: {sessao: Sessao | null}) {
             <Link role="menuitem" href="/associado/perfil" className={itemClasse}>
               Editar meus dados
             </Link>
+            <Link role="menuitem" href="/associado/senha" className={itemClasse}>
+              Senha de acesso
+            </Link>
             <Link role="menuitem" href="/associado/privacidade" className={itemClasse}>
               Privacidade e exclusão de dados
             </Link>
@@ -174,6 +177,9 @@ export function ContaMovel({sessao}: {sessao: Sessao | null}) {
             Painel da Diretoria
           </Link>
         )}
+        <Link href="/associado/senha" className="px-1 py-2 font-texto text-lg text-azul-noite underline underline-offset-4">
+          Senha de acesso
+        </Link>
         <Link href="/associado/privacidade" className="px-1 py-2 font-texto text-lg text-azul-noite underline underline-offset-4">
           Privacidade e exclusão de dados
         </Link>

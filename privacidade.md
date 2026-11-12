@@ -94,7 +94,7 @@ Você também pode apresentar reclamação à Autoridade Nacional de Proteção 
 
 ## 8. Segurança
 
-Adotamos medidas técnicas e administrativas para proteger seus dados: conexão criptografada (HTTPS), login sem senha por link enviado ao seu e-mail, controle de acesso para que cada pessoa veja apenas os próprios dados, acesso administrativo restrito a membros autorizados da Diretoria e registro das alterações feitas nos cadastros.
+Adotamos medidas técnicas e administrativas para proteger seus dados: conexão criptografada (HTTPS), login com senha (guardada apenas de forma criptografada, que nem a Associação consegue ler) ou por link enviado ao seu e-mail, controle de acesso para que cada pessoa veja apenas os próprios dados, acesso administrativo restrito a membros autorizados da Diretoria e registro das alterações feitas nos cadastros.
 
 Em caso de incidente de segurança que possa causar risco ou dano relevante, comunicaremos os titulares afetados e a ANPD, conforme a lei.
 

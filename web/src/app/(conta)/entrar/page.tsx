@@ -3,7 +3,7 @@ import {redirect} from 'next/navigation'
 import {Aviso, Container} from '@/components/ui'
 import {getSessao} from '@/lib/associados/sessao'
 import {CabecaConta} from '../_componentes/Cabeca'
-import {FormEntrar} from '../_componentes/FormEntrar'
+import {FormEntrar, FormLinkAcesso} from '../_componentes/FormEntrar'
 
 export const metadata: Metadata = {title: 'Entrar', robots: {index: false}}
 export const instant = false
@@ -19,10 +19,13 @@ export default async function EntrarPage({searchParams}: PageProps<'/entrar'>) {
   const sessao = await getSessao()
   if (sessao?.perfil) redirect(proximo?.startsWith('/') ? proximo : '/associado')
   const erro = typeof sp.erro === 'string' ? ERROS[sp.erro] : undefined
+  const porLink = sp.modo === 'link' || sp.erro === 'link'
   return (
     <>
-      <CabecaConta titulo="Entrar">
-        Sem senha: digite o e-mail do seu cadastro e enviamos um link de acesso.
+      <CabecaConta titulo={porLink ? 'Receber link de acesso' : 'Entrar'}>
+        {porLink
+          ? 'Para o primeiro acesso ou se você esqueceu a senha: enviamos um link para o e-mail do seu cadastro.'
+          : 'Use o e-mail do seu cadastro e a sua senha.'}
       </CabecaConta>
       <Container className="py-12 sm:py-16">
         <div className="max-w-lg">
@@ -31,7 +34,7 @@ export default async function EntrarPage({searchParams}: PageProps<'/entrar'>) {
               {erro}
             </Aviso>
           )}
-          <FormEntrar proximo={proximo} />
+          {porLink ? <FormLinkAcesso /> : <FormEntrar proximo={proximo} />}
         </div>
       </Container>
     </>

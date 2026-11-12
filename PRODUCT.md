@@ -12,7 +12,7 @@ Monorepo greenfield na raiz desta pasta:
 
 - `studio/` — Sanity Studio **standalone** (não embutido no Next). Projeto `megra9kk`, dataset `production`. Todo o conteúdo editorial.
 - `web/` — Next.js (App Router, TypeScript, Tailwind, `src/`, alias `@/*`).
-- **Supabase** — autenticação (link mágico, sem senha), Postgres dos associados com RLS, Storage para logos da Vitrine e documentos restritos.
+- **Supabase** — autenticação (e-mail e senha; link por e-mail para primeiro acesso e "esqueci a senha"), Postgres dos associados com RLS, Storage para logos da Vitrine e documentos restritos.
 - **Stripe** — assinatura anual do Associado, **somente cartão de crédito**.
 - **Resend** — e-mails transacionais e SMTP do Supabase Auth, enviando de `@startupto.com.br`.
 - **Vercel Hobby** — hospedagem do `web/`, repositório GitHub **privado em conta pessoal** (o plano Hobby não faz deploy de repo de organização). A Diretoria aceitou conscientemente o risco da cláusula de uso não comercial do Hobby.

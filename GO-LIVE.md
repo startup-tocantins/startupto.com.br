@@ -7,6 +7,7 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 - [x] **Cadastro público bloqueado** (08/11/2026) — trigger em `auth.users` (migration `20261108090000_bloquear_cadastro_publico.sql`): só o servidor do site, com `SUPABASE_CHAVE_CADASTRO`, cria contas. Verificado: `signup` e OTP com criação de usuário pela API pública são recusados; cadastro pelo site funciona em produção.
 - [x] **URLs e templates do Auth** (12/11/2026) — `disable_signup` também ligado no painel, Site URL `https://startupto.com.br`, Redirect URLs e template "Seu link de acesso" aplicados via `node supabase/configurar-auth.mjs`.
 - [x] **SMTP próprio (Resend)** (12/11/2026) — `smtp.resend.com`, remetente `contato@startupto.com.br`.
+- [x] **Login com senha** (12/11/2026) — senha mínima de 8 caracteres, troca de senha sem código por e-mail. O cadastro já abre a sessão; o link por e-mail ficou só para primeiro acesso e "esqueci a senha". Contas criadas antes disso (sem senha) usam "Receba um link de acesso" uma vez e criam a senha em `/associado/senha`.
 
 ## 2. Resend
 
@@ -39,7 +40,7 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 
 - [x] `startupto.com.br` aponta para a Vercel e serve o site novo; `www.startupto.com.br` redireciona (308) para o domínio principal (12/11/2026).
 - [ ] Depois do primeiro acesso de cada um, dar admin: `npm run admin:grant -- <email>` para Luana, Rai e Luiz.
-- [ ] No `/admin → Configurações`, colar o link de convite do grupo "Startup Tocantins" no WhatsApp.
+- [x] Link de convite do grupo "Startup Tocantins" no WhatsApp salvo em `/admin → Configurações` (12/11/2026).
 - [ ] No `/admin`, marcar os membros da Diretoria como **isentos** (Estatuto, art. 26) e os signatários da ata de 24/08/2024 como **Fundadores** (art. 12).
 
 ## 7. Revisões de conteúdo

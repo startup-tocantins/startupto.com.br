@@ -3,6 +3,12 @@ import {somenteDigitos, validarDocumento} from '@/lib/validacao/documento'
 
 const marcado = (msg: string) => z.literal('on', {error: msg})
 
+/** Senha de acesso: mínimo de 8 (igual ao Supabase Auth); 72 é o limite do bcrypt. */
+export const senhaSchema = z
+  .string()
+  .min(8, 'A senha precisa ter pelo menos 8 caracteres.')
+  .max(72, 'Use no máximo 72 caracteres.')
+
 export const comunidadeSchema = z.object({
   nome: z.string().trim().min(2, 'Informe seu nome completo.').max(200, 'Nome muito longo.'),
   email: z.string().trim().toLowerCase().email('Informe um e-mail válido, como nome@exemplo.com.'),
@@ -12,6 +18,7 @@ export const comunidadeSchema = z.object({
     .transform((v) => v.replace(/^55(?=\d{10,11}$)/, ''))
     .refine((v) => /^\d{10,11}$/.test(v), 'Informe o WhatsApp com DDD, como (63) 99999-9999.'),
   cidade: z.string().min(1, 'Escolha sua cidade.'),
+  senha: senhaSchema,
   aceite_privacidade: marcado('Para se cadastrar, aceite a Política de Privacidade.'),
 })
 
@@ -83,11 +90,11 @@ export function errosDe(e: z.ZodError): Record<string, string[]> {
   return out
 }
 
-/** Devolve os valores digitados (exceto arquivos) para repovoar o formulário após erro. */
+/** Devolve os valores digitados (exceto arquivos e senhas) para repovoar o formulário após erro. */
 export function valoresDe(fd: FormData): Record<string, string> {
   const v: Record<string, string> = {}
   fd.forEach((val, k) => {
-    if (typeof val === 'string' && !k.startsWith('$')) v[k] = val
+    if (typeof val === 'string' && !k.startsWith('$') && !k.startsWith('senha')) v[k] = val
   })
   return v
 }

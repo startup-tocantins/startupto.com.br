@@ -3,7 +3,7 @@
 import {revalidatePath} from 'next/cache'
 import {redirect} from 'next/navigation'
 import {env} from '@/lib/env'
-import {errosDe, perfilSchema, validarLogo, valoresDe, type EstadoForm} from '@/lib/associados/esquemas'
+import {errosDe, perfilSchema, senhaSchema, validarLogo, valoresDe, type EstadoForm} from '@/lib/associados/esquemas'
 import {enviarLogo} from '@/lib/associados/logo'
 import {notificar} from '@/lib/associados/notificacoes'
 import {exigirSessao, getSessao} from '@/lib/associados/sessao'
@@ -121,4 +121,28 @@ export async function solicitarExclusao(_: EstadoForm, fd: FormData): Promise<Es
   }
   await notificar.exclusaoSolicitada(p, new Date(data.criado_em), new Date(`${data.prazo}T12:00:00`))
   return {ok: true, mensagem: 'Pedido registrado. Você receberá a resposta por e-mail em até 15 dias.'}
+}
+
+/** Cria ou troca a senha de acesso de quem está logado (inclusive quem entrou pelo link de "esqueci a senha"). */
+export async function definirSenha(_: EstadoForm, fd: FormData): Promise<EstadoForm> {
+  const sessao = await getSessao()
+  if (!sessao) return {mensagem: 'Sua sessão expirou. Peça um novo link de acesso e tente de novo.'}
+  const r = senhaSchema.safeParse(fd.get('senha_nova'))
+  if (!r.success) return {erros: {senha_nova: r.error.issues.map((i) => i.message)}}
+  if (fd.get('senha_confirmacao') !== r.data) {
+    return {erros: {senha_confirmacao: ['As duas senhas não são iguais. Digite a mesma senha nos dois campos.']}}
+  }
+  const supabase = await createClient()
+  const {error} = await supabase.auth.updateUser({password: r.data})
+  if (error) {
+    if (/different|same/i.test(error.message)) {
+      return {erros: {senha_nova: ['A nova senha precisa ser diferente da atual.']}}
+    }
+    if (/weak|short|characters/i.test(error.message)) {
+      return {erros: {senha_nova: ['Escolha uma senha mais forte, com pelo menos 8 caracteres.']}}
+    }
+    console.error('[definir senha]', error.message)
+    return {mensagem: 'Não foi possível salvar a senha agora. Tente novamente em alguns minutos.'}
+  }
+  return {ok: true, mensagem: 'Senha salva. Da próxima vez, entre com seu e-mail e esta senha.'}
 }

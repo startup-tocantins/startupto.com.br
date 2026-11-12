@@ -117,7 +117,7 @@ Implemente todas as páginas públicas descritas no `PRODUCT.md` (Home na ordem 
 
 Peça-me as chaves do projeto Supabase. Use migrations versionadas (`supabase/migrations`).
 
-- **Auth**: link mágico por e-mail; SMTP customizado via Resend (remetente `contato@startupto.com.br`). Templates A1 e A2 do `emails.md`.
+- **Auth**: e-mail e senha (mín. 8 caracteres), criada no cadastro; link mágico só para primeiro acesso e "esqueci a senha" (leva a `/associado/senha`); SMTP customizado via Resend (remetente `contato@startupto.com.br`). Templates A1 e A2 do `emails.md`.
 - **Tabela `perfis`** (1:1 com `auth.users`): nome, e-mail, WhatsApp, cidade (slug), tipo de documento (CPF/CNPJ), documento, nome da startup, setor (slug), estágio (slug), site, caminho do logo, modalidade (`comunidade` | `associado`), categoria (`fundador` | `titular`, padrão `titular`, alterável só por admin), isento (booleano) + motivo da isenção, status (`comunidade` | `pendente_aprovacao` | `aguardando_pagamento` | `ativo` | `inadimplente` | `recusado` | `cancelado`), opt-in Vitrine, data de aceite do Estatuto/Regimento, data de aceite da Privacidade, IDs do Stripe (customer, subscription), vencimento, papel (`membro` | `admin`), timestamps.
 - **Tabela `historico_associado`**: mudanças de status, quem fez, quando, observação (auditoria).
 - **Tabela `configuracoes_privadas`**: link do grupo de WhatsApp da Comunidade (editável no `/admin`).

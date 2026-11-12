@@ -2,17 +2,18 @@
 
 import Link from 'next/link'
 import {useActionState} from 'react'
-import {Aviso, CaixaMarcacao} from '@/components/ui'
+import {Aviso, CaixaMarcacao, botaoClasse} from '@/components/ui'
 import type {EstadoForm} from '@/lib/associados/esquemas'
 import {cadastrarAssociado, cadastrarComunidade} from '../cadastro/acoes'
 import {CamposStartup} from './CamposStartup'
-import {BotaoEnviar, CampoSelecao, CampoTexto, MensagemGeral, ResumoErros, type Opcao} from './comum'
+import {BotaoEnviar, CampoSelecao, CampoSenha, CampoTexto, MensagemGeral, ResumoErros, type Opcao} from './comum'
 
 const ROTULOS: Record<string, string> = {
   nome: 'Nome completo',
   email: 'E-mail',
   whatsapp: 'WhatsApp',
   cidade: 'Cidade',
+  senha: 'Senha',
   documento: 'CPF ou CNPJ',
   startup_nome: 'Nome da startup',
   setor: 'Setor',
@@ -43,6 +44,12 @@ function CamposPessoais({estado, cidades}: {estado: EstadoForm; cidades: Opcao[]
         />
       </div>
       <CampoSelecao nome="cidade" rotulo="Cidade" estado={estado} opcoes={cidades} obrigatorio vazio="Escolha sua cidade no Tocantins…" />
+      <CampoSenha
+        rotulo="Crie uma senha"
+        estado={estado}
+        autoComplete="new-password"
+        ajuda="Pelo menos 8 caracteres. É com ela e o seu e-mail que você entra na sua área."
+      />
     </>
   )
 }
@@ -74,14 +81,20 @@ function Sucesso({email, associado}: {email?: string; associado?: boolean}) {
       {associado ? (
         <>
           Recebemos seu pedido de associação. A Diretoria vai analisar e você recebe a resposta em{' '}
-          <strong>{email}</strong>. Enviamos também um link para você acompanhar tudo pela sua área.
+          <strong>{email}</strong>. Enquanto isso, acompanhe tudo pela sua área.
         </>
       ) : (
         <>
-          Bem-vindo(a) à Comunidade! Enviamos para <strong>{email}</strong> o link do grupo de WhatsApp e um link para
-          você entrar na sua área. Não chegou? Veja a caixa de spam.
+          Bem-vindo(a) à Comunidade! Enviamos para <strong>{email}</strong> o link do grupo de WhatsApp. Não chegou? Veja
+          a caixa de spam.
         </>
       )}
+      {/* Navegação completa: o cabeçalho passa a mostrar a conta recém-aberta. */}
+      <p className="mt-4">
+        <a href="/associado" className={botaoClasse('secundario', 'md')}>
+          Ir para minha área
+        </a>
+      </p>
     </Aviso>
   )
 }

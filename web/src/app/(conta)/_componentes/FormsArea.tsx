@@ -5,10 +5,10 @@ import Link from 'next/link'
 import {Aviso, CaixaMarcacao} from '@/components/ui'
 import type {EstadoForm} from '@/lib/associados/esquemas'
 import type {Perfil} from '@/lib/supabase/types'
-import {atualizarPerfil, solicitarExclusao} from '../associado/acoes'
+import {atualizarPerfil, definirSenha, solicitarExclusao} from '../associado/acoes'
 import {pedirAssociacao} from '../cadastro/acoes'
 import {CamposStartup} from './CamposStartup'
-import {BotaoEnviar, CampoSelecao, CampoTexto, MensagemGeral, ResumoErros, type Opcao} from './comum'
+import {BotaoEnviar, CampoSelecao, CampoSenha, CampoTexto, MensagemGeral, ResumoErros, type Opcao} from './comum'
 import type {ListasForm} from './FormCadastro'
 
 const ROTULOS: Record<string, string> = {
@@ -157,3 +157,38 @@ export function FormExclusao() {
 }
 
 export type {Opcao}
+
+export function FormSenha({email}: {email: string}) {
+  const [estado, acao] = useActionState<EstadoForm, FormData>(definirSenha, {})
+  if (estado.ok) {
+    return (
+      <Aviso tom="sucesso" titulo="Senha salva">
+        {estado.mensagem}{' '}
+        <Link href="/associado" className="underline underline-offset-2">
+          Ir para minha área
+        </Link>
+        .
+      </Aviso>
+    )
+  }
+  return (
+    <form action={acao} className="flex max-w-md flex-col gap-5" noValidate>
+      <MensagemGeral estado={estado} />
+      {/* Ajuda gerenciadores de senha a associarem a senha à conta certa. */}
+      <input type="email" name="username" value={email} autoComplete="username" readOnly hidden />
+      <CampoSenha
+        nome="senha_nova"
+        rotulo="Nova senha"
+        estado={estado}
+        autoComplete="new-password"
+        ajuda="Pelo menos 8 caracteres. Uma frase curta é fácil de lembrar e difícil de adivinhar."
+      />
+      <CampoSenha nome="senha_confirmacao" rotulo="Repita a nova senha" estado={estado} autoComplete="new-password" />
+      <div>
+        <BotaoEnviar tamanho="lg" pendente="Salvando…">
+          Salvar senha
+        </BotaoEnviar>
+      </div>
+    </form>
+  )
+}

@@ -2,7 +2,7 @@
 /**
  * Aplica a configuração de Authentication do projeto Supabase via Management API.
  *
- *   node supabase/configurar-auth.mjs            → desliga cadastro público, URLs e templates
+ *   node supabase/configurar-auth.mjs            → desliga cadastro público, senha mínima, URLs e templates
  *   node supabase/configurar-auth.mjs --smtp     → também liga o SMTP do Resend
  *                                                  (só depois de verificar startupto.com.br no Resend)
  *
@@ -52,6 +52,11 @@ const config = {
     'http://localhost:3000/**',
   ].join(','),
   mailer_otp_exp: 3600,
+  // Login por e-mail e senha (o link por e-mail fica para primeiro acesso e "esqueci a senha").
+  external_email_enabled: true,
+  password_min_length: 8,
+  // Trocar a senha logado não pede código por e-mail (economiza envios do Resend).
+  security_update_password_require_reauthentication: false,
   mailer_subjects_magic_link: 'Seu link de acesso',
   mailer_templates_magic_link_content: template('link-de-acesso.html'),
   mailer_subjects_email_change: 'Confirme seu novo e-mail',
@@ -89,4 +94,6 @@ console.log('✓ Auth configurado:', {
   uri_allow_list: atual.uri_allow_list,
   smtp: atual.smtp_host ? `${atual.smtp_host} (${atual.smtp_admin_email})` : 'padrão do Supabase',
   template_magic_link: atual.mailer_subjects_magic_link,
+  senha_minima: atual.password_min_length,
+  reautenticar_troca_senha: atual.security_update_password_require_reauthentication,
 })
