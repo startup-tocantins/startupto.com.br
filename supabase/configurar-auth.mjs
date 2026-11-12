@@ -15,7 +15,7 @@ import {fileURLToPath} from 'node:url'
 
 const RAIZ = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const REF = 'gcbeufdcjygmrogjyavw'
-const SITE = process.env.SITE_URL ?? 'https://startupto.vercel.app'
+const SITE = process.env.SITE_URL ?? 'https://startupto.com.br'
 
 function lerEnv() {
   const p = resolve(RAIZ, '.env')
@@ -33,6 +33,7 @@ const arquivoToken = resolve(homedir(), '.supabase/access-token')
 const token =
   process.env.SUPABASE_ACCESS_TOKEN ||
   envRaiz.SUPABASE_ACCESS_TOKEN ||
+  envRaiz.SUPABASE_ACCESS_KEY ||
   (existsSync(arquivoToken) ? readFileSync(arquivoToken, 'utf8').trim() : '')
 if (!token) {
   console.error('Sem token. Rode `npx supabase login` ou defina SUPABASE_ACCESS_TOKEN no .env da raiz.')

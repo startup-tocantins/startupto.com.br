@@ -5,8 +5,8 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 ## 1. Supabase — Authentication (painel do projeto `gcbeufdcjygmrogjyavw`)
 
 - [x] **Cadastro público bloqueado** (08/11/2026) — trigger em `auth.users` (migration `20261108090000_bloquear_cadastro_publico.sql`): só o servidor do site, com `SUPABASE_CHAVE_CADASTRO`, cria contas. Verificado: `signup` e OTP com criação de usuário pela API pública são recusados; cadastro pelo site funciona em produção.
-- [ ] **URLs e templates do Auth** — junto com o SMTP (abaixo): `npx supabase login` e `node supabase/configurar-auth.mjs` (Site URL, Redirect URLs, templates e também `disable_signup` no painel, como segunda camada).
-- [ ] **SMTP próprio (Resend)** — depois de verificar o domínio no Resend: `node supabase/configurar-auth.mjs --smtp`. Sem isso o Supabase só envia link de acesso para membros da equipe do projeto e com limite baixo.
+- [x] **URLs e templates do Auth** (12/11/2026) — `disable_signup` também ligado no painel, Site URL `https://startupto.com.br`, Redirect URLs e template "Seu link de acesso" aplicados via `node supabase/configurar-auth.mjs`.
+- [x] **SMTP próprio (Resend)** (12/11/2026) — `smtp.resend.com`, remetente `contato@startupto.com.br`.
 
 ## 2. Resend
 
