@@ -25,7 +25,7 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 - [x] Projeto **`startupto`** criado no time *StartupTocantins* (Hobby), com `web/vercel.json` fixando o framework Next.js. Preview funcionando, protegido pelo login da Vercel: https://startupto-4fkp95lia-startup-tocantins.vercel.app
 - [x] Variáveis de **Preview** cadastradas (chaves de teste; `EMAIL_DESATIVADO=1` para o preview não enviar e-mails).
 - [x] **Produção no ar em https://startupto.vercel.app** (autorizado em 08/11/2026), com chaves de **teste** do Stripe e `EMAIL_DESATIVADO=1` até o Resend ser verificado.
-- [ ] Em Production: definir `NEXT_PUBLIC_SITE_URL=https://startupto.com.br`, **remover** `EMAIL_DESATIVADO` e refazer o deploy (`vercel deploy --prod` logado na conta dona do time).
+- [x] Production com `NEXT_PUBLIC_SITE_URL=https://startupto.com.br` e e-mails **ligados** (`EMAIL_DESATIVADO` removido), publicado em 12/11/2026.
 - [ ] Opcional: conectar um repositório GitHub **privado na conta pessoal** para deploy automático (o Hobby não faz deploy de repo de organização). Sem isso, publicar com `cd web && vercel deploy --prod`.
 - [ ] Lembrete: a Diretoria aceitou o risco da cláusula de uso não comercial do plano Hobby.
 
@@ -37,7 +37,7 @@ Nada abaixo foi feito automaticamente: são ações que publicam o site, mexem e
 
 ## 6. DNS e lançamento
 
-- [x] `startupto.com.br` aponta para a Vercel e já serve o site novo (12/11/2026). **Falta `www.startupto.com.br`**: adicionar no projeto (Settings → Domains), redirecionando para o domínio principal — hoje o certificado só cobre o domínio sem www. O site antigo está no GitHub Pages (`startup-tocantins/startup-tocantins.github.io`) — desativar depois da troca.
+- [x] `startupto.com.br` aponta para a Vercel e serve o site novo; `www.startupto.com.br` redireciona (308) para o domínio principal (12/11/2026).
 - [ ] Depois do primeiro acesso de cada um, dar admin: `npm run admin:grant -- <email>` para Luana, Rai e Luiz.
 - [ ] No `/admin → Configurações`, colar o link de convite do grupo "Startup Tocantins" no WhatsApp.
 - [ ] No `/admin`, marcar os membros da Diretoria como **isentos** (Estatuto, art. 26) e os signatários da ata de 24/08/2024 como **Fundadores** (art. 12).
