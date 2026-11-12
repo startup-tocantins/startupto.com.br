@@ -36,6 +36,9 @@ export async function GET(req: NextRequest) {
   }
 
   if (erro) {
+    // Link já usado (ex.: clicado de novo), mas a sessão aberta por ele continua válida: segue em frente.
+    const {data} = await supabase.auth.getUser()
+    if (data.user) return NextResponse.redirect(new URL(proximo, url.origin))
     console.error('[auth/confirm]', erro)
     return NextResponse.redirect(new URL('/entrar?erro=link', url.origin))
   }
