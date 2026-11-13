@@ -16,6 +16,7 @@ import {
 import {urlFor} from '@/sanity/image'
 import {ItemEvento, ItemPost} from '@/components/site/Itens'
 import {Carrossel} from '@/components/site/Carrossel'
+import {MapaColeta} from '@/components/site/MapaColeta'
 import {Modalidades} from '@/components/site/Modalidades'
 import {VitrineFicha} from '@/components/site/VitrineFicha'
 import {
@@ -57,6 +58,45 @@ function primeiraOracao(texto?: string) {
 
 /* ---------------- Abertura ---------------- */
 
+const TITULO_MAPA =
+  'Mapa do Tocantins: os 139 municípios, um ponto para cada. Em laranja, cidades com startups associadas.'
+
+async function MapaComDestaques() {
+  const vitrine = await getVitrine()
+  const cidades = [...new Set(vitrine.map((v) => v.cidade).filter(Boolean))]
+  return <MapaColeta tema="claro" destaques={cidades} titulo={TITULO_MAPA} />
+}
+
+/** O Tocantins inteiro em pontos (um por município), no lugar da foto do template. */
+function MapaAbertura() {
+  return (
+    <figure className="relative mx-auto flex w-full max-w-[24rem] items-end justify-center gap-5 sm:max-w-[30rem] sm:gap-6 lg:mx-0 lg:ml-auto lg:max-w-[36rem] lg:self-center">
+      <span
+        aria-hidden="true"
+        className="absolute -right-2 top-8 -z-10 hidden h-40 w-32 rounded-[44px] border-2 border-laranja/80 sm:block lg:-right-8"
+      />
+      <span aria-hidden="true" className="absolute left-[6%] top-[12%] -z-10 hidden size-5 rounded-full bg-ipe sm:block" />
+
+      <div className="relative w-[58%] py-4 sm:w-[52%]">
+        <Suspense fallback={<MapaColeta tema="claro" titulo={TITULO_MAPA} />}>
+          <MapaComDestaques />
+        </Suspense>
+      </div>
+
+      <figcaption className="mb-6 shrink-0">
+        <ul className="flex flex-col gap-2 text-[0.8125rem] text-tinta-suave">
+          <li className="flex items-center gap-2">
+            <span aria-hidden="true" className="size-2.5 rounded-full bg-azul/70" /> Município
+          </li>
+          <li className="flex items-center gap-2">
+            <span aria-hidden="true" className="size-2.5 rounded-full bg-laranja" /> Startup associada
+          </li>
+        </ul>
+      </figcaption>
+    </figure>
+  )
+}
+
 async function Abertura() {
   const c = await getConfiguracoes()
   const titulo = c.heroTitulo && c.heroTitulo !== c.nomeOficial ? c.heroTitulo : CHAMADA_PADRAO
@@ -68,28 +108,11 @@ async function Abertura() {
       {/* luz suave de fundo */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(60rem_30rem_at_20%_0%,#ffffff_0%,transparent_60%),radial-gradient(40rem_24rem_at_100%_100%,#eaf2fd_0%,transparent_70%)]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(60rem_30rem_at_20%_0%,#ffffff_0%,transparent_60%)]"
       />
-      <span aria-hidden="true" className="campo-ipe pointer-events-none absolute -left-12 top-4 -z-10 hidden h-64 w-24 sm:block sm:h-80 sm:w-32 lg:top-0 lg:h-[19rem] lg:w-36 xl:w-44" />
+      <span aria-hidden="true" className="campo-ipe pointer-events-none absolute -left-12 top-4 -z-10 hidden h-64 w-[4.25rem] sm:block sm:h-80 lg:top-0 min-[1440px]:h-[19rem] min-[1440px]:w-36 2xl:w-44" />
 
-      {/* Foto de Palmas: paralelogramo que sangra para a direita no desktop */}
-      <div aria-hidden="true" className="absolute inset-y-0 right-0 hidden w-[52%] lg:block xl:w-[58%]">
-        <div className="recorte-hero absolute bottom-24 right-0 top-2 h-1/2 w-full -translate-x-9 bg-azul-claro/80" />
-        <div className="recorte-hero absolute bottom-24 right-0 top-2 w-full -translate-x-[3px] bg-laranja" />
-        <div className="recorte-hero absolute bottom-24 right-0 top-2 w-full overflow-hidden">
-          <Image
-            src="/imagens/palmas-por-do-sol-hero.webp"
-            alt=""
-            fill
-            priority
-            sizes="54vw"
-            className="object-cover object-[60%_50%]"
-          />
-        </div>
-        <span className="absolute -right-12 bottom-8 h-44 w-36 rounded-[44px] border-2 border-laranja/80" />
-      </div>
-
-      <Container className="relative grid gap-10 pb-10 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pb-24 lg:pt-8">
+      <Container className="relative grid gap-10 pb-10 pt-8 sm:pt-12 lg:items-center lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pb-24 lg:pt-8">
         <div className="relative max-w-[34rem] lg:max-w-[31rem]">
           <Rotulo>Ecossistema de inovação do Tocantins</Rotulo>
           <h1
@@ -117,19 +140,7 @@ async function Abertura() {
           </p>
         </div>
 
-        {/* Celular e tablet: foto em fluxo */}
-        <div className="relative lg:hidden">
-          <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-faixa bg-laranja" aria-hidden="true" />
-          <Image
-            src="/imagens/palmas-por-do-sol-hero.webp"
-            alt="Palmas ao pôr do sol, com a orla do lago e a ponte"
-            width={1600}
-            height={800}
-            priority
-            sizes="100vw"
-            className="relative aspect-[2/1] w-full rounded-faixa object-cover"
-          />
-        </div>
+        <MapaAbertura />
       </Container>
     </section>
   )

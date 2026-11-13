@@ -19,10 +19,10 @@ OWN-WORLD: Papel frio quase branco, cartões brancos de 16px, faixas de 28px, í
 
 STORY: O visitante vê a chamada "Conectando startups, pessoas e oportunidades no Tocantins", entende missão, visão e valores, encontra eventos e notícias, conhece a Vitrine e os Mantenedores, e se associa.
 
-FIRST VIEWPORT: Rótulo "Ecossistema de inovação do Tocantins", chamada em três linhas, primeiro parágrafo da introdução, CTAs "Associe-se agora →" e "Conheça a Associação"; à direita a foto de Palmas recortada em paralelogramo com filete laranja. A faixa Missão/Visão/Valores fecha a dobra.
+FIRST VIEWPORT: Rótulo "Ecossistema de inovação do Tocantins", chamada em três linhas, primeiro parágrafo da introdução, CTAs "Associe-se agora →" e "Conheça a Associação"; à direita o mapa de pontos do Tocantins com legenda lateral (Município / Startup associada). A faixa Missão/Visão/Valores fecha a dobra.
 
 FORM: Template de referência (design/design.png) — seguir o mais de perto possível; ver DESIGN.md.
 
-Signature: foto de Palmas em paralelogramo + campo ipê. O mapa de 139 municípios continua como filtro na Vitrine.
+Signature: mapa de pontos dos 139 municípios (laranja = cidade com startup associada, sem destaque para nenhuma cidade), legenda lateral discreta + campo ipê. O mesmo mapa é o filtro da Vitrine.
 
 FINISH: unreviewed and undocumented is unfinished

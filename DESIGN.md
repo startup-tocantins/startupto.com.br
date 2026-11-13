@@ -107,7 +107,7 @@ components:
 
 ## Overview
 
-**Tocantins luminoso.** O site é um portal institucional claro e acolhedor: fundo papel frio quase branco, cartões brancos de cantos generosos, azul de interface nos ícones e links, e o **laranja do pôr do sol de Palmas** nos CTAs. O gesto de marca é o **campo amarelo-ipê**, uma forma arredondada que entra pela borda esquerda das aberturas, e a **foto de Palmas** recortada em paralelogramo com um filete laranja.
+**Tocantins luminoso.** O site é um portal institucional claro e acolhedor: fundo papel frio quase branco, cartões brancos de cantos generosos, azul de interface nos ícones e links, e o **laranja do pôr do sol de Palmas** nos CTAs. O gesto de marca é o **campo amarelo-ipê**, uma forma arredondada que entra pela borda esquerda das aberturas, e o **mapa do Tocantins em pontos** no hero: os 139 municípios, um ponto azul para cada e laranja onde há startup associada, com uma legenda discreta ao lado.
 
 A referência visual é `design/design.png` e os assets de exemplo ficam em `design/assets/` (pasta local, não versionada); as versões otimizadas usadas pelo site estão em `web/public/imagens/`. Quando houver dúvida, chegue o mais perto possível do template.
 
@@ -140,9 +140,9 @@ A referência visual é `design/design.png` e os assets de exemplo ficam em `des
 
 - Container de 80rem com gutter 16/24/32px; o cabeçalho usa 90rem.
 - Seções com 56–80px de respiro, alternando papel e faixas brancas com régua fina.
-- **Home** (ordem do template): hero (texto à esquerda, foto de Palmas sangrando à direita) → faixa Missão/Visão/Valores sobreposta ao fim do hero → Próximos eventos (carrossel) e Últimas notícias (3 cartões) lado a lado → Vitrine de Startups (4 cartões) → Nossos Mantenedores (título + faixa de logos) → Faça parte (modalidades).
+- **Home** (ordem do template): hero (texto à esquerda, mapa de pontos do Tocantins à direita, com legenda lateral Município / Startup associada) → faixa Missão/Visão/Valores sobreposta ao fim do hero → Próximos eventos (carrossel) e Últimas notícias (3 cartões) lado a lado → Vitrine de Startups (4 cartões) → Nossos Mantenedores (título + faixa de logos) → Faça parte (modalidades).
 - **Páginas internas**: cabeçalho com rótulo em pílula, título grande, introdução e o campo ipê na borda esquerda; conteúdo em cartões brancos.
-- Mobile-first: no celular a foto do hero entra em fluxo abaixo do texto (com sombra laranja deslocada), a faixa Missão/Visão/Valores empilha e os cartões viram coluna única.
+- Mobile-first: no celular o mapa do hero entra em fluxo abaixo do texto, com a legenda ao lado, a faixa Missão/Visão/Valores empilha e os cartões viram coluna única.
 
 ## Elevation & Depth
 
@@ -156,7 +156,7 @@ Cartões brancos flutuando sobre o papel com sombra fria e difusa.
 
 - 10px em botões e campos; 16px em cartões; 28px em faixas (Missão/Visão/Valores, Mantenedores, cartões grandes); pílula em rótulos, selos e filtros.
 - Fotos dentro de cartões com 12px de raio e 8px de respiro até a borda do cartão.
-- Ornamentos permitidos: campo ipê arredondado na borda, filete laranja na foto do hero, contorno laranja arredondado no canto e a fileira de pontos dos estados vazios.
+- Ornamentos permitidos: campo ipê arredondado na borda, ponto ipê, contorno laranja arredondado no canto e a fileira de pontos dos estados vazios.
 
 ## Components
 
@@ -197,7 +197,7 @@ Mesmo mundo: cabeçalho branco com logo, filete laranja, Ubuntu (com fallback de
 ### Do
 
 - Mantenha o nome oficial completo no logo e no rodapé.
-- Use a foto de Palmas no hero e capas reais quando a Diretoria publicar; as capas genéricas do template são só fallback.
+- Use o mapa de pontos (`MapaColeta`) no hero e capas reais quando a Diretoria publicar; as capas genéricas do template são só fallback.
 - Use estados vazios honestos com convite.
 
 ### Don't

@@ -219,10 +219,4 @@
     background: linear-gradient(160deg, var(--color-ipe) 0%, #fbae2a 100%);
     border-radius: 0 38% 42% 0 / 0 30% 48% 0;
   }
-
-  /* Recorte da foto do hero: paralelogramo de cantos suaves */
-  .recorte-hero {
-    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
-    border-radius: var(--radius-faixa) 0 0 var(--radius-faixa);
-  }
 }
