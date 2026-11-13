@@ -109,7 +109,7 @@ Sucesso = novos cadastros na Comunidade, conversão Comunidade → Associado, an
 - `privacidade.md` — Política de Privacidade (LGPD).
 - `emails.md` — textos de todos os e-mails (auth, associado, alertas da Diretoria).
 - `logo.pdf` — logo vetorial.
-- `design/` — template visual de referência (`design.png`) e assets (logo, ícones, fotos de Palmas e capas genéricas), base do `DESIGN.md`.
+- `design/` — template visual de referência (`design.png`) e assets de exemplo, base do `DESIGN.md`. **Pasta local, fora do git** (`.gitignore`); o que o site usa já está em `web/public/imagens/` e nos ícones de `web/src/components/ui`.
 - `sanity.md` — instruções de setup do Sanity.
 - Contatos atuais: `startuptocantins@gmail.com`, WhatsApp (63) 99235-3262, Instagram `@startuptocantins_`.
 

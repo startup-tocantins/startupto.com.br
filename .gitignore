@@ -19,3 +19,6 @@ test-results/
 
 # Metadados do Dropbox
 *:com.dropbox.attrs
+
+# Template de referência e assets de exemplo (local, não versionar)
+/design/

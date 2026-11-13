@@ -109,7 +109,7 @@ components:
 
 **Tocantins luminoso.** O site é um portal institucional claro e acolhedor: fundo papel frio quase branco, cartões brancos de cantos generosos, azul de interface nos ícones e links, e o **laranja do pôr do sol de Palmas** nos CTAs. O gesto de marca é o **campo amarelo-ipê**, uma forma arredondada que entra pela borda esquerda das aberturas, e a **foto de Palmas** recortada em paralelogramo com um filete laranja.
 
-A referência visual é `design/design.png`; os assets oficiais do template estão em `design/assets/` e as versões otimizadas usadas pelo site em `web/public/imagens/`. Quando houver dúvida, chegue o mais perto possível do template.
+A referência visual é `design/design.png` e os assets de exemplo ficam em `design/assets/` (pasta local, não versionada); as versões otimizadas usadas pelo site estão em `web/public/imagens/`. Quando houver dúvida, chegue o mais perto possível do template.
 
 ## Colors
 
