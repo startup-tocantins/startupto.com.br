@@ -8,7 +8,7 @@ import {createAdminClient} from '@/lib/supabase/server'
 import type {Historico, Perfil} from '@/lib/supabase/types'
 import {logoPublicUrl} from '@/lib/supabase/vitrine'
 import {formatarDocumento, formatarWhatsapp} from '@/lib/validacao/documento'
-import {DecisaoPedido, FormCategoria, FormIsencao} from '../../_componentes/Acoes'
+import {FormCategoria, FormIsencao} from '../../_componentes/Acoes'
 import {exigirAdmin} from '@/lib/associados/sessao'
 
 const ACOES: Record<string, string> = {
@@ -64,16 +64,6 @@ export default async function AdminAssociadoPage({params}: PageProps<'/admin/ass
           </div>
         </div>
       </div>
-
-      {p.status === 'pendente_aprovacao' && (
-        <Ficha className="bg-laranja-claro p-6 ring-laranja/50" como="section">
-          <h2 className="font-display text-xl font-bold text-azul-noite">Pedido aguardando análise</h2>
-          <p className="mb-4 mt-1 text-base text-tinta-suave">
-            Ao aprovar, a pessoa recebe por e-mail o link para pagar a anuidade. Ao recusar, ela continua na Comunidade.
-          </p>
-          <DecisaoPedido id={p.id} />
-        </Ficha>
-      )}
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Ficha className="p-6" como="section">

@@ -83,7 +83,7 @@ export function Modalidades({tituloNivel = 3}: {tituloNivel?: 2 | 3}) {
         </p>
         <Lista itens={ASSOCIADO} escuro />
         <p className="mt-6 text-sm text-white/75">
-          Pagamento anual no cartão de crédito, após aprovação do pedido pela Diretoria.
+          Pagamento anual no cartão de crédito, logo após o cadastro.
         </p>
         <div className="mt-auto pt-8">
           <Link href={ROTAS_CONTA.associado} className={botaoClasse('primario', 'lg', 'w-full')}>

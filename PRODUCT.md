@@ -24,13 +24,13 @@ Monorepo greenfield na raiz desta pasta:
 1. **Empreendedores e startups do Tocantins** — querem saber o que a Associação faz, ver eventos/editais e se associar. Muitos acessam pelo celular, vindos de link no WhatsApp/Instagram.
 2. **Associados** — entram para editar seu card na Vitrine, ver a situação da anuidade, gerenciar pagamento e acessar atas.
 3. **Ecossistema externo** (governo, universidades, investidores, imprensa, potenciais mantenedores) — avaliam a credibilidade da Associação e procuram startups na Vitrine.
-4. **Diretoria** (pessoas majoritariamente não técnicas) — publicam conteúdo no Sanity Studio e aprovam/gerem associados no `/admin`.
+4. **Diretoria** (pessoas majoritariamente não técnicas) — publicam conteúdo no Sanity Studio e gerem associados no `/admin`.
 
 ## Product Purpose
 
 Site institucional e plataforma de associação da **Associação Tocantinense de Startups** (CNPJ 57.921.002/0001-30, Palmas – TO), organização sem fins lucrativos que representa, conecta e fortalece startups do Tocantins.
 
-O site precisa: comunicar quem é a Associação e quem a dirige; publicar notícias, editais, benefícios e eventos; mostrar as startups associadas (Vitrine) e os Mantenedores; e operar o ciclo de associação de ponta a ponta (cadastro → aprovação → pagamento recorrente → gestão), conforme o Regimento Interno.
+O site precisa: comunicar quem é a Associação e quem a dirige; publicar notícias, editais, benefícios e eventos; mostrar as startups associadas (Vitrine) e os Mantenedores; e operar o ciclo de associação de ponta a ponta (cadastro → pagamento recorrente → gestão).
 
 Sucesso = novos cadastros na Comunidade, conversão Comunidade → Associado, anuidades em dia, e Diretoria publicando conteúdo sem depender de desenvolvedor.
 
@@ -44,7 +44,7 @@ Sucesso = novos cadastros na Comunidade, conversão Comunidade → Associado, an
   - **Comunidade** — gratuita. Cadastro simples, sem aprovação. Entra no grupo de WhatsApp "Startup Tocantins" e participa de eventos gratuitos. Sem direito a voto.
   - **Associado** — pago (anuidade de **R$ 250/ano**, confirmada; o preço exibido vem do Stripe, nunca fixo no código). Grupo de Associados, Assembleias, voto, benefícios, card na Vitrine.
   - **Mantenedor** — taxa anual paga fora do site. **Cadastrado manualmente no Sanity** (nome, logo, link). Sem formulário, sem Stripe, sem login. Integra o Conselho Consultivo.
-- **Fluxo de adesão do Associado** (Regimento, art. 6º): formulário → aprovação da Diretoria no `/admin` → e-mail com link para pagar (página logada que gera o Stripe Checkout) → assinatura anual ativa.
+- **Fluxo de adesão do Associado**: formulário → Stripe Checkout na sequência (sem aprovação prévia) → assinatura anual ativa assim que o pagamento é confirmado. Quem não concluir o pagamento recebe por e-mail o link para a página logada de pagamento. Decisão de 13/11/2026: o site deixou de exigir a aprovação prévia da Diretoria. O Regimento Interno (art. 6º, II) ainda prevê essa aprovação e a declaração de adesão (`termos.md`) ainda a menciona; ajustar o Regimento ou tratar a aprovação como homologação posterior no `/admin` é decisão da Diretoria.
 - **Categorias** (Estatuto, art. 12): **Fundador** (signatários da ata de fundação de 24/08/2024) ou **Titular** (admitidos depois). Mesmos direitos. Definida só pelo admin; padrão Titular. Fundadores ganham selo na Vitrine.
 - **Isenção** (Estatuto, art. 26): membros da Diretoria são isentos da anuidade. O admin marca o associado como isento, com motivo obrigatório; ele fica `ativo` sem assinatura no Stripe. A isenção pode ser revogada (ex.: fim de mandato), voltando a exigir pagamento.
 - **Inadimplência** (art. 9º-A): falha/atraso de pagamento marca o associado como `inadimplente` e alerta a Diretoria. O sistema **não exclui automaticamente** — a exclusão exige notificação e prazo de defesa de 10 dias, decididos pela Diretoria.
@@ -75,7 +75,7 @@ Sucesso = novos cadastros na Comunidade, conversão Comunidade → Associado, an
 
 **Área do associado (logada)**: perfil editável; card da Vitrine com preview; situação (modalidade, status, vencimento); "Gerenciar pagamento" (Stripe Customer Portal); documentos restritos (atas de Assembleia); upgrade Comunidade → Associado; solicitação de exclusão de dados (LGPD).
 
-**Admin (`/admin`)**: papel `admin` no Supabase (inicialmente Luana, Rai e Luiz). Lista de associados com busca e filtros (modalidade, status, setor, cidade); detalhe; aprovar/recusar com e-mail automático; definir categoria (Fundador/Titular); marcar/revogar isenção; situação de pagamento; exportar CSV e XLSX; upload de atas; edição do link do grupo de WhatsApp. Conteúdo editorial é editado no Sanity Studio por quem a Diretoria convidar.
+**Admin (`/admin`)**: papel `admin` no Supabase (inicialmente Luana, Rai e Luiz). Lista de associados com busca e filtros (modalidade, status, setor, cidade); detalhe; definir categoria (Fundador/Titular); marcar/revogar isenção; situação de pagamento; exportar CSV e XLSX; upload de atas; edição do link do grupo de WhatsApp. Conteúdo editorial é editado no Sanity Studio por quem a Diretoria convidar.
 
 **Listas controladas (Sanity)**
 

@@ -67,39 +67,17 @@ Quer ir além? Associados têm direito a voto nas Assembleias, benefícios exclu
 Até logo!
 Associação Tocantinense de Startups
 
-### B2. Pedido de associação recebido
+### B2. Cadastro de associação recebido
 
-- **Gatilho:** formulário de Associado enviado (status `pendente_aprovacao`).
-- **Assunto:** Recebemos seu pedido de associação
-- **Pré-visualização:** A Diretoria vai analisar e você recebe a resposta por e-mail.
-
-Olá, {{nome}}!
-
-Recebemos o pedido de associação de **{{nome_startup}}**. Obrigado pelo interesse em fortalecer o ecossistema de startups do Tocantins.
-
-**Próximos passos:**
-
-1. A Diretoria analisa seu pedido, conforme o Estatuto e o Regimento Interno.
-2. Se aprovado, você recebe um e-mail com o link para pagar a anuidade.
-3. Com o pagamento confirmado, sua associação fica ativa.
-
-Enquanto isso, você pode revisar seus dados na área do associado:
-
-**[Ver meu cadastro]** → `{{url_area_associado}}`
-
-Associação Tocantinense de Startups
-
-### B3. Pedido aprovado — pagamento
-
-- **Gatilho:** admin aprova o pedido (status `aguardando_pagamento`).
-- **Assunto:** Seu pedido foi aprovado! Falta só a anuidade
-- **Pré-visualização:** Conclua o pagamento para ativar sua associação.
+- **Gatilho:** formulário de Associado enviado (status `aguardando_pagamento`). Não há aprovação prévia da Diretoria: logo após enviar o formulário, a pessoa é levada ao Stripe Checkout. Este e-mail serve de confirmação e de link de retorno caso ela não conclua o pagamento.
+- **Assunto:** Recebemos seu cadastro de associação
+- **Pré-visualização:** Falta só a anuidade para ativar sua associação.
 
 Olá, {{nome}}!
 
-Boa notícia: a Diretoria aprovou o pedido de associação de **{{nome_startup}}**.
+Recebemos o cadastro de associação de **{{nome_startup}}**. Obrigado pelo interesse em fortalecer o ecossistema de startups do Tocantins.
 
-Para ativar sua associação, conclua o pagamento da anuidade de **{{valor_anuidade}}** no cartão de crédito:
+Para ativar sua associação, falta só a anuidade de **{{valor_anuidade}}** no cartão de crédito. Se você já concluiu o pagamento, pode ignorar este passo:
 
 **[Pagar anuidade]** → `{{url_pagamento}}`
 
@@ -107,21 +85,7 @@ O pagamento é feito em ambiente seguro do Stripe. A anuidade é renovada automa
 
 Associação Tocantinense de Startups
 
-### B4. Pedido não aprovado
-
-- **Gatilho:** admin recusa o pedido (status `recusado`).
-- **Assunto:** Sobre seu pedido de associação
-- **Pré-visualização:** Temos uma atualização sobre o seu pedido.
-
-Olá, {{nome}},
-
-Agradecemos o interesse em se associar à Associação Tocantinense de Startups. Depois da análise, a Diretoria não aprovou o pedido de **{{nome_startup}}** neste momento.
-
-{{#if motivo}}**Motivo:** {{motivo}}{{/if}}
-
-Você continua fazendo parte da nossa Comunidade e pode participar dos eventos gratuitos. Se tiver dúvidas ou quiser enviar um novo pedido no futuro, é só responder este e-mail.
-
-Associação Tocantinense de Startups
+> B3 (pedido aprovado) e B4 (pedido não aprovado) foram removidos em 13/11/2026, junto com a etapa de aprovação prévia pela Diretoria.
 
 ### B5. Associação ativa
 
@@ -255,11 +219,11 @@ Associação Tocantinense de Startups
 
 Enviados aos usuários com papel `admin`. Texto curto e objetivo.
 
-### C1. Novo pedido de associação
+### C1. Novo cadastro de associado
 
-- **Assunto:** Novo pedido de associação: {{nome_startup}}
+- **Assunto:** Novo cadastro de associado: {{nome_startup}}
 
-Novo pedido de associação aguardando análise.
+Novo cadastro de associado. A associação fica ativa assim que a anuidade for paga.
 
 - **Nome:** {{nome}}
 - **Startup:** {{nome_startup}}
@@ -267,7 +231,7 @@ Novo pedido de associação aguardando análise.
 - **Cidade:** {{cidade}}
 - **Documento:** {{tipo_documento}}
 
-**[Analisar pedido]** → `{{url_admin_associado}}`
+**[Ver cadastro]** → `{{url_admin_associado}}`
 
 ### C2. Associado inadimplente
 

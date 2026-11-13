@@ -75,20 +75,11 @@ function AceitePrivacidade({estado}: {estado: EstadoForm}) {
   )
 }
 
-function Sucesso({email, associado}: {email?: string; associado?: boolean}) {
+function Sucesso({email}: {email?: string}) {
   return (
-    <Aviso tom="sucesso" titulo={associado ? 'Pedido enviado à Diretoria' : 'Cadastro confirmado!'}>
-      {associado ? (
-        <>
-          Recebemos seu pedido de associação. A Diretoria vai analisar e você recebe a resposta em{' '}
-          <strong>{email}</strong>. Enquanto isso, acompanhe tudo pela sua área.
-        </>
-      ) : (
-        <>
-          Bem-vindo(a) à Comunidade! Enviamos para <strong>{email}</strong> o link do grupo de WhatsApp. Não chegou? Veja
-          a caixa de spam.
-        </>
-      )}
+    <Aviso tom="sucesso" titulo="Cadastro confirmado!">
+      Bem-vindo(a) à Comunidade! Enviamos para <strong>{email}</strong> o link do grupo de WhatsApp. Não chegou? Veja a
+      caixa de spam.
       {/* Navegação completa: o cabeçalho passa a mostrar a conta recém-aberta. */}
       <p className="mt-4">
         <a href="/associado" className={botaoClasse('secundario', 'md')}>
@@ -116,8 +107,8 @@ export function FormComunidade({listas}: {listas: ListasForm}) {
 }
 
 export function FormAssociado({listas, declaracao}: {listas: ListasForm; declaracao: string[]}) {
+  // Em caso de sucesso a ação redireciona direto para o pagamento (Stripe Checkout).
   const [estado, acao] = useActionState<EstadoForm, FormData>(cadastrarAssociado, {})
-  if (estado.ok) return <Sucesso email={estado.mensagem} associado />
   return (
     <form action={acao} className="flex flex-col gap-8" noValidate>
       <ResumoErros estado={estado} rotulos={ROTULOS} />
@@ -167,11 +158,11 @@ export function FormAssociado({listas, declaracao}: {listas: ListasForm; declara
         <AceitePrivacidade estado={estado} />
       </fieldset>
       <div className="flex flex-col gap-3 border-t border-linha pt-6">
-        <BotaoEnviar tamanho="lg" pendente="Enviando pedido…">
-          Enviar pedido de associação
+        <BotaoEnviar tamanho="lg" pendente="Abrindo pagamento seguro…">
+          Continuar para o pagamento
         </BotaoEnviar>
         <p className="text-[0.9375rem] text-tinta-suave">
-          Nada é cobrado agora. A anuidade só é paga depois que a Diretoria aprovar o pedido.
+          Em seguida você paga a anuidade no cartão, em ambiente seguro do Stripe. Pago, a associação fica ativa na hora.
         </p>
       </div>
     </form>

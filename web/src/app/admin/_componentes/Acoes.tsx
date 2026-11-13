@@ -1,16 +1,14 @@
 'use client'
 
-import {useActionState, useState} from 'react'
+import {useActionState} from 'react'
 import {useFormStatus} from 'react-dom'
 import {AreaTexto, Aviso, Botao, Campo, Entrada, Selecao, descricaoCampo} from '@/components/ui'
 import type {EstadoForm} from '@/lib/associados/esquemas'
 import {
-  aprovar,
   concluirExclusao,
   definirCategoria,
   enviarAta,
   marcarIsento,
-  recusar,
   revogarIsencao,
   salvarGrupoWhatsapp,
 } from '../acoes'
@@ -33,45 +31,6 @@ function Resultado({estado}: {estado: EstadoForm}) {
 
 function useAcao(acao: Acao) {
   return useActionState<EstadoForm, FormData>(acao, {})
-}
-
-export function DecisaoPedido({id}: {id: string}) {
-  const [estadoA, acaoA] = useAcao(aprovar)
-  const [estadoR, acaoR] = useAcao(recusar)
-  const [recusando, setRecusando] = useState(false)
-  if (estadoA.ok || estadoR.ok) return <Resultado estado={estadoA.ok ? estadoA : estadoR} />
-  return (
-    <div className="flex flex-col gap-4">
-      <Resultado estado={estadoA} />
-      <Resultado estado={estadoR} />
-      {!recusando ? (
-        <div className="flex flex-wrap gap-3">
-          <form action={acaoA}>
-            <input type="hidden" name="id" value={id} />
-            <Enviar pendente="Aprovando…">Aprovar pedido</Enviar>
-          </form>
-          <Botao type="button" variante="contorno" onClick={() => setRecusando(true)}>
-            Recusar…
-          </Botao>
-        </div>
-      ) : (
-        <form action={acaoR} className="flex flex-col gap-4">
-          <input type="hidden" name="id" value={id} />
-          <Campo id="motivo-recusa" rotulo="Motivo (opcional, vai no e-mail para a pessoa)">
-            <AreaTexto id="motivo-recusa" name="motivo" rows={3} />
-          </Campo>
-          <div className="flex flex-wrap gap-3">
-            <Enviar variante="perigo" pendente="Recusando…">
-              Confirmar recusa
-            </Enviar>
-            <Botao type="button" variante="fantasma" onClick={() => setRecusando(false)}>
-              Cancelar
-            </Botao>
-          </div>
-        </form>
-      )}
-    </div>
-  )
 }
 
 export function FormCategoria({id, atual}: {id: string; atual: 'fundador' | 'titular'}) {

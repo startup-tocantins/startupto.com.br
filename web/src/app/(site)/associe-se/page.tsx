@@ -12,9 +12,8 @@ export const metadata: Metadata = {
 }
 
 const PASSOS = [
-  {t: 'Preencha o pedido', d: 'Conte quem você é e qual é a sua startup. Pessoa física ou jurídica, com CPF ou CNPJ.'},
-  {t: 'A Diretoria analisa', d: 'Conforme o Estatuto e o Regimento Interno. Você recebe a resposta por e-mail.'},
-  {t: 'Pague a anuidade', d: 'Aprovado o pedido, você recebe o link para pagar no cartão de crédito, em ambiente seguro.'},
+  {t: 'Faça o cadastro', d: 'Conte quem você é e qual é a sua startup. Pessoa física ou jurídica, com CPF ou CNPJ.'},
+  {t: 'Pague a anuidade', d: 'Logo em seguida, no cartão de crédito, em ambiente seguro do Stripe.'},
   {t: 'Associação ativa', d: 'Voto nas Assembleias, grupo de Associados, benefícios e sua startup na Vitrine.'},
 ]
 

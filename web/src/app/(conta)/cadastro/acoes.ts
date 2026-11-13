@@ -1,6 +1,7 @@
 'use server'
 
 import {revalidatePath} from 'next/cache'
+import {redirect} from 'next/navigation'
 import {supabaseConfigurado} from '@/lib/env'
 import {
   associadoSchema,
@@ -14,6 +15,7 @@ import {
 import {enviarLogo} from '@/lib/associados/logo'
 import {notificar} from '@/lib/associados/notificacoes'
 import {getSessao, registrarHistorico} from '@/lib/associados/sessao'
+import {PAGAMENTO_INDISPONIVEL, urlCheckoutAnuidade} from '@/lib/stripe/checkout'
 import {createAdminClient, createClient} from '@/lib/supabase/server'
 import type {Perfil} from '@/lib/supabase/types'
 
@@ -162,7 +164,7 @@ export async function cadastrarAssociado(_: EstadoForm, fd: FormData): Promise<E
       logo_path: logoPath,
       vitrine_opt_in: r.data.vitrine_opt_in,
       modalidade: 'associado',
-      status: 'pendente_aprovacao',
+      status: 'aguardando_pagamento',
       aceite_estatuto_em: agora,
       aceite_privacidade_em: agora,
       motivo_isencao: null,
@@ -175,23 +177,24 @@ export async function cadastrarAssociado(_: EstadoForm, fd: FormData): Promise<E
   if (error || !perfil) {
     console.error('[cadastro associado]', error?.message)
     await desfazerUsuario(u.id)
-    return {mensagem: 'Não foi possível enviar o pedido agora. Tente novamente em alguns minutos.', valores}
+    return {mensagem: 'Não foi possível concluir o cadastro agora. Tente novamente em alguns minutos.', valores}
   }
 
-  await registrarHistorico({perfilId: u.id, acao: 'pedido_associacao', novo: 'pendente_aprovacao'})
+  await registrarHistorico({perfilId: u.id, acao: 'pedido_associacao', novo: 'aguardando_pagamento'})
   await notificar.pedidoRecebido(perfil as Perfil)
   await abrirSessao(r.data.email, r.data.senha)
-  return {ok: true, mensagem: r.data.email}
+  // Sem aprovação prévia: segue direto para o pagamento seguro da anuidade.
+  redirect((await urlCheckoutAnuidade(perfil as Perfil)) ?? PAGAMENTO_INDISPONIVEL)
 }
 
-/** Comunidade (ou quem foi recusado/cancelou) pede para virar Associado pela área logada. */
+/** Comunidade (ou quem cancelou) vira Associado pela área logada e segue para o pagamento. */
 export async function pedirAssociacao(_: EstadoForm, fd: FormData): Promise<EstadoForm> {
   const valores = valoresDe(fd)
   const sessao = await getSessao()
   if (!sessao?.perfil) return {mensagem: 'Sua sessão expirou. Entre novamente para continuar.', valores}
   const p = sessao.perfil
   if (!['comunidade', 'recusado', 'cancelado'].includes(p.status)) {
-    return {mensagem: 'Você já tem um pedido de associação em andamento ou ativo.', valores}
+    return {mensagem: 'Você já tem uma associação em andamento ou ativa.', valores}
   }
 
   const r = upgradeSchema.safeParse(Object.fromEntries([...fd.entries()].filter(([, v]) => typeof v === 'string')))
@@ -225,18 +228,18 @@ export async function pedirAssociacao(_: EstadoForm, fd: FormData): Promise<Esta
       vitrine_opt_in: r.data.vitrine_opt_in,
       aceite_estatuto_em: new Date().toISOString(),
       modalidade: 'associado',
-      status: 'pendente_aprovacao',
+      status: 'aguardando_pagamento',
     })
     .eq('id', p.id)
     .select('*')
     .single()
   if (error || !atualizado) {
     console.error('[pedir associação]', error?.message)
-    return {mensagem: 'Não foi possível enviar o pedido agora. Tente novamente em alguns minutos.', valores}
+    return {mensagem: 'Não foi possível concluir agora. Tente novamente em alguns minutos.', valores}
   }
 
-  await registrarHistorico({perfilId: p.id, acao: 'pedido_associacao', anterior: p.status, novo: 'pendente_aprovacao', autorId: p.id})
+  await registrarHistorico({perfilId: p.id, acao: 'pedido_associacao', anterior: p.status, novo: 'aguardando_pagamento', autorId: p.id})
   await notificar.pedidoRecebido(atualizado as Perfil)
   revalidatePath('/associado')
-  return {ok: true}
+  redirect((await urlCheckoutAnuidade(atualizado as Perfil)) ?? PAGAMENTO_INDISPONIVEL)
 }

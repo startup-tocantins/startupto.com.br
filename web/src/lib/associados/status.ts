@@ -1,6 +1,9 @@
 import type {StatusAssociado} from '@/lib/supabase/types'
 
-/** Rótulos de status sempre em texto (nunca só cor). */
+/**
+ * Rótulos de status sempre em texto (nunca só cor).
+ * `pendente_aprovacao` e `recusado` são do antigo fluxo com aprovação da Diretoria (só em cadastros antigos).
+ */
 export const ROTULO_STATUS: Record<StatusAssociado, string> = {
   comunidade: 'Comunidade',
   pendente_aprovacao: 'Aguardando aprovação',
@@ -13,8 +16,8 @@ export const ROTULO_STATUS: Record<StatusAssociado, string> = {
 
 export const DESCRICAO_STATUS: Record<StatusAssociado, string> = {
   comunidade: 'Você faz parte da Comunidade (gratuita).',
-  pendente_aprovacao: 'Seu pedido de associação está com a Diretoria para análise.',
-  aguardando_pagamento: 'Seu pedido foi aprovado. Falta pagar a anuidade para ativar a associação.',
+  pendente_aprovacao: 'Seu cadastro de associação está em andamento.',
+  aguardando_pagamento: 'Falta pagar a anuidade para ativar a associação.',
   ativo: 'Sua associação está ativa.',
   inadimplente: 'Não conseguimos cobrar a anuidade. Atualize o cartão para reativar a associação.',
   recusado: 'Seu pedido de associação não foi aprovado. Você continua na Comunidade.',

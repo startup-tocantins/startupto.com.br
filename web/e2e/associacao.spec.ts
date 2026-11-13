@@ -40,13 +40,13 @@ test('cadastro na Comunidade cria o perfil', async ({page}) => {
 test('formulário de associado valida CPF/CNPJ e campos obrigatórios', async ({page}) => {
   await page.goto('/cadastro/associado')
   await page.locator('#documento').fill('11.111.111/1111-11')
-  await page.getByRole('button', {name: 'Enviar pedido de associação'}).click()
+  await page.getByRole('button', {name: 'Continuar para o pagamento'}).click()
   await expect(page.getByText(/Corrija \d+ campos para continuar/)).toBeVisible()
   await expect(page.getByText('CPF ou CNPJ inválido. Confira os números digitados.').first()).toBeVisible()
 })
 
-test('ciclo completo: pedido → aprovação → pagamento → Vitrine', async ({page, browser}) => {
-  // 1. Pedido de associação (pessoa jurídica)
+test('ciclo completo: cadastro → pagamento → Vitrine', async ({page, browser}) => {
+  // 1. Cadastro de associado (pessoa jurídica): sem aprovação, segue direto para o Stripe Checkout
   await page.goto('/cadastro/associado')
   await page.locator('#nome').fill('Fundadora E2E')
   await page.locator('#email').fill(associado)
@@ -60,52 +60,19 @@ test('ciclo completo: pedido → aprovação → pagamento → Vitrine', async (
   await page.locator('#senha').fill(SENHA)
   await page.locator('#aceite_estatuto').check()
   await page.locator('#aceite_privacidade').check()
-  await page.getByRole('button', {name: 'Enviar pedido de associação'}).click()
-  await expect(page.getByText('Pedido enviado à Diretoria')).toBeVisible()
+  await page.getByRole('button', {name: 'Continuar para o pagamento'}).click()
+  await page.waitForURL(/checkout\.stripe\.com/, {timeout: 60_000})
   let p = await perfilPorEmail(associado)
-  expect(p).toMatchObject({modalidade: 'associado', status: 'pendente_aprovacao', site: 'https://example.com', vitrine_opt_in: true})
+  expect(p).toMatchObject({modalidade: 'associado', status: 'aguardando_pagamento', site: 'https://example.com', vitrine_opt_in: true})
 
-  // 2. Associado entra com e-mail e senha e vê o pedido em análise
-  await page.context().clearCookies()
-  await page.goto('/entrar')
-  await page.locator('#email').fill(associado)
-  await page.locator('#senha').fill('senha-errada-123')
-  await page.getByRole('button', {name: 'Entrar', exact: true}).click()
-  await expect(page.getByText('E-mail ou senha incorretos.', {exact: false})).toBeVisible()
-  await page.locator('#senha').fill(SENHA)
-  await page.getByRole('button', {name: 'Entrar', exact: true}).click()
-  await expect(page).toHaveURL(/\/associado$/)
-  await expect(page.getByText('Aguardando aprovação')).toBeVisible()
-
-  // 3. Admin aprova no painel
-  const u = {user: await criarUsuarioTeste(admin)}
-  await db.from('perfis').insert({
-    id: u.user!.id, nome: 'Admin E2E', email: admin, whatsapp: '63999990003', cidade: 'palmas',
-    aceite_privacidade_em: new Date().toISOString(), papel: 'admin',
-  })
-  const ctxAdmin = await browser.newContext()
-  const pa = await ctxAdmin.newPage()
-  await pa.goto(await linkDeAcesso(admin, '/admin'))
-  await expect(pa.getByRole('heading', {name: 'Associados'})).toBeVisible()
-  await pa.getByRole('link', {name: 'Fundadora E2E'}).click()
-  await expect(pa.getByText('Pedido aguardando análise')).toBeVisible()
-  await pa.getByRole('button', {name: 'Aprovar pedido'}).click()
-  await expect(pa.getByText(/Pedido aprovado/)).toBeVisible()
-  p = await perfilPorEmail(associado)
-  expect(p?.status).toBe('aguardando_pagamento')
-
-  // 4. Associado paga no Stripe Checkout (cartão de teste)
-  await page.goto('/associado/pagamento')
-  await expect(page.getByText('R$ 250,00 por ano')).toBeVisible()
-  await page.getByRole('button', {name: 'Ir para o pagamento seguro'}).click()
-  await page.waitForURL(/checkout\.stripe\.com/)
-  await page.locator('#cardNumber').fill('4242 4242 4242 4242')
-  await page.locator('#cardExpiry').fill('12 / 34')
-  await page.locator('#cardCvc').fill('123')
-  await page.locator('#billingName').fill('Fundadora E2E')
-  const pais = page.locator('#billingCountry')
-  if (await pais.isVisible().catch(() => false)) await pais.selectOption('BR')
-  await page.locator('button[type="submit"]').first().click()
+  // 2. Paga no Stripe Checkout (cartão de teste)
+  // Os campos do cartão ficam no iframe do Stripe Elements.
+  const cartao = page.frameLocator('iframe[src*="elements-inner"]').first()
+  await cartao.locator('#payment-numberInput').fill('4242 4242 4242 4242')
+  await cartao.locator('#payment-expiryInput').fill('12 / 34')
+  await cartao.locator('#payment-cvcInput').fill('123')
+  await cartao.locator('#payment-nameInput').fill('Fundadora E2E')
+  await cartao.getByTestId('payment-form-submit-button').click()
   await page.waitForURL(/\/associado\?pagamento=confirmado/, {timeout: 90_000})
 
   // 5. Webhook ativa a associação
@@ -116,21 +83,42 @@ test('ciclo completo: pedido → aprovação → pagamento → Vitrine', async (
   expect(p?.vencimento).toBeTruthy()
   expect(p?.stripe_subscription_id).toMatch(/^sub_/)
   const {data: hist} = await db.from('historico_associado').select('acao').eq('perfil_id', p!.id)
-  expect(hist!.map((h) => h.acao)).toEqual(expect.arrayContaining(['pedido_associacao', 'aprovado', 'pagamento_confirmado']))
+  expect(hist!.map((h) => h.acao)).toEqual(expect.arrayContaining(['pedido_associacao', 'pagamento_confirmado']))
 
-  // 6. Aparece na Vitrine pública (view com RLS, papel anon)
+  // 6. Associado entra com e-mail e senha e vê a associação ativa
+  await page.context().clearCookies()
+  await page.goto('/entrar')
+  await page.locator('#email').fill(associado)
+  await page.locator('#senha').fill('senha-errada-123')
+  await page.getByRole('button', {name: 'Entrar', exact: true}).click()
+  await expect(page.getByText('E-mail ou senha incorretos.', {exact: false})).toBeVisible()
+  await page.locator('#senha').fill(SENHA)
+  await page.getByRole('button', {name: 'Entrar', exact: true}).click()
+  await expect(page).toHaveURL(/\/associado$/)
+  await expect(page.getByText('Ativo', {exact: true}).first()).toBeVisible()
+
+  // 7. Aparece na Vitrine pública (view com RLS, papel anon)
   const anon = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/vitrine?select=nome_startup&nome_startup=eq.${encodeURIComponent(startup)}`, {
     headers: {apikey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!},
   })
   expect(await anon.json()).toEqual([{nome_startup: startup}])
 
-  // 7. Admin exporta XLSX com o associado
+  // 8. Admin exporta XLSX com o associado
+  const u = {user: await criarUsuarioTeste(admin)}
+  await db.from('perfis').insert({
+    id: u.user!.id, nome: 'Admin E2E', email: admin, whatsapp: '63999990003', cidade: 'palmas',
+    aceite_privacidade_em: new Date().toISOString(), papel: 'admin',
+  })
+  const ctxAdmin = await browser.newContext()
+  const pa = await ctxAdmin.newPage()
+  await pa.goto(await linkDeAcesso(admin, '/admin'))
+  await expect(pa.getByRole('heading', {name: 'Associados'})).toBeVisible()
   const download = pa.waitForEvent('download')
   await pa.goto('/admin')
   await pa.getByRole('link', {name: /Exportar XLSX/}).click()
   expect((await download).suggestedFilename()).toMatch(/^associados-\d{4}-\d{2}-\d{2}\.xlsx$/)
 
-  // 8. Cancela a assinatura de teste no Stripe e confirma o status "cancelado"
+  // 9. Cancela a assinatura de teste no Stripe e confirma o status "cancelado"
   const stripe = new (await import('stripe')).default(process.env.STRIPE_SECRET_KEY!)
   await stripe.subscriptions.cancel(p!.stripe_subscription_id!)
   await expect

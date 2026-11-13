@@ -1,6 +1,6 @@
 # Associação Tocantinense de Startups — site e plataforma de associação
 
-Monorepo com o site institucional e o ciclo completo de associação (cadastro → aprovação → anuidade → gestão).
+Monorepo com o site institucional e o ciclo completo de associação (cadastro → anuidade → gestão).
 
 ```
 startupto/

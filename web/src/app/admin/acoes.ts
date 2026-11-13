@@ -22,31 +22,6 @@ function revalidar(id: string) {
 
 const id = z.string().uuid()
 
-export async function aprovar(_: EstadoForm, fd: FormData): Promise<EstadoForm> {
-  const admin = await exigirAdmin()
-  const p = await carregar(id.parse(fd.get('id')))
-  if (p.status !== 'pendente_aprovacao') return {mensagem: 'Este pedido não está aguardando aprovação.'}
-  const {error} = await createAdminClient().from('perfis').update({status: 'aguardando_pagamento'}).eq('id', p.id)
-  if (error) return {mensagem: `Não foi possível aprovar: ${error.message}`}
-  await registrarHistorico({perfilId: p.id, acao: 'aprovado', anterior: p.status, novo: 'aguardando_pagamento', autorId: admin.userId})
-  await notificar.aprovado(p)
-  revalidar(p.id)
-  return {ok: true, mensagem: 'Pedido aprovado. O link de pagamento foi enviado por e-mail.'}
-}
-
-export async function recusar(_: EstadoForm, fd: FormData): Promise<EstadoForm> {
-  const admin = await exigirAdmin()
-  const p = await carregar(id.parse(fd.get('id')))
-  if (p.status !== 'pendente_aprovacao') return {mensagem: 'Este pedido não está aguardando aprovação.'}
-  const motivo = String(fd.get('motivo') ?? '').trim() || null
-  const {error} = await createAdminClient().from('perfis').update({status: 'recusado'}).eq('id', p.id)
-  if (error) return {mensagem: `Não foi possível recusar: ${error.message}`}
-  await registrarHistorico({perfilId: p.id, acao: 'recusado', anterior: p.status, novo: 'recusado', autorId: admin.userId, observacao: motivo})
-  await notificar.recusado(p, motivo)
-  revalidar(p.id)
-  return {ok: true, mensagem: 'Pedido recusado. A pessoa foi avisada por e-mail.'}
-}
-
 export async function definirCategoria(_: EstadoForm, fd: FormData): Promise<EstadoForm> {
   const admin = await exigirAdmin()
   const p = await carregar(id.parse(fd.get('id')))

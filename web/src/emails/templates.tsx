@@ -4,7 +4,7 @@
  * ver supabase/templates/.
  */
 import type {ReactElement} from 'react'
-import {Assinatura, Botao, Layout, Lista, ListaNumerada, P, type Rodape} from './Layout'
+import {Assinatura, Botao, Layout, Lista, P, type Rodape} from './Layout'
 
 export type Email = {assunto: string; preview: string; corpo: (r: Rodape) => ReactElement}
 
@@ -51,77 +51,26 @@ export function boasVindasComunidade(v: {nome: string; linkGrupoWhatsapp: string
   }
 }
 
-export function pedidoRecebido(v: {nome: string; nomeStartup: string; urlAreaAssociado: string}): Email {
-  const preview = 'A Diretoria vai analisar e você recebe a resposta por e-mail.'
+export function pedidoRecebido(v: {nome: string; nomeStartup: string; valorAnuidade: string; urlPagamento: string}): Email {
+  const preview = 'Falta só a anuidade para ativar sua associação.'
   return {
-    assunto: 'Recebemos seu pedido de associação',
+    assunto: 'Recebemos seu cadastro de associação',
     preview,
     corpo: (r) => (
       <Layout preview={preview} rodape={r}>
         <P>Olá, {v.nome}!</P>
         <P>
-          Recebemos o pedido de associação de {b(v.nomeStartup)}. Obrigado pelo interesse em fortalecer o ecossistema
-          de startups do Tocantins.
+          Recebemos o cadastro de associação de {b(v.nomeStartup)}. Obrigado pelo interesse em fortalecer o
+          ecossistema de startups do Tocantins.
         </P>
-        <P>{b('Próximos passos:')}</P>
-        <ListaNumerada
-          itens={[
-            'A Diretoria analisa seu pedido, conforme o Estatuto e o Regimento Interno.',
-            'Se aprovado, você recebe um e-mail com o link para pagar a anuidade.',
-            'Com o pagamento confirmado, sua associação fica ativa.',
-          ]}
-        />
-        <P>Enquanto isso, você pode revisar seus dados na área do associado:</P>
-        <Botao href={v.urlAreaAssociado}>Ver meu cadastro</Botao>
-        <Assinatura />
-      </Layout>
-    ),
-  }
-}
-
-export function pedidoAprovado(v: {nome: string; nomeStartup: string; valorAnuidade: string; urlPagamento: string}): Email {
-  const preview = 'Conclua o pagamento para ativar sua associação.'
-  return {
-    assunto: 'Seu pedido foi aprovado! Falta só a anuidade',
-    preview,
-    corpo: (r) => (
-      <Layout preview={preview} rodape={r}>
-        <P>Olá, {v.nome}!</P>
-        <P>Boa notícia: a Diretoria aprovou o pedido de associação de {b(v.nomeStartup)}.</P>
         <P>
-          Para ativar sua associação, conclua o pagamento da anuidade de {b(v.valorAnuidade)} no cartão de crédito:
+          Para ativar sua associação, falta só a anuidade de {b(v.valorAnuidade)} no cartão de crédito. Se você já
+          concluiu o pagamento, pode ignorar este passo:
         </P>
         <Botao href={v.urlPagamento}>Pagar anuidade</Botao>
         <P>
           O pagamento é feito em ambiente seguro do Stripe. A anuidade é renovada automaticamente a cada ano, e você
           pode cancelar quando quiser pela sua área do associado.
-        </P>
-        <Assinatura />
-      </Layout>
-    ),
-  }
-}
-
-export function pedidoRecusado(v: {nome: string; nomeStartup: string; motivo?: string | null}): Email {
-  const preview = 'Temos uma atualização sobre o seu pedido.'
-  return {
-    assunto: 'Sobre seu pedido de associação',
-    preview,
-    corpo: (r) => (
-      <Layout preview={preview} rodape={r}>
-        <P>Olá, {v.nome},</P>
-        <P>
-          Agradecemos o interesse em se associar à Associação Tocantinense de Startups. Depois da análise, a Diretoria
-          não aprovou o pedido de {b(v.nomeStartup)} neste momento.
-        </P>
-        {v.motivo ? (
-          <P>
-            {b('Motivo:')} {v.motivo}
-          </P>
-        ) : null}
-        <P>
-          Você continua fazendo parte da nossa Comunidade e pode participar dos eventos gratuitos. Se tiver dúvidas ou
-          quiser enviar um novo pedido no futuro, é só responder este e-mail.
         </P>
         <Assinatura />
       </Layout>
@@ -320,13 +269,13 @@ export function alertaNovoPedido(v: {
   tipoDocumento: string
   urlAdminAssociado: string
 }): Email {
-  const preview = 'Novo pedido de associação aguardando análise.'
+  const preview = 'Novo cadastro de associado, aguardando o pagamento da anuidade.'
   return {
-    assunto: `Novo pedido de associação: ${v.nomeStartup}`,
+    assunto: `Novo cadastro de associado: ${v.nomeStartup}`,
     preview,
     corpo: (r) => (
       <Layout preview={preview} rodape={r}>
-        <P>Novo pedido de associação aguardando análise.</P>
+        <P>Novo cadastro de associado. A associação fica ativa assim que a anuidade for paga.</P>
         <Lista
           itens={[
             <>
@@ -346,7 +295,7 @@ export function alertaNovoPedido(v: {
             </>,
           ]}
         />
-        <Botao href={v.urlAdminAssociado}>Analisar pedido</Botao>
+        <Botao href={v.urlAdminAssociado}>Ver cadastro</Botao>
       </Layout>
     ),
   }

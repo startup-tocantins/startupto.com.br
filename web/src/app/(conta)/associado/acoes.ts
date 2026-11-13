@@ -2,15 +2,12 @@
 
 import {revalidatePath} from 'next/cache'
 import {redirect} from 'next/navigation'
-import {env} from '@/lib/env'
 import {errosDe, perfilSchema, senhaSchema, validarLogo, valoresDe, type EstadoForm} from '@/lib/associados/esquemas'
 import {enviarLogo} from '@/lib/associados/logo'
 import {notificar} from '@/lib/associados/notificacoes'
 import {exigirSessao, getSessao} from '@/lib/associados/sessao'
-import {getStripe} from '@/lib/stripe'
-import {getPrecoAssociado} from '@/lib/stripe/preco'
+import {PAGAMENTO_INDISPONIVEL, urlCheckoutAnuidade} from '@/lib/stripe/checkout'
 import {createAdminClient, createClient} from '@/lib/supabase/server'
-import type {Perfil} from '@/lib/supabase/types'
 
 export async function atualizarPerfil(_: EstadoForm, fd: FormData): Promise<EstadoForm> {
   const valores = valoresDe(fd)
@@ -54,44 +51,12 @@ export async function atualizarPerfil(_: EstadoForm, fd: FormData): Promise<Esta
   return {ok: true, mensagem: 'Dados salvos.'}
 }
 
-/** Garante um cliente no Stripe para o perfil e devolve o id. */
-async function clienteStripe(p: Perfil): Promise<string> {
-  if (p.stripe_customer_id) return p.stripe_customer_id
-  const stripe = getStripe()
-  const cliente = await stripe.customers.create({
-    email: p.email,
-    name: p.startup_nome ? `${p.startup_nome} (${p.nome})` : p.nome,
-    metadata: {perfil_id: p.id},
-  })
-  await createAdminClient().from('perfis').update({stripe_customer_id: cliente.id}).eq('id', p.id)
-  return cliente.id
-}
-
 export async function iniciarPagamento(): Promise<void> {
   const {perfil: p} = await exigirSessao('/associado/pagamento')
   if (p.isento) redirect('/associado')
   if (p.status === 'inadimplente' && p.stripe_customer_id) redirect('/associado/portal')
   if (p.status !== 'aguardando_pagamento') redirect('/associado')
-
-  const preco = await getPrecoAssociado()
-  if (!preco) redirect('/associado/pagamento?erro=indisponivel')
-
-  const stripe = getStripe()
-  const customer = await clienteStripe(p)
-  const sessao = await stripe.checkout.sessions.create({
-    mode: 'subscription',
-    customer,
-    client_reference_id: p.id,
-    line_items: [{price: preco.id, quantity: 1}],
-    allowed_payment_method_types: ['card'],
-    locale: 'pt-BR',
-    subscription_data: {metadata: {perfil_id: p.id}, description: 'Anuidade — Associação Tocantinense de Startups'},
-    metadata: {perfil_id: p.id},
-    success_url: `${env.siteUrl()}/associado?pagamento=confirmado`,
-    cancel_url: `${env.siteUrl()}/associado/pagamento?cancelado=1`,
-  })
-  if (!sessao.url) redirect('/associado/pagamento?erro=indisponivel')
-  redirect(sessao.url)
+  redirect((await urlCheckoutAnuidade(p)) ?? PAGAMENTO_INDISPONIVEL)
 }
 
 export async function solicitarExclusao(_: EstadoForm, fd: FormData): Promise<EstadoForm> {

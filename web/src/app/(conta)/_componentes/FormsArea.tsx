@@ -65,18 +65,8 @@ export function FormPerfil({perfil, listas, logoUrl}: {perfil: Perfil; listas: L
 }
 
 export function FormAssociar({listas, declaracao, perfil}: {listas: ListasForm; declaracao: string[]; perfil: Perfil}) {
+  // Em caso de sucesso a ação redireciona direto para o pagamento (Stripe Checkout).
   const [estado, acao] = useActionState<EstadoForm, FormData>(pedirAssociacao, {})
-  if (estado.ok) {
-    return (
-      <Aviso tom="sucesso" titulo="Pedido enviado à Diretoria">
-        Você receberá a resposta por e-mail. Acompanhe a situação na{' '}
-        <Link href="/associado" className="underline underline-offset-2">
-          sua área
-        </Link>
-        .
-      </Aviso>
-    )
-  }
   return (
     <form action={acao} className="flex flex-col gap-8" noValidate>
       <ResumoErros estado={estado} rotulos={ROTULOS} />
@@ -127,8 +117,8 @@ export function FormAssociar({listas, declaracao, perfil}: {listas: ListasForm; 
         />
       </fieldset>
       <div>
-        <BotaoEnviar tamanho="lg" pendente="Enviando pedido…">
-          Enviar pedido de associação
+        <BotaoEnviar tamanho="lg" pendente="Abrindo pagamento seguro…">
+          Continuar para o pagamento
         </BotaoEnviar>
       </div>
     </form>

@@ -21,8 +21,8 @@ export default async function AssociarPage() {
   return (
     <>
       <CabecaConta titulo="Quero ser Associado">
-        Complete os dados da startup. A Diretoria analisa o pedido e, se aprovado, você recebe o link para pagar a
-        anuidade{preco ? ` de ${preco.formatado}` : ''} no cartão de crédito.
+        Complete os dados da startup e siga para o pagamento seguro da anuidade
+        {preco ? ` de ${preco.formatado}` : ''} no cartão de crédito. Pago, a associação fica ativa na hora.
       </CabecaConta>
       <Container className="py-12 sm:py-14">
         <Link href="/associado" className="font-medium text-azul underline underline-offset-4">

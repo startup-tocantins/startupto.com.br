@@ -19,7 +19,10 @@ export const notificar = {
     await enviarEmail(p.email, T.boasVindasComunidade({nome: p.nome, linkGrupoWhatsapp, urlAssocieSe: urls.associeSe()}))
   },
   async pedidoRecebido(p: Perfil) {
-    await enviarEmail(p.email, T.pedidoRecebido({nome: p.nome, nomeStartup: startup(p), urlAreaAssociado: urls.areaAssociado()}))
+    await enviarEmail(
+      p.email,
+      T.pedidoRecebido({nome: p.nome, nomeStartup: startup(p), valorAnuidade: await valorAnuidade(), urlPagamento: urls.pagamento()}),
+    )
     const listas = await getListas()
     await enviarEmail(
       await emailsDosAdmins(),
@@ -33,15 +36,6 @@ export const notificar = {
         urlAdminAssociado: urls.adminAssociado(p.id),
       }),
     )
-  },
-  async aprovado(p: Perfil) {
-    await enviarEmail(
-      p.email,
-      T.pedidoAprovado({nome: p.nome, nomeStartup: startup(p), valorAnuidade: await valorAnuidade(), urlPagamento: urls.pagamento()}),
-    )
-  },
-  async recusado(p: Perfil, motivo: string | null) {
-    await enviarEmail(p.email, T.pedidoRecusado({nome: p.nome, nomeStartup: startup(p), motivo}))
   },
   async ativa(p: Perfil, vencimento: Date) {
     await enviarEmail(

@@ -7,14 +7,13 @@ import {CabecaConta} from '../../_componentes/Cabeca'
 import {FormAssociado} from '../../_componentes/FormCadastro'
 
 export const metadata: Metadata = {
-  title: 'Pedido de associação',
+  title: 'Quero me associar',
   description: 'Associe sua startup à Associação Tocantinense de Startups: voto nas Assembleias, benefícios e Vitrine.',
 }
 
 const PASSOS = [
-  {t: 'Pedido', d: 'Você preenche este formulário. Nada é cobrado agora.'},
-  {t: 'Análise', d: 'A Diretoria avalia o pedido, conforme o Estatuto e o Regimento Interno.'},
-  {t: 'Anuidade', d: 'Aprovado o pedido, você recebe por e-mail o link para pagar no cartão.'},
+  {t: 'Cadastro', d: 'Você preenche este formulário com seus dados e os da startup.'},
+  {t: 'Anuidade', d: 'Em seguida, você paga a anuidade no cartão de crédito, em ambiente seguro do Stripe.'},
   {t: 'Ativo', d: 'Com o pagamento confirmado, sua associação fica ativa e a startup entra na Vitrine.'},
 ]
 
@@ -23,7 +22,7 @@ export default async function CadastroAssociadoPage() {
   return (
     <>
       <CabecaConta titulo="Pedido de associação">
-        {preco ? `Anuidade de ${preco.formatado}, paga no cartão de crédito depois da aprovação.` : 'Anuidade paga no cartão de crédito depois da aprovação.'}{' '}
+        {preco ? `Anuidade de ${preco.formatado}, paga no cartão de crédito logo após o cadastro.` : 'Anuidade paga no cartão de crédito logo após o cadastro.'}{' '}
         Pessoas físicas e jurídicas preenchem os mesmos campos.
       </CabecaConta>
       <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,40rem)_1fr]">

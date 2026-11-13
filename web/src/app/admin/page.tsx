@@ -14,9 +14,12 @@ const TOM: Record<StatusAssociado, 'azul' | 'laranja' | 'buriti' | 'neutro' | 'e
   inadimplente: 'erro', recusado: 'neutro', cancelado: 'neutro',
 }
 
+/** Status do antigo fluxo com aprovação da Diretoria: só aparecem em cadastros antigos. */
+const LEGADO: StatusAssociado[] = ['pendente_aprovacao', 'recusado']
+
 async function contagens() {
   const db = createAdminClient()
-  const status: StatusAssociado[] = ['pendente_aprovacao', 'aguardando_pagamento', 'ativo', 'inadimplente', 'comunidade']
+  const status: StatusAssociado[] = ['aguardando_pagamento', 'ativo', 'inadimplente', 'comunidade']
   const res = await Promise.all(status.map((s) => db.from('perfis').select('id', {count: 'exact', head: true}).eq('status', s)))
   return status.map((s, i) => ({status: s, total: res[i].count ?? 0}))
 }
@@ -81,7 +84,7 @@ export default async function AdminAssociadosPage({searchParams}: PageProps<'/ad
         <Campo id="status" rotulo="Situação">
           <Selecao id="status" name="status" defaultValue={f.status ?? ''}>
             <option value="">Todas</option>
-            {(Object.keys(ROTULO_STATUS) as StatusAssociado[]).map((s) => (
+            {(Object.keys(ROTULO_STATUS) as StatusAssociado[]).filter((s) => !LEGADO.includes(s)).map((s) => (
               <option key={s} value={s}>
                 {ROTULO_STATUS[s]}
               </option>
