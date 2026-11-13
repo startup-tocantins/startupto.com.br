@@ -21,25 +21,25 @@ type Tamanho = 'md' | 'lg' | 'sm'
 
 const varianteClasse: Record<Variante, string> = {
   // laranja-sol com tinta azul-noite: contraste ≥ 7:1
-  primario:
-    'bg-laranja text-azul-noite hover:bg-[#ffab3d] active:bg-[#e88a0a] shadow-[0_1px_0_rgb(8_38_77/0.25)]',
+  // laranja do sol com tinta azul-noite: contraste ≥ 6:1 (branco sobre laranja não passa AA)
+  primario: 'bg-laranja text-azul-noite shadow-botao hover:bg-laranja-forte active:bg-[#d96f00]',
   secundario: 'bg-azul text-white hover:bg-azul-fundo active:bg-azul-noite',
   contorno:
-    'bg-transparent text-azul ring-1 ring-inset ring-azul/40 hover:ring-azul hover:bg-azul-claro',
+    'bg-prancha text-azul-noite ring-1 ring-inset ring-azul-tinta hover:ring-azul hover:bg-azul-claro',
   fantasma: 'bg-transparent text-azul hover:bg-azul-claro',
   claro: 'bg-white text-azul-noite hover:bg-azul-claro',
   perigo: 'bg-erro text-white hover:bg-[#93201a]',
 }
 
 const tamanhoClasse: Record<Tamanho, string> = {
-  sm: 'min-h-9 px-4 text-sm',
+  sm: 'min-h-9 px-3.5 text-sm',
   md: 'min-h-11 px-5 text-[0.9375rem]',
-  lg: 'min-h-13 px-7 text-base',
+  lg: 'min-h-13 px-6 text-base',
 }
 
 export function botaoClasse(variante: Variante = 'primario', tamanho: Tamanho = 'md', extra?: string) {
   return clsx(
-    'inline-flex items-center justify-center gap-2 rounded-botao font-semibold tracking-[-0.01em]',
+    'inline-flex items-center justify-center gap-2.5 rounded-botao font-medium',
     'transition-[background-color,box-shadow,color,transform] duration-200 ease-saida',
     'active:translate-y-px disabled:cursor-not-allowed disabled:opacity-55 aria-disabled:opacity-55',
     varianteClasse[variante],
@@ -113,7 +113,7 @@ export function Spinner({className}: {className?: string}) {
 /* ------------------------------------------------------------------ */
 
 const campoBase =
-  'block w-full min-h-12 rounded-[4px] border border-linha-forte bg-white px-3.5 py-2.5 text-base text-tinta ' +
+  'block w-full min-h-12 rounded-campo border border-linha-forte bg-white px-3.5 py-2.5 text-base text-tinta ' +
   'placeholder:text-tinta-fraca transition-[border-color,box-shadow] duration-150 ' +
   'hover:border-tinta-suave focus:border-azul focus:outline-none focus:ring-3 focus:ring-azul/20 ' +
   'aria-[invalid=true]:border-erro aria-[invalid=true]:ring-erro/15 disabled:bg-papel disabled:text-tinta-fraca'
@@ -133,7 +133,7 @@ export function Campo({id, rotulo, ajuda, erro, obrigatorio, children, className
   const msg = Array.isArray(erro) ? erro[0] : erro
   return (
     <div className={clsx('flex flex-col gap-1.5', className)}>
-      <label htmlFor={id} className="text-[0.9375rem] font-semibold text-azul-noite">
+      <label htmlFor={id} className="text-[0.9375rem] font-medium text-azul-noite">
         {rotulo}
         {obrigatorio && (
           <span className="ml-1 font-normal text-tinta-fraca" aria-hidden="true">
@@ -143,7 +143,7 @@ export function Campo({id, rotulo, ajuda, erro, obrigatorio, children, className
       </label>
       {children}
       {ajuda && !msg && (
-        <p id={`${id}-ajuda`} className="font-texto text-[0.9375rem] leading-snug text-tinta-suave">
+        <p id={`${id}-ajuda`} className="text-sm leading-snug text-tinta-suave">
           {ajuda}
         </p>
       )}
@@ -213,10 +213,10 @@ export const CaixaMarcacao = forwardRef<HTMLInputElement, CaixaProps>(function C
           type="checkbox"
           aria-invalid={erro ? true : undefined}
           aria-describedby={erro ? `${id}-erro` : undefined}
-          className="mt-0.5 size-5 shrink-0 cursor-pointer rounded-[3px] border-linha-forte accent-azul"
+          className="mt-0.5 size-5 shrink-0 cursor-pointer rounded-[10px] border-linha-forte accent-azul"
           {...props}
         />
-        <span className="font-texto text-[1.0625rem] leading-snug text-tinta">{rotulo}</span>
+        <span className="text-base leading-snug text-tinta">{rotulo}</span>
       </label>
       {erro && (
         <p id={`${id}-erro`} role="alert" className="ml-8 text-sm font-medium text-erro">
@@ -234,7 +234,7 @@ export const CaixaMarcacao = forwardRef<HTMLInputElement, CaixaProps>(function C
 type Tom = 'info' | 'sucesso' | 'erro' | 'atencao'
 const tomClasse: Record<Tom, string> = {
   info: 'bg-azul-claro text-azul-noite ring-azul/20',
-  sucesso: 'bg-buriti-claro text-[#123f2b] ring-buriti/25',
+  sucesso: 'bg-buriti-claro text-[#0f4d27] ring-buriti/25',
   erro: 'bg-erro-claro text-[#7a1712] ring-erro/25',
   atencao: 'bg-laranja-claro text-laranja-tinta ring-laranja/40',
 }
@@ -253,20 +253,20 @@ export function Aviso({
   return (
     <div
       role={tom === 'erro' ? 'alert' : 'status'}
-      className={clsx('rounded-ficha px-4 py-3.5 ring-1 ring-inset', tomClasse[tom], className)}
+      className={clsx('rounded-[12px] px-4 py-3.5 ring-1 ring-inset', tomClasse[tom], className)}
     >
-      {titulo && <p className="font-semibold">{titulo}</p>}
-      {children && <div className={clsx('font-texto text-[1.0625rem] leading-snug', titulo && 'mt-1')}>{children}</div>}
+      {titulo && <p className="font-bold">{titulo}</p>}
+      {children && <div className={clsx('text-[0.9375rem] leading-snug', titulo && 'mt-1')}>{children}</div>}
     </div>
   )
 }
 
 /* ------------------------------------------------------------------ */
-/* Ficha de herbário + etiqueta                                        */
+/* Ficha (cartão) + etiqueta                                           */
 /* ------------------------------------------------------------------ */
 
 /**
- * Ficha: folha branca com etiqueta de herbário. Base de cards da Vitrine,
+ * Ficha: cartão branco de cantos generosos. Base de cards da Vitrine,
  * eventos, notícias e painéis da área do associado.
  */
 export function Ficha({
@@ -283,7 +283,7 @@ export function Ficha({
   return (
     <Tag
       className={clsx(
-        'relative rounded-ficha bg-prancha ring-1 ring-linha shadow-ficha',
+        'relative rounded-ficha bg-prancha ring-1 ring-linha/70 shadow-ficha',
         interativa &&
           'transition-[box-shadow,transform] duration-300 ease-saida hover:-translate-y-0.5 hover:shadow-ficha-alta focus-within:shadow-ficha-alta',
         className,
@@ -294,7 +294,7 @@ export function Ficha({
   )
 }
 
-/** Etiqueta tabular de herbário: pares rótulo/valor com régua fina. */
+/** Etiqueta: pares rótulo/valor com régua fina. */
 export function Etiqueta({
   linhas,
   className,
@@ -307,15 +307,17 @@ export function Etiqueta({
     <dl className={clsx('divide-y divide-linha border-y border-linha text-sm', className)}>
       {itens.map((l) => (
         <div key={l.rotulo} className="grid grid-cols-[6.5rem_1fr] items-baseline gap-3 py-1.5">
-          <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-tinta-fraca">
+          <dt className="text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-tinta-fraca">
             {l.rotulo}
           </dt>
-          <dd className="font-texto text-[1rem] leading-snug text-tinta">{l.valor}</dd>
+          <dd className="text-[0.9375rem] leading-snug text-tinta">{l.valor}</dd>
         </div>
       ))}
     </dl>
   )
 }
+
+export type TomSelo = 'azul' | 'laranja' | 'ipe' | 'buriti' | 'roxo' | 'neutro' | 'erro'
 
 /** Selo pequeno (categoria, status, “Fundador”). */
 export function Selo({
@@ -324,20 +326,22 @@ export function Selo({
   className,
 }: {
   children: ReactNode
-  tom?: 'azul' | 'laranja' | 'buriti' | 'neutro' | 'erro'
+  tom?: TomSelo
   className?: string
 }) {
   const t = {
     azul: 'bg-azul-claro text-azul-noite',
     laranja: 'bg-laranja-claro text-laranja-tinta',
-    buriti: 'bg-buriti-claro text-[#123f2b]',
+    ipe: 'bg-ipe-claro text-ipe-tinta ring-1 ring-inset ring-ipe/60',
+    buriti: 'bg-buriti-claro text-[#0f4d27]',
+    roxo: 'bg-roxo-claro text-roxo',
     neutro: 'bg-papel text-tinta-suave ring-1 ring-inset ring-linha',
     erro: 'bg-erro-claro text-[#7a1712]',
   }[tom]
   return (
     <span
       className={clsx(
-        'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-[0.01em]',
+        'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium',
         t,
         className,
       )}
@@ -352,28 +356,91 @@ export function Selo({
 /* ------------------------------------------------------------------ */
 
 export function Container({children, className}: {children: ReactNode; className?: string}) {
-  return <div className={clsx('mx-auto w-full max-w-[76rem] px-4 sm:px-6 lg:px-8', className)}>{children}</div>
+  return <div className={clsx('mx-auto w-full max-w-[80rem] px-4 sm:px-6 lg:px-8', className)}>{children}</div>
 }
 
-type Fundo = 'papel' | 'branco' | 'azul' | 'laranja' | 'buriti' | 'noite'
+type Fundo = 'papel' | 'branco' | 'laranja'
 const fundoClasse: Record<Fundo, string> = {
   papel: 'bg-papel text-tinta',
   branco: 'bg-prancha text-tinta',
-  azul: 'bg-azul-fundo text-white',
-  laranja: 'bg-laranja text-azul-noite',
-  buriti: 'bg-buriti text-white',
-  noite: 'bg-azul-noite text-white',
+  laranja: 'bg-gradient-to-br from-laranja-claro via-ipe-claro to-papel text-tinta',
+}
+
+/** Rótulo em pílula azul-clara (ex.: “Ecossistema de inovação do Tocantins”). */
+export function Rotulo({children, className}: {children: ReactNode; className?: string}) {
+  return (
+    <p
+      className={clsx(
+        'inline-flex items-center rounded-full bg-azul-claro px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.04em] text-azul',
+        className,
+      )}
+    >
+      {children}
+    </p>
+  )
+}
+
+/** Link “Ver todos →” do canto das seções. */
+export function LinkSeta({href, children, className}: {href: string; children: ReactNode; className?: string}) {
+  return (
+    <Link
+      href={href}
+      className={clsx(
+        'group inline-flex min-h-11 items-center gap-2 rounded-botao px-2 text-[0.9375rem] font-medium text-azul hover:text-azul-fundo',
+        className,
+      )}
+    >
+      {children}
+      <IconeSeta className="size-4 transition-transform duration-300 ease-saida group-hover:translate-x-1" />
+    </Link>
+  )
+}
+
+/** Cabeçalho de seção: ícone azul, título, subtítulo e ação à direita. */
+export function CabecalhoSecao({
+  id,
+  titulo,
+  introducao,
+  icone,
+  acao,
+  nivel = 2,
+  className,
+}: {
+  id?: string
+  titulo: ReactNode
+  introducao?: ReactNode
+  icone?: ReactNode
+  acao?: ReactNode
+  nivel?: 2 | 3
+  className?: string
+}) {
+  const H = nivel === 2 ? 'h2' : 'h3'
+  return (
+    <div className={clsx('mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-3', className)}>
+      <div className="flex min-w-0 items-start gap-3.5">
+        {icone && <span className="mt-0.5 shrink-0 text-azul [&>svg]:size-8">{icone}</span>}
+        <div className="min-w-0">
+          <H id={id} className="font-display text-[1.5rem] font-bold leading-tight text-azul-noite sm:text-[1.625rem]">
+            {titulo}
+          </H>
+          {introducao && <div className="mt-1 max-w-[60ch] text-[0.9375rem] leading-snug text-tinta-suave">{introducao}</div>}
+        </div>
+      </div>
+      {acao && <div className="shrink-0">{acao}</div>}
+    </div>
+  )
 }
 
 /**
- * Prancha: uma seção do guia de campo. O número da prancha corre na margem
- * (nunca acima do título).
+ * Seção de página. Com nível 1 vira o cabeçalho da página: rótulo em pílula,
+ * título grande e o campo amarelo-ipê entrando pela borda esquerda.
  */
 export function Prancha({
   id,
   titulo,
   introducao,
-  numero,
+  rotulo,
+  icone,
   fundo = 'papel',
   acao,
   children,
@@ -383,64 +450,58 @@ export function Prancha({
   id?: string
   titulo?: ReactNode
   introducao?: ReactNode
-  numero?: number
+  rotulo?: ReactNode
+  icone?: ReactNode
   fundo?: Fundo
   acao?: ReactNode
   children?: ReactNode
   className?: string
   nivel?: 1 | 2
 }) {
-  const escuro = fundo === 'azul' || fundo === 'buriti' || fundo === 'noite'
-  const H = nivel === 1 ? 'h1' : 'h2'
+  const idTitulo = titulo && id ? `${id}-titulo` : undefined
+  if (nivel === 1) {
+    return (
+      <section
+        id={id}
+        aria-labelledby={idTitulo}
+        className={clsx('relative overflow-hidden pb-16 sm:pb-20 lg:pb-24', fundoClasse[fundo], className)}
+      >
+        <span aria-hidden="true" className="campo-ipe pointer-events-none absolute -left-10 top-6 hidden h-56 w-28 opacity-90 md:block lg:w-36" />
+        <Container className="relative pt-10 sm:pt-14 lg:pt-16">
+          {(titulo || acao) && (
+            <header className="mb-10 flex flex-col gap-6 sm:mb-12 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-3xl">
+                {rotulo && <Rotulo className="mb-4">{rotulo}</Rotulo>}
+                {titulo && (
+                  <h1
+                    id={idTitulo}
+                    className="font-display text-[clamp(2.2rem,4.8vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.02em] text-azul-noite"
+                  >
+                    {titulo}
+                  </h1>
+                )}
+                {introducao && (
+                  <div className="mt-4 max-w-[60ch] text-[1.0625rem] leading-relaxed text-tinta-suave sm:text-lg">
+                    {introducao}
+                  </div>
+                )}
+              </div>
+              {acao && <div className="shrink-0">{acao}</div>}
+            </header>
+          )}
+          {children}
+        </Container>
+      </section>
+    )
+  }
   return (
     <section
       id={id}
-      aria-labelledby={titulo && id ? `${id}-titulo` : undefined}
-      className={clsx('relative py-16 sm:py-20 lg:py-24', fundoClasse[fundo], className)}
+      aria-labelledby={idTitulo}
+      className={clsx('relative py-14 sm:py-16 lg:py-20', fundoClasse[fundo], className)}
     >
-      {numero !== undefined && (
-        <span
-          aria-hidden="true"
-          className={clsx(
-            'absolute right-3 top-20 hidden origin-top-right translate-x-0 rotate-90 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] xl:block',
-            escuro ? 'text-white/55' : 'text-tinta-fraca',
-          )}
-        >
-          Prancha {String(numero).padStart(2, '0')}
-        </span>
-      )}
       <Container>
-        {(titulo || acao) && (
-          <div className="mb-10 flex flex-col gap-5 sm:mb-12 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
-              {titulo && (
-                <H
-                  id={id ? `${id}-titulo` : undefined}
-                  className={clsx(
-                    'font-display font-extrabold leading-[1.02]',
-                    nivel === 1
-                      ? 'text-[clamp(2.4rem,5.5vw,4.25rem)]'
-                      : 'text-[clamp(1.9rem,3.8vw,3rem)]',
-                    escuro ? 'text-white' : 'text-azul-noite',
-                  )}
-                >
-                  {titulo}
-                </H>
-              )}
-              {introducao && (
-                <div
-                  className={clsx(
-                    'mt-4 max-w-[60ch] font-texto text-[1.1875rem] leading-relaxed',
-                    escuro ? 'text-white/85' : fundo === 'laranja' ? 'text-azul-noite' : 'text-tinta-suave',
-                  )}
-                >
-                  {introducao}
-                </div>
-              )}
-            </div>
-            {acao && <div className="shrink-0">{acao}</div>}
-          </div>
-        )}
+        {titulo && <CabecalhoSecao id={idTitulo} titulo={titulo} introducao={introducao} icone={icone} acao={acao} />}
         {children}
       </Container>
     </section>
@@ -462,14 +523,14 @@ export function EstadoVazio({
   return (
     <div
       className={clsx(
-        'relative overflow-hidden rounded-ficha border border-dashed border-linha-forte bg-prancha/60 px-6 py-10 text-center sm:px-10',
+        'relative overflow-hidden rounded-ficha border border-dashed border-linha-forte bg-prancha px-6 py-10 text-center sm:px-10',
         className,
       )}
     >
-      <PontosDecorativos className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-16 w-64 text-azul/15" />
+      <PontosDecorativos className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-16 w-64 text-azul/10" />
       <p className="relative font-display text-xl font-bold text-azul-noite">{titulo}</p>
       {children && (
-        <div className="relative mx-auto mt-2 max-w-[48ch] font-texto text-[1.0625rem] leading-relaxed text-tinta-suave">
+        <div className="relative mx-auto mt-2 max-w-[48ch] text-[0.9375rem] leading-relaxed text-tinta-suave">
           {children}
         </div>
       )}
@@ -507,8 +568,83 @@ const svgProps = {
 }
 
 export const IconeSeta = ({className}: IconeProps) => (
+  <svg {...svgProps} strokeWidth={2} className={clsx('size-4', className)}>
+    <path d="M4 12h16M13.5 6l6 6-6 6" />
+  </svg>
+)
+export const IconeChevron = ({className}: IconeProps) => (
+  <svg {...svgProps} strokeWidth={2} className={clsx('size-4', className)}>
+    <path d="m9 6 6 6-6 6" />
+  </svg>
+)
+export const IconeChevronBaixo = ({className}: IconeProps) => (
+  <svg {...svgProps} strokeWidth={2} className={clsx('size-4', className)}>
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+)
+
+/* Ícones de seção do template (viewBox 48, traço 2.6) */
+const svg48 = {...svgProps, viewBox: '0 0 48 48', strokeWidth: 2.6}
+
+export const IconeFoguete = ({className}: IconeProps) => (
+  <svg {...svg48} className={clsx('size-10', className)}>
+    <path d="M40.5 7.5c-8.5-.4-16.4 3.6-21.6 11.2L15.5 24l8.5 8.5 5.3-3.4c7.6-5.2 11.6-13.1 11.2-21.6Z" />
+    <circle cx="30.5" cy="17.5" r="3.2" />
+    <path d="M18.6 19.2 11.5 18.6 6.5 24l8.7 1.8" />
+    <path d="m28.8 29.4.6 7.1-5.4 5-1.8-8.7" />
+    <path d="M15.2 31.2c-3.4.6-5.6 3.5-6.2 8.8 5.3-.6 8.2-2.8 8.8-6.2" />
+  </svg>
+)
+export const IconeOlho = ({className}: IconeProps) => (
+  <svg {...svg48} className={clsx('size-10', className)}>
+    <path d="M4 24s7-12 20-12 20 12 20 12-7 12-20 12S4 24 4 24Z" />
+    <circle cx="24" cy="24" r="5" fill="currentColor" />
+  </svg>
+)
+export const IconeDiamante = ({className}: IconeProps) => (
+  <svg {...svg48} className={clsx('size-10', className)}>
+    <path d="m8 16 6-8h20l6 8-16 25Z" />
+    <path d="M8 16h32M14 8l10 8 10-8M18 16l6 25 6-25" />
+  </svg>
+)
+export const IconeAgenda = ({className}: IconeProps) => (
+  <svg {...svg48} className={clsx('size-8', className)}>
+    <rect x="7" y="10" width="34" height="31" rx="3" />
+    <path d="M7 19h34M16 6v8M32 6v8" />
+  </svg>
+)
+export const IconeNoticias = ({className}: IconeProps) => (
+  <svg {...svg48} className={clsx('size-8', className)}>
+    <path d="M13 6h18l7 7v29H13z" />
+    <path d="M31 6v8h7M19 21h13M19 27h13M19 33h9" />
+    <rect x="7" y="12" width="25" height="29" rx="2" />
+  </svg>
+)
+export const IconeCamadas = ({className}: IconeProps) => (
+  <svg {...svg48} className={clsx('size-8', className)}>
+    <path d="m24 6 15 8-15 8L9 14zM9 23l15 8 15-8M9 32l15 8 15-8" />
+  </svg>
+)
+export const IconeParceria = ({className}: IconeProps) => (
+  <svg {...svg48} className={clsx('size-8', className)}>
+    <path d="m6 24 8-8 8 5 5-4 8 7-8 9-6-4-5 5-10-8z" />
+    <path d="m20 27 6 5M16 31l5 5M28 22l6 5" />
+  </svg>
+)
+export const IconePessoas = ({className}: IconeProps) => (
+  <svg {...svg48} className={clsx('size-8', className)}>
+    <circle cx="18" cy="17" r="6" />
+    <path d="M7 39c1-7 5.5-11 11-11s10 4 11 11" />
+    <circle cx="33" cy="19" r="4.5" />
+    <path d="M31 28.5c5-.8 9 2.5 10 9" />
+  </svg>
+)
+export const IconeSetor = ({className}: IconeProps) => (
   <svg {...svgProps} className={clsx('size-4', className)}>
-    <path d="M5 12h14M13 6l6 6-6 6" />
+    <rect x="3.5" y="4" width="7" height="7" rx="1.5" />
+    <rect x="13.5" y="4" width="7" height="7" rx="1.5" />
+    <rect x="3.5" y="14" width="7" height="6.5" rx="1.5" />
+    <rect x="13.5" y="14" width="7" height="6.5" rx="1.5" />
   </svg>
 )
 export const IconeExterno = ({className}: IconeProps) => (

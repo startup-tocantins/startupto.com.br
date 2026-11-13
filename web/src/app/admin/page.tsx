@@ -43,8 +43,8 @@ export default async function AdminAssociadosPage({searchParams}: PageProps<'/ad
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-extrabold text-azul-noite">Associados</h1>
-          <p className="mt-1 font-texto text-[1.0625rem] text-tinta-suave">
+          <h1 className="font-display text-3xl font-bold text-azul-noite">Associados</h1>
+          <p className="mt-1 text-base text-tinta-suave">
             {total} {total === 1 ? 'cadastro encontrado' : 'cadastros encontrados'}
             {filtrosAtivos ? ' com os filtros aplicados' : ''}.
           </p>
@@ -67,8 +67,8 @@ export default async function AdminAssociadosPage({searchParams}: PageProps<'/ad
               aria-current={f.status === r.status ? 'true' : undefined}
               className="flex h-full flex-col rounded-ficha bg-prancha p-4 ring-1 ring-linha hover:ring-azul aria-[current=true]:ring-2 aria-[current=true]:ring-azul"
             >
-              <span className="font-display text-3xl font-extrabold text-azul-noite">{r.total}</span>
-              <span className="text-sm font-semibold text-tinta-suave">{ROTULO_STATUS[r.status]}</span>
+              <span className="font-display text-3xl font-bold text-azul-noite">{r.total}</span>
+              <span className="text-sm font-medium text-tinta-suave">{ROTULO_STATUS[r.status]}</span>
             </Link>
           </li>
         ))}
@@ -136,19 +136,19 @@ export default async function AdminAssociadosPage({searchParams}: PageProps<'/ad
           <table className="w-full min-w-[52rem] text-left text-sm">
             <thead className="border-b border-linha bg-papel text-xs uppercase tracking-[0.06em] text-tinta-fraca">
               <tr>
-                <th scope="col" className="px-4 py-3 font-semibold">Nome / startup</th>
-                <th scope="col" className="px-4 py-3 font-semibold">Situação</th>
-                <th scope="col" className="px-4 py-3 font-semibold">Setor</th>
-                <th scope="col" className="px-4 py-3 font-semibold">Cidade</th>
-                <th scope="col" className="px-4 py-3 font-semibold">Vencimento</th>
-                <th scope="col" className="px-4 py-3 font-semibold">Cadastro</th>
+                <th scope="col" className="px-4 py-3 font-medium">Nome / startup</th>
+                <th scope="col" className="px-4 py-3 font-medium">Situação</th>
+                <th scope="col" className="px-4 py-3 font-medium">Setor</th>
+                <th scope="col" className="px-4 py-3 font-medium">Cidade</th>
+                <th scope="col" className="px-4 py-3 font-medium">Vencimento</th>
+                <th scope="col" className="px-4 py-3 font-medium">Cadastro</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-linha">
               {associados.map((p) => (
                 <tr key={p.id} className="hover:bg-azul-claro/40">
                   <td className="px-4 py-3">
-                    <Link href={`/admin/associados/${p.id}`} className="font-semibold text-azul-noite underline-offset-4 hover:underline">
+                    <Link href={`/admin/associados/${p.id}`} className="font-medium text-azul-noite underline-offset-4 hover:underline">
                       {p.nome}
                     </Link>
                     <span className="block text-tinta-suave">{p.startup_nome ?? p.email}</span>

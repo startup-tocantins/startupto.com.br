@@ -75,7 +75,7 @@ export function CamposStartup({
           aria-invalid={erroLogo ? true : undefined}
           aria-describedby={descricaoCampo('logo', Boolean(erroLogo), true)}
           onChange={(e) => setNomeArquivo(e.currentTarget.files?.[0]?.name ?? null)}
-          className="py-2 file:mr-3 file:rounded-full file:border-0 file:bg-azul-claro file:px-4 file:py-1.5 file:font-semibold file:text-azul"
+          className="py-2 file:mr-3 file:rounded-full file:border-0 file:bg-azul-claro file:px-4 file:py-1.5 file:font-medium file:text-azul"
         />
       </Campo>
       <CaixaMarcacao

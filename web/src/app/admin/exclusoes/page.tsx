@@ -21,8 +21,8 @@ export default async function AdminExclusoesPage() {
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <h1 className="font-display text-3xl font-extrabold text-azul-noite">Pedidos de exclusão de dados</h1>
-        <p className="mt-1 max-w-[62ch] font-texto text-[1.0625rem] text-tinta-suave">
+        <h1 className="font-display text-3xl font-bold text-azul-noite">Pedidos de exclusão de dados</h1>
+        <p className="mt-1 max-w-[62ch] text-base text-tinta-suave">
           Prazo de resposta: 15 dias (LGPD, art. 18). Antes de excluir, verifique o que precisa ser mantido por
           obrigação legal (registros contábeis e fiscais) e cancele a assinatura no Stripe, se houver. A exclusão da
           conta é feita no painel do Supabase (Authentication → Users).
@@ -36,7 +36,7 @@ export default async function AdminExclusoesPage() {
             <li key={p.id}>
               <Ficha className="p-5" como="div">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="font-semibold text-azul-noite">
+                  <p className="font-medium text-azul-noite">
                     {p.nome} <span className="font-normal text-tinta-suave">· {p.email}</span>
                   </p>
                   {p.concluida_em ? (
@@ -49,7 +49,7 @@ export default async function AdminExclusoesPage() {
                 </div>
                 <p className="mt-1 text-sm text-tinta-suave">Pedido em {formatarData(p.criado_em)}</p>
                 {p.concluida_em ? (
-                  p.observacao && <p className="mt-2 font-texto">{p.observacao}</p>
+                  p.observacao && <p className="mt-2 ">{p.observacao}</p>
                 ) : (
                   <div className="mt-4">
                     <FormConcluirExclusao id={p.id} />

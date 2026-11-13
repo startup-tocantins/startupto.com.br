@@ -1,48 +1,59 @@
 @import "tailwindcss";
 
 /*
- * Mundo visual: guia de campo do cerrado tocantinense.
- * Pranchas brancas, campos inteiros em azul (tecido da capa) e laranja (ipê),
- * verde-buriti como terceira tinta. Tipos: Bricolage Grotesque (display/UI)
- * e Alegreya (leitura e legendas).
+ * Mundo visual: Tocantins luminoso.
+ * Fundo claro e frio, cartões brancos de cantos generosos, azul de interface,
+ * laranja do sol de Palmas nos CTAs e um campo amarelo-ipê como gesto de marca.
+ * Tipo único: Ubuntu (títulos 700, interface 500, texto 400).
  */
 
 @theme {
-  --color-papel: #f3f6fa;
+  --color-papel: #f5f8fd;
   --color-prancha: #ffffff;
-  --color-linha: #d9dde4;
-  --color-linha-forte: #b7bfcc;
+  --color-linha: #e3e9f2;
+  --color-linha-forte: #c3cddc;
 
-  --color-azul: #0c4d9f;
-  --color-azul-fundo: #0a3f84;
-  --color-azul-noite: #08264d;
-  --color-azul-claro: #e6eef8;
-  --color-azul-tinta: #b9cdea;
+  --color-azul: #0b5bd3;
+  --color-azul-fundo: #0c4d9f;
+  --color-azul-noite: #0e1e42;
+  --color-azul-claro: #e8f1fd;
+  --color-azul-tinta: #b9d1f5;
 
-  --color-laranja: #fb9a17;
+  --color-laranja: #f7870f;
+  --color-laranja-forte: #e97a05;
   --color-laranja-claro: #fff1dc;
   --color-laranja-tinta: #8a4a00;
 
-  --color-buriti: #1f6b4a;
-  --color-buriti-claro: #e3f0e8;
+  --color-ipe: #fec446;
+  --color-ipe-claro: #fff6d6;
+  --color-ipe-tinta: #6b4a00;
 
-  --color-tinta: #14213a;
-  --color-tinta-suave: #44516a;
-  --color-tinta-fraca: #6a7489;
+  --color-buriti: #15803d;
+  --color-buriti-claro: #e6f6ec;
+
+  --color-roxo: #6d28d9;
+  --color-roxo-claro: #f1eafe;
+
+  --color-tinta: #1b2740;
+  --color-tinta-suave: #475569;
+  --color-tinta-fraca: #64748b;
 
   --color-erro: #b3261e;
   --color-erro-claro: #fde8e6;
-  --color-sucesso: #1f6b4a;
+  --color-sucesso: #15803d;
 
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-texto: var(--font-alegreya), ui-serif, Georgia, serif;
+  --font-display: var(--font-ubuntu), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-ubuntu), ui-sans-serif, system-ui, sans-serif;
+  --font-texto: var(--font-ubuntu), ui-sans-serif, system-ui, sans-serif;
 
-  --radius-ficha: 6px;
-  --radius-botao: 999px;
+  --radius-campo: 10px;
+  --radius-ficha: 16px;
+  --radius-faixa: 28px;
+  --radius-botao: 10px;
 
-  --shadow-ficha: 0 1px 2px rgb(8 38 77 / 0.06), 0 6px 18px -8px rgb(8 38 77 / 0.18);
-  --shadow-ficha-alta: 0 2px 4px rgb(8 38 77 / 0.08), 0 18px 36px -14px rgb(8 38 77 / 0.28);
+  --shadow-ficha: 0 1px 2px rgb(14 30 66 / 0.04), 0 10px 28px -14px rgb(14 30 66 / 0.14);
+  --shadow-ficha-alta: 0 2px 6px rgb(14 30 66 / 0.06), 0 22px 44px -18px rgb(14 30 66 / 0.24);
+  --shadow-botao: 0 6px 16px -6px rgb(233 122 5 / 0.55);
 
   --ease-saida: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -51,14 +62,13 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6rem;
   }
 
   body {
     background: var(--color-papel);
     color: var(--color-tinta);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01" on;
   }
 
   ::selection {
@@ -87,7 +97,7 @@
   h2,
   h3 {
     text-wrap: balance;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
   }
 
   p {
@@ -136,10 +146,10 @@
   /* Texto corrido (Portable Text, manifesto, privacidade, notícias) */
   .leitura {
     font-family: var(--font-texto);
-    font-size: 1.1875rem;
-    line-height: 1.65;
+    font-size: 1.0625rem;
+    line-height: 1.7;
     color: var(--color-tinta);
-    max-width: 68ch;
+    max-width: 70ch;
   }
   .leitura > * + * {
     margin-top: 1.05em;
@@ -154,7 +164,7 @@
   }
   .leitura h3 {
     font-family: var(--font-display);
-    font-weight: 650;
+    font-weight: 700;
     font-size: 1.25rem;
     line-height: 1.25;
     color: var(--color-azul-noite);
@@ -199,9 +209,20 @@
     margin-top: 0.4em;
   }
   .leitura blockquote {
-    border-left: 1px solid var(--color-laranja);
+    border-left: 3px solid var(--color-laranja);
     padding-left: 1.1em;
-    font-style: italic;
     color: var(--color-tinta-suave);
+  }
+
+  /* Gesto de marca: campo amarelo-ipê arredondado que entra pela borda */
+  .campo-ipe {
+    background: linear-gradient(160deg, var(--color-ipe) 0%, #fbae2a 100%);
+    border-radius: 0 38% 42% 0 / 0 30% 48% 0;
+  }
+
+  /* Recorte da foto do hero: paralelogramo de cantos suaves */
+  .recorte-hero {
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+    border-radius: var(--radius-faixa) 0 0 var(--radius-faixa);
   }
 }

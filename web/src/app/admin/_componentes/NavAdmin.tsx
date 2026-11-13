@@ -24,7 +24,7 @@ function Itens({pathname}: {pathname: string | null}) {
                 href={i.href}
                 aria-current={ativo(i.href) ? 'page' : undefined}
                 className={cx(
-                  'inline-flex min-h-11 items-center whitespace-nowrap border-b-3 px-3 text-sm font-semibold',
+                  'inline-flex min-h-11 items-center whitespace-nowrap border-b-3 px-3 text-sm font-medium',
                   ativo(i.href) ? 'border-laranja text-white' : 'border-transparent text-white/70 hover:text-white',
                 )}
               >

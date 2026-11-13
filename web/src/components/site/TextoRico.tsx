@@ -33,7 +33,7 @@ const componentes: PortableTextComponents = {
             className="h-auto w-full rounded-ficha"
           />
           {value.legenda && (
-            <figcaption className="mt-2 text-[0.9375rem] italic text-tinta-suave">{value.legenda}</figcaption>
+            <figcaption className="mt-2 text-[0.9375rem] text-tinta-suave">{value.legenda}</figcaption>
           )}
         </figure>
       ) : null,
@@ -60,7 +60,7 @@ const componentes: PortableTextComponents = {
               {corpo.map((l) => (
                 <tr key={l._key} className="border-b border-linha">
                   {l.celulas?.map((c, i) => (
-                    <td key={i} className={cx('py-3 pr-4 align-top', i === 0 && 'font-semibold text-azul-noite')}>
+                    <td key={i} className={cx('py-3 pr-4 align-top', i === 0 && 'font-medium text-azul-noite')}>
                       {c}
                     </td>
                   ))}

@@ -1,62 +1,91 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-07T20:35:47.589861Z",
+  "generatedAt": "2026-11-13T15:02:02.456044+00:00",
   "title": "Design System: Associação Tocantinense de Startups",
   "extensions": {
     "colorMeta": {
-      "azul-tocantins": {
+      "azul": {
         "role": "primary",
-        "displayName": "Azul Tocantins"
+        "displayName": "Azul de interface"
       },
-      "laranja-sol": {
+      "azul-noite": {
+        "role": "primary",
+        "displayName": "Azul-noite (títulos e rodapé)"
+      },
+      "laranja": {
         "role": "secondary",
-        "displayName": "Laranja-sol (ipê)"
+        "displayName": "Laranja do sol (CTA)"
       },
-      "buriti": {
+      "ipe": {
         "role": "tertiary",
-        "displayName": "Verde-buriti"
+        "displayName": "Amarelo-ipê (campo de marca, selo Fundador)"
+      },
+      "roxo": {
+        "role": "tertiary",
+        "displayName": "Roxo (categoria Notícia)"
+      },
+      "verde": {
+        "role": "tertiary",
+        "displayName": "Verde (categoria Benefício, sucesso)"
       },
       "papel": {
         "role": "neutral",
         "displayName": "Papel"
+      },
+      "erro": {
+        "role": "neutral",
+        "displayName": "Erro"
+      },
+      "erro-claro": {
+        "role": "neutral",
+        "displayName": "Erro claro (fundo de aviso)"
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Abertura e Manifesto."
+        "purpose": "Chamada do hero da Home (Ubuntu 700)."
+      },
+      "page-title": {
+        "displayName": "Título de página",
+        "purpose": "Cabeçalho das páginas internas."
       },
       "body": {
-        "displayName": "Leitura",
-        "purpose": "Texto corrido, legendas e cargos (itálico)."
+        "displayName": "Texto",
+        "purpose": "Texto corrido em Ubuntu 400."
       },
-      "label": {
-        "displayName": "Rótulo de etiqueta",
-        "purpose": "Rótulos de ficha de herbário e cabeçalhos do rodapé."
+      "rotulo": {
+        "displayName": "Rótulo",
+        "purpose": "Pílula azul-clara acima do título de página."
       }
     },
     "shadows": [
       {
         "name": "ficha",
-        "value": "0 1px 2px rgb(8 38 77 / 0.06), 0 6px 18px -8px rgb(8 38 77 / 0.18)",
-        "purpose": "Ficha em repouso."
+        "value": "0 1px 2px rgb(14 30 66 / 0.04), 0 10px 28px -14px rgb(14 30 66 / 0.14)",
+        "purpose": "Cartão em repouso."
       },
       {
         "name": "ficha-alta",
-        "value": "0 2px 4px rgb(8 38 77 / 0.08), 0 18px 36px -14px rgb(8 38 77 / 0.28)",
-        "purpose": "Hover e destaque."
+        "value": "0 2px 6px rgb(14 30 66 / 0.06), 0 22px 44px -18px rgb(14 30 66 / 0.24)",
+        "purpose": "Hover, destaque e menus suspensos."
+      },
+      {
+        "name": "botao",
+        "value": "0 6px 16px -6px rgb(233 122 5 / 0.55)",
+        "purpose": "Brilho do CTA laranja."
       }
     ],
     "motion": [
       {
         "name": "ease-saida",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Todas as transições de estado e a entrada do mapa."
+        "purpose": "Transições de estado (hover dos cartões, setas)."
       },
       {
-        "name": "ponto-surge",
-        "value": "700ms ease-saida, atraso proporcional à latitude",
-        "purpose": "Pontos do mapa acendem de norte a sul."
+        "name": "carrossel",
+        "value": "scroll-snap + scroll suave",
+        "purpose": "Próximos eventos na Home; sem autoplay."
       }
     ],
     "breakpoints": [
@@ -83,54 +112,97 @@
       "name": "Botão primário",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "CTA principal (Associe-se).",
-      "html": "<button class=\"ds-btn-primario\">Associe-se</button>",
-      "css": ".ds-btn-primario{background:#fb9a17;color:#08264d;min-height:44px;padding:0 20px;border:0;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;transition:background-color .2s cubic-bezier(.16,1,.3,1)}.ds-btn-primario:hover{background:#ffab3d}.ds-btn-primario:focus-visible{outline:3px solid #fb9a17;outline-offset:3px}"
+      "description": "CTA principal (Associe-se) com seta.",
+      "html": "<button class=\"ds-btn-primario\">Associe-se agora →</button>",
+      "css": ".ds-btn-primario{background:#f7870f;color:#0e1e42;min-height:44px;padding:0 20px;border:0;border-radius:10px;font-family:Ubuntu,system-ui,sans-serif;font-weight:500;font-size:15px;box-shadow:0 6px 16px -6px rgb(233 122 5/.55);transition:background-color .2s cubic-bezier(.16,1,.3,1)}.ds-btn-primario:hover{background:#e97a05}.ds-btn-primario:focus-visible{outline:3px solid #f7870f;outline-offset:3px}"
     },
     {
-      "name": "Ficha de herbário",
+      "name": "Botão contorno",
+      "kind": "button",
+      "refersTo": "button-contorno",
+      "description": "Ação secundária (Conheça a Associação, Ver todos).",
+      "html": "<button class=\"ds-btn-contorno\">Conheça a Associação</button>",
+      "css": ".ds-btn-contorno{background:#fff;color:#0e1e42;min-height:44px;padding:0 20px;border:0;border-radius:10px;box-shadow:inset 0 0 0 1px #b9d1f5;font-family:Ubuntu,system-ui,sans-serif;font-weight:500;font-size:15px}.ds-btn-contorno:hover{background:#e8f1fd;box-shadow:inset 0 0 0 1px #0b5bd3}"
+    },
+    {
+      "name": "Botão de perigo",
+      "kind": "button",
+      "refersTo": "button-perigo",
+      "description": "Só para ações destrutivas, como a exclusão de dados.",
+      "html": "<button class=\"ds-btn-perigo\">Excluir meus dados</button>",
+      "css": ".ds-btn-perigo{background:#b3261e;color:#fff;min-height:44px;padding:0 20px;border:0;border-radius:10px;font-family:Ubuntu,system-ui,sans-serif;font-weight:500}.ds-btn-perigo:hover{background:#93201a}"
+    },
+    {
+      "name": "Rótulo",
+      "kind": "custom",
+      "refersTo": "rotulo",
+      "description": "Pílula acima do título de página.",
+      "html": "<p class=\"ds-rotulo\">Ecossistema de inovação do Tocantins</p>",
+      "css": ".ds-rotulo{display:inline-flex;padding:6px 14px;border-radius:999px;background:#e8f1fd;color:#0b5bd3;font-family:Ubuntu,system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase}"
+    },
+    {
+      "name": "Cartão de notícia",
       "kind": "card",
       "refersTo": "ficha",
-      "description": "Card de startup na Vitrine com etiqueta tabular.",
-      "html": "<article class=\"ds-ficha\"><h3>Startup</h3><dl><div><dt>Localidade</dt><dd>Gurupi – TO</dd></div><div><dt>Setor</dt><dd>Agro / AgTech</dd></div></dl></article>",
-      "css": ".ds-ficha{background:#fff;border-radius:6px;padding:16px;box-shadow:0 0 0 1px #d9dde4,0 1px 2px rgb(8 38 77/.06),0 6px 18px -8px rgb(8 38 77/.18);font-family:'Bricolage Grotesque',sans-serif;color:#14213a}.ds-ficha h3{margin:0 0 12px;font-size:18px;color:#08264d}.ds-ficha dl{margin:0;border-top:1px solid #d9dde4}.ds-ficha div{display:grid;grid-template-columns:6.5rem 1fr;gap:12px;padding:6px 0;border-bottom:1px solid #d9dde4}.ds-ficha dt{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6a7489}.ds-ficha dd{margin:0;font-family:Alegreya,serif;font-size:16px}"
+      "description": "Foto 16:9 com selo da categoria, título e data.",
+      "html": "<article class=\"ds-noticia\"><div class=\"ds-foto\"><span class=\"ds-selo\">Edital</span></div><h3>Aberto edital de apoio a startups tocantinenses</h3><p>05 de nov de 2026</p></article>",
+      "css": ".ds-noticia{background:#fff;border-radius:16px;padding:8px;box-shadow:0 0 0 1px #e3e9f2,0 10px 28px -14px rgb(14 30 66/.14);font-family:Ubuntu,system-ui,sans-serif;color:#0e1e42;width:240px}.ds-foto{position:relative;aspect-ratio:16/9;border-radius:12px;background:#c3cddc}.ds-selo{position:absolute;left:10px;bottom:10px;background:#0b5bd3;color:#fff;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:500}.ds-noticia h3{margin:14px 12px 0;font-size:16px;line-height:1.35}.ds-noticia p{margin:16px 12px 12px;font-size:14px;color:#475569}"
     },
     {
-      "name": "Aba de índice",
-      "kind": "nav",
-      "refersTo": "aba-indice",
-      "description": "Navegação principal: abas pendendo do topo.",
-      "html": "<a class=\"ds-aba\" href=\"#\">Eventos</a>",
-      "css": ".ds-aba{display:inline-flex;align-items:flex-end;height:48px;padding:0 16px 8px;background:#1f6b4a;color:#fff;border-radius:0 0 6px 6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;text-decoration:none;transition:height .3s cubic-bezier(.16,1,.3,1)}.ds-aba:hover{height:53px}.ds-aba:focus-visible{outline:3px solid #fb9a17;outline-offset:3px}"
+      "name": "Carimbo de data",
+      "kind": "custom",
+      "refersTo": "evento",
+      "description": "Dia e mês do evento em azul-claro.",
+      "html": "<div class=\"ds-data\"><b>15</b><span>OUT</span></div>",
+      "css": ".ds-data{display:flex;flex-direction:column;align-items:center;justify-content:center;width:56px;height:56px;border-radius:12px;background:#e8f1fd;color:#0b5bd3;box-shadow:inset 0 0 0 1px #b9d1f5;font-family:Ubuntu,system-ui,sans-serif}.ds-data b{font-size:24px;line-height:1}.ds-data span{font-size:12px;font-weight:500;letter-spacing:.06em}"
+    },
+    {
+      "name": "Avatar da conta",
+      "kind": "custom",
+      "refersTo": "avatar-conta",
+      "description": "No cabeçalho com sessão: iniciais em círculo azul; aberto, anel laranja e menu em cartão.",
+      "html": "<button class=\"ds-avatar\" aria-haspopup=\"menu\" aria-expanded=\"false\"><span aria-hidden=\"true\">LC</span></button>",
+      "css": ".ds-avatar{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;border-radius:999px;background:#0b5bd3;color:#fff;font-family:Ubuntu,system-ui,sans-serif;font-weight:700;font-size:15px}.ds-avatar[aria-expanded=true]{box-shadow:0 0 0 2px #f7870f}"
+    },
+    {
+      "name": "Aviso de erro",
+      "kind": "custom",
+      "refersTo": "aviso",
+      "description": "Resumo de erros de formulário, com link para cada campo.",
+      "html": "<div class=\"ds-aviso-erro\" role=\"alert\"><p class=\"ds-aviso-titulo\">Corrija 1 campo para continuar</p><div><a href=\"#email\">E-mail</a>: informe um e-mail válido.</div></div>",
+      "css": ".ds-aviso-erro{border-radius:12px;padding:14px 16px;background:#fde8e6;color:#7a1712;box-shadow:inset 0 0 0 1px rgb(179 38 30/.25);font-family:Ubuntu,system-ui,sans-serif;font-size:15px}.ds-aviso-titulo{margin:0 0 4px;font-weight:700}.ds-aviso-erro a{color:inherit}"
     }
   ],
   "narrative": {
-    "northStar": "Guia de campo do cerrado tocantinense",
-    "overview": "O ecossistema de startups lido como o ecossistema do cerrado: pranchas, abas de índice, fichas de herbário e o mapa de coleta com os 139 municípios.",
+    "northStar": "Tocantins luminoso",
+    "overview": "Portal institucional claro: papel frio, cartões brancos de cantos generosos, azul de interface, laranja do pôr do sol de Palmas nos CTAs e o campo amarelo-ipê na borda. Referência: design/design.png.",
     "keyCharacteristics": [
-      "Campos inteiros de azul e laranja",
-      "Fichas de herbário com etiqueta tabular",
-      "Mapa de coleta com 139 pontos",
-      "Bricolage Grotesque + Alegreya"
+      "Hero com foto de Palmas em paralelogramo e filete laranja",
+      "Faixa Missão/Visão/Valores com ícones de traço",
+      "Cartões brancos com foto e selo de categoria",
+      "Ubuntu em toda a interface"
     ],
     "rules": [
       {
-        "name": "Regra do Sol",
-        "body": "No máximo um campo laranja dominante por tela.",
+        "name": "Um sol por tela",
+        "body": "Um único CTA laranja dominante por dobra.",
         "section": "colors"
       },
       {
-        "name": "Cada aba, uma tinta",
-        "body": "Cada seção tem sua cor de aba, que reaparece na página.",
+        "name": "Texto escuro no laranja",
+        "body": "Sobre laranja o texto é azul-noite (branco não passa AA).",
         "section": "colors"
       }
     ],
     "dos": [
-      "Use estados vazios honestos com convite"
+      "Use estados vazios honestos com convite",
+      "Use capas reais quando houver; as do template são fallback"
     ],
     "donts": [
-      "Não use texto laranja-sol sobre fundo claro",
-      "Não ponha kicker acima de títulos"
+      "Não use texto branco ou laranja sobre laranja/fundo claro",
+      "Não invente startups, logos ou números",
+      "Não destaque um membro da Diretoria com cartão ou foto maior; todos têm o mesmo tamanho.",
+      "Não use o botão de perigo fora de ações destrutivas."
     ]
   }
 }

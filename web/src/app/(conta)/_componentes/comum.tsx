@@ -149,7 +149,7 @@ export function CampoSenha({
           onClick={() => setVisivel((v) => !v)}
           aria-pressed={visivel}
           aria-controls={nome}
-          className="absolute inset-y-1 right-1 rounded-[4px] px-3 text-sm font-semibold text-azul hover:bg-azul-claro focus-visible:bg-azul-claro"
+          className="absolute inset-y-1 right-1 rounded-[10px] px-3 text-sm font-medium text-azul hover:bg-azul-claro focus-visible:bg-azul-claro"
         >
           {visivel ? 'Ocultar' : 'Mostrar'}
         </button>

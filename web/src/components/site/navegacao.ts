@@ -1,13 +1,20 @@
-/** Abas do índice do guia (thumb index). Cada seção tem a sua tinta. */
-export const ABAS = [
-  {href: '/quem-somos', rotulo: 'Quem somos', tinta: 'azul'},
-  {href: '/diretoria', rotulo: 'Diretoria', tinta: 'noite'},
-  {href: '/noticias', rotulo: 'Notícias', tinta: 'laranja'},
-  {href: '/eventos', rotulo: 'Eventos', tinta: 'buriti'},
-  {href: '/vitrine', rotulo: 'Vitrine', tinta: 'azul'},
+/** Navegação principal, na ordem do template. */
+export const NAV = [
+  {href: '/', rotulo: 'Home'},
+  {href: '/quem-somos', rotulo: 'Quem somos'},
+  {href: '/diretoria', rotulo: 'Diretoria'},
+  {href: '/manifesto', rotulo: 'Manifesto'},
+  {href: '/noticias', rotulo: 'Notícias'},
+  {href: '/eventos', rotulo: 'Eventos'},
+  {href: '/vitrine', rotulo: 'Vitrine'},
+  {href: '/mantenedores', rotulo: 'Mantenedores'},
 ] as const
 
-export type Tinta = (typeof ABAS)[number]['tinta']
+/** Submenu “Documentos”. */
+export const DOCUMENTOS = [
+  {href: '/documentos', rotulo: 'Estatuto e Regimento'},
+  {href: '/privacidade', rotulo: 'Política de Privacidade'},
+] as const
 
 export const LINKS_RODAPE = [
   {

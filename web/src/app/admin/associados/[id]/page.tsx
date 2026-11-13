@@ -45,16 +45,16 @@ export default async function AdminAssociadoPage({params}: PageProps<'/admin/ass
 
   return (
     <div className="flex flex-col gap-8">
-      <Link href="/admin" className="font-semibold text-azul underline underline-offset-4">
+      <Link href="/admin" className="font-medium text-azul underline underline-offset-4">
         ← Todos os associados
       </Link>
       <div className="flex flex-wrap items-start gap-5">
         {logo && (
-          <Image src={logo} alt="" width={72} height={72} className="size-18 rounded-[4px] bg-white object-contain p-1.5 ring-1 ring-linha" />
+          <Image src={logo} alt="" width={72} height={72} className="size-18 rounded-[10px] bg-white object-contain p-1.5 ring-1 ring-linha" />
         )}
         <div>
-          <h1 className="font-display text-3xl font-extrabold text-azul-noite">{p.nome}</h1>
-          {p.startup_nome && <p className="font-texto text-xl text-tinta-suave">{p.startup_nome}</p>}
+          <h1 className="font-display text-3xl font-bold text-azul-noite">{p.nome}</h1>
+          {p.startup_nome && <p className="text-xl text-tinta-suave">{p.startup_nome}</p>}
           <div className="mt-2 flex flex-wrap gap-1.5">
             <Selo tom={p.status === 'ativo' ? 'buriti' : p.status === 'inadimplente' ? 'erro' : 'laranja'}>{ROTULO_STATUS[p.status]}</Selo>
             <Selo tom="azul">{p.modalidade === 'associado' ? 'Associado' : 'Comunidade'}</Selo>
@@ -67,8 +67,8 @@ export default async function AdminAssociadoPage({params}: PageProps<'/admin/ass
 
       {p.status === 'pendente_aprovacao' && (
         <Ficha className="bg-laranja-claro p-6 ring-laranja/50" como="section">
-          <h2 className="font-display text-xl font-extrabold text-azul-noite">Pedido aguardando análise</h2>
-          <p className="mb-4 mt-1 font-texto text-[1.0625rem] text-tinta-suave">
+          <h2 className="font-display text-xl font-bold text-azul-noite">Pedido aguardando análise</h2>
+          <p className="mb-4 mt-1 text-base text-tinta-suave">
             Ao aprovar, a pessoa recebe por e-mail o link para pagar a anuidade. Ao recusar, ela continua na Comunidade.
           </p>
           <DecisaoPedido id={p.id} />
@@ -77,7 +77,7 @@ export default async function AdminAssociadoPage({params}: PageProps<'/admin/ass
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Ficha className="p-6" como="section">
-          <h2 className="font-display text-xl font-extrabold text-azul-noite">Cadastro</h2>
+          <h2 className="font-display text-xl font-bold text-azul-noite">Cadastro</h2>
           <Etiqueta
             className="mt-4"
             linhas={[
@@ -97,7 +97,7 @@ export default async function AdminAssociadoPage({params}: PageProps<'/admin/ass
         </Ficha>
 
         <Ficha className="p-6" como="section">
-          <h2 className="font-display text-xl font-extrabold text-azul-noite">Anuidade</h2>
+          <h2 className="font-display text-xl font-bold text-azul-noite">Anuidade</h2>
           <Etiqueta
             className="mt-4"
             linhas={[
@@ -125,22 +125,22 @@ export default async function AdminAssociadoPage({params}: PageProps<'/admin/ass
       </div>
 
       <section aria-labelledby="historico">
-        <h2 id="historico" className="font-display text-xl font-extrabold text-azul-noite">
+        <h2 id="historico" className="font-display text-xl font-bold text-azul-noite">
           Histórico
         </h2>
         {!historico?.length ? (
-          <p className="mt-2 font-texto text-tinta-suave">Sem registros.</p>
+          <p className="mt-2 text-tinta-suave">Sem registros.</p>
         ) : (
           <ol className="mt-4 flex flex-col gap-0 border-l-2 border-linha pl-5">
             {(historico as Historico[]).map((h) => (
               <li key={h.id} className="relative pb-5 last:pb-0">
                 <span className="absolute -left-[1.6rem] top-1.5 size-2.5 rounded-full bg-azul" aria-hidden="true" />
-                <p className="font-semibold text-azul-noite">
+                <p className="font-medium text-azul-noite">
                   {ACOES[h.acao] ?? h.acao}
                   {h.status_novo && <span className="font-normal text-tinta-suave"> → {ROTULO_STATUS[h.status_novo]}</span>}
                 </p>
                 <p className="text-sm text-tinta-suave">{new Date(h.criado_em).toLocaleString('pt-BR', {timeZone: 'America/Araguaina'})}</p>
-                {h.observacao && <p className="mt-1 font-texto text-[1.0625rem]">{h.observacao}</p>}
+                {h.observacao && <p className="mt-1 text-base">{h.observacao}</p>}
               </li>
             ))}
           </ol>

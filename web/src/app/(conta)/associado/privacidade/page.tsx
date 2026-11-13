@@ -18,22 +18,22 @@ export default async function PrivacidadePage() {
         Seus dados pessoais são seus. Você pode corrigi-los ou pedir a exclusão a qualquer momento.
       </CabecaConta>
       <Container className="py-12 sm:py-14">
-        <Link href="/associado" className="font-semibold text-azul underline underline-offset-4">
+        <Link href="/associado" className="font-medium text-azul underline underline-offset-4">
           ← Voltar para minha área
         </Link>
         <div className="mt-8 grid max-w-3xl gap-6">
           <Ficha className="p-6 sm:p-8" como="section">
-            <h2 className="font-display text-xl font-extrabold text-azul-noite">Corrigir seus dados</h2>
-            <p className="mt-2 font-texto text-[1.0625rem] leading-relaxed text-tinta-suave">
+            <h2 className="font-display text-xl font-bold text-azul-noite">Corrigir seus dados</h2>
+            <p className="mt-2 text-base leading-relaxed text-tinta-suave">
               Nome, WhatsApp, cidade e os dados da startup podem ser editados direto na sua área.
             </p>
-            <Link href="/associado/perfil" className="mt-4 inline-block font-semibold text-azul underline underline-offset-4">
+            <Link href="/associado/perfil" className="mt-4 inline-block font-medium text-azul underline underline-offset-4">
               Editar meus dados
             </Link>
           </Ficha>
           <Ficha className="p-6 sm:p-8" como="section">
-            <h2 className="font-display text-xl font-extrabold text-azul-noite">Pedir a exclusão dos seus dados</h2>
-            <p className="mt-2 font-texto text-[1.0625rem] leading-relaxed text-tinta-suave">
+            <h2 className="font-display text-xl font-bold text-azul-noite">Pedir a exclusão dos seus dados</h2>
+            <p className="mt-2 text-base leading-relaxed text-tinta-suave">
               Conforme a LGPD (art. 18), respondemos em até 15 dias. Alguns registros precisam ser guardados por
               obrigação legal, como os contábeis e fiscais; explicaremos na resposta o que foi excluído. Se houver
               assinatura ativa, ela será cancelada. Veja a{' '}

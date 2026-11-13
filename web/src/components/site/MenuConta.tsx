@@ -42,7 +42,7 @@ export function useSessao(): Sessao | null {
 }
 
 const itemClasse =
-  'flex min-h-11 w-full items-center rounded-[4px] px-3 text-left text-[0.9375rem] font-semibold text-azul-noite hover:bg-azul-claro focus-visible:bg-azul-claro'
+  'flex min-h-11 w-full items-center rounded-[10px] px-3 text-left text-[0.9375rem] font-medium text-azul-noite hover:bg-azul-claro focus-visible:bg-azul-claro'
 
 /** Cabeçalho (desktop): "Entrar" ou as iniciais com menu da conta. */
 export function MenuConta({sessao}: {sessao: Sessao | null}) {
@@ -85,7 +85,7 @@ export function MenuConta({sessao}: {sessao: Sessao | null}) {
     return (
       <Link
         href={ROTAS_CONTA.entrar}
-        className="hidden min-h-11 items-center rounded-botao px-3 text-[0.9375rem] font-semibold text-azul hover:bg-azul-claro sm:inline-flex"
+        className="hidden min-h-11 items-center rounded-botao px-3 text-[0.9375rem] font-medium text-azul hover:bg-azul-claro sm:inline-flex"
       >
         Entrar
       </Link>
@@ -105,7 +105,7 @@ export function MenuConta({sessao}: {sessao: Sessao | null}) {
           setAberto((v) => !v)
         }}
         className={cx(
-          'flex size-11 items-center justify-center rounded-full bg-azul font-display text-[0.9375rem] font-extrabold tracking-[0.02em] text-white',
+          'flex size-11 items-center justify-center rounded-full bg-azul font-display text-[0.9375rem] font-bold tracking-[0.02em] text-white',
           'ring-2 ring-transparent transition-[box-shadow] duration-200 hover:ring-azul/30',
           aberto && 'ring-laranja',
         )}
@@ -122,7 +122,7 @@ export function MenuConta({sessao}: {sessao: Sessao | null}) {
         >
           <div className="border-b border-linha px-3 pb-3 pt-2">
             <p className="font-display font-bold text-azul-noite">{sessao.nome}</p>
-            <p className="truncate font-texto text-[0.9375rem] text-tinta-suave">{sessao.email}</p>
+            <p className="truncate text-sm text-tinta-suave">{sessao.email}</p>
           </div>
           <div className="flex flex-col py-1">
             <Link role="menuitem" href="/associado" className={itemClasse}>
@@ -159,7 +159,7 @@ export function ContaMovel({sessao}: {sessao: Sessao | null}) {
   if (sessao?.logado) {
     return (
       <li className="mt-4 flex flex-col gap-2">
-        <p className="px-1 font-texto text-lg text-tinta-suave">
+        <p className="px-1 text-base text-tinta-suave">
           Olá, <strong className="text-azul-noite">{sessao.primeiroNome}</strong>
         </p>
         <div className="grid grid-cols-2 gap-2">
@@ -177,10 +177,10 @@ export function ContaMovel({sessao}: {sessao: Sessao | null}) {
             Painel da Diretoria
           </Link>
         )}
-        <Link href="/associado/senha" className="px-1 py-2 font-texto text-lg text-azul-noite underline underline-offset-4">
+        <Link href="/associado/senha" className="px-1 py-2 text-base text-azul-noite underline underline-offset-4">
           Senha de acesso
         </Link>
-        <Link href="/associado/privacidade" className="px-1 py-2 font-texto text-lg text-azul-noite underline underline-offset-4">
+        <Link href="/associado/privacidade" className="px-1 py-2 text-base text-azul-noite underline underline-offset-4">
           Privacidade e exclusão de dados
         </Link>
       </li>

@@ -29,16 +29,16 @@ export default async function CadastroAssociadoPage() {
       <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,40rem)_1fr]">
         <FormAssociado listas={listas} declaracao={[...DECLARACAO_ADESAO]} />
         <aside className="lg:sticky lg:top-28 lg:self-start">
-          <h2 className="font-display text-xl font-extrabold text-azul-noite">Como funciona</h2>
+          <h2 className="font-display text-xl font-bold text-azul-noite">Como funciona</h2>
           <ol className="mt-4 flex flex-col">
             {PASSOS.map((p, i) => (
               <li key={p.t} className="relative flex gap-4 pb-6 last:pb-0">
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-azul font-display text-sm font-extrabold text-white">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-azul font-display text-sm font-bold text-white">
                   {i + 1}
                 </span>
                 <div>
                   <p className="font-display font-bold text-azul-noite">{p.t}</p>
-                  <p className="font-texto text-[1.0625rem] leading-snug text-tinta-suave">{p.d}</p>
+                  <p className="text-base leading-snug text-tinta-suave">{p.d}</p>
                 </div>
               </li>
             ))}

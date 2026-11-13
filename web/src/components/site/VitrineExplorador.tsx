@@ -42,7 +42,7 @@ export function VitrineExplorador({cards, listas}: {cards: VitrineCard[]; listas
             onSelecionar={(s) => setCidade(s ?? '')}
             titulo="Mapa do Tocantins: cidades com startups associadas em laranja. Clique em uma cidade para filtrar."
           />
-          <p className="mt-2 text-center font-texto text-[0.9375rem] italic text-tinta-suave">
+          <p className="mt-2 text-center text-sm text-tinta-suave">
             Clique em um ponto laranja para filtrar pela cidade.
           </p>
         </div>

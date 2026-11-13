@@ -9,7 +9,7 @@ import {BotaoEnviar, CampoSenha, CampoTexto, MensagemGeral} from './comum'
 
 function SemCadastro() {
   return (
-    <p className="font-texto text-[1.0625rem] text-tinta-suave">
+    <p className="text-base text-tinta-suave">
       Ainda não tem cadastro?{' '}
       <BotaoLink href="/associe-se" variante="fantasma" tamanho="sm" className="-ml-2 align-baseline">
         Conheça as modalidades
@@ -38,9 +38,9 @@ export function FormEntrar({proximo}: {proximo?: string}) {
       <BotaoEnviar tamanho="lg" pendente="Entrando…">
         Entrar
       </BotaoEnviar>
-      <p className="font-texto text-[1.0625rem] text-tinta-suave">
+      <p className="text-base text-tinta-suave">
         Primeiro acesso ou esqueceu a senha?{' '}
-        <Link href="/entrar?modo=link" className="font-semibold text-azul underline underline-offset-4">
+        <Link href="/entrar?modo=link" className="font-medium text-azul underline underline-offset-4">
           Receba um link de acesso por e-mail
         </Link>{' '}
         e crie uma nova senha.
@@ -82,9 +82,9 @@ export function FormLinkAcesso() {
       <BotaoEnviar tamanho="lg" pendente="Enviando link…">
         Receber link de acesso
       </BotaoEnviar>
-      <p className="font-texto text-[1.0625rem] text-tinta-suave">
+      <p className="text-base text-tinta-suave">
         Já tem senha?{' '}
-        <Link href="/entrar" className="font-semibold text-azul underline underline-offset-4">
+        <Link href="/entrar" className="font-medium text-azul underline underline-offset-4">
           Entrar com e-mail e senha
         </Link>
       </p>

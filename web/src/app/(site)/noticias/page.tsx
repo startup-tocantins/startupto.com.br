@@ -37,8 +37,8 @@ async function Lista({searchParams}: {searchParams: PageProps<'/noticias'>['sear
                   aria-current={on ? 'page' : undefined}
                   scroll={false}
                   className={cx(
-                    'inline-flex min-h-11 items-center rounded-full px-5 text-[0.9375rem] font-semibold transition-colors',
-                    on ? 'bg-azul-noite text-white' : 'bg-prancha text-azul-noite ring-1 ring-linha hover:ring-azul',
+                    'inline-flex min-h-11 items-center rounded-full px-5 text-[0.9375rem] font-medium transition-colors',
+                    on ? 'bg-azul text-white' : 'bg-prancha text-azul-noite ring-1 ring-linha hover:ring-azul',
                   )}
                 >
                   {f.rotulo}
@@ -49,11 +49,13 @@ async function Lista({searchParams}: {searchParams: PageProps<'/noticias'>['sear
         </ul>
       </nav>
       {posts.length ? (
-        <div className="border-b border-linha">
-          {posts.map((p) => (
-            <ItemPost key={p._id} post={p} />
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p, i) => (
+            <li key={p._id}>
+              <ItemPost post={p} comResumo prioridade={i < 3} />
+            </li>
           ))}
-        </div>
+        </ul>
       ) : (
         <EstadoVazio titulo={categoria ? `Nenhum ${CATEGORIAS[categoria].singular.toLowerCase()} publicado ainda` : 'Nenhuma publicação ainda'}>
           Assim que a Diretoria publicar, as novidades aparecem aqui.
@@ -67,10 +69,11 @@ export default function Noticias(props: PageProps<'/noticias'>) {
   return (
     <Prancha
       nivel={1}
+      rotulo="Notícias e oportunidades"
       titulo="Notícias, editais e benefícios"
       introducao="O que está acontecendo no ecossistema, oportunidades abertas e vantagens para quem é associado."
       fundo="papel"
-      numero={1}
+     
     >
       <Suspense fallback={<div className="h-64 animate-pulse rounded-ficha bg-linha/40" aria-hidden="true" />}>
         <Lista searchParams={props.searchParams} />

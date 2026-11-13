@@ -13,18 +13,16 @@ Audience: empreendedores do TO (celular, vindos do WhatsApp), associados, ecossi
 
 ## Direction contract
 
-THESIS: O ecossistema de startups lido como um guia de campo do cerrado tocantinense. Recusa o hero centralizado + fileira de cards de "startup genérica".
+THESIS: Tocantins luminoso. Portal institucional claro e confiável, fiel ao template `design/design.png`: a Associação como porta de entrada do ecossistema, com Palmas ao pôr do sol como imagem de abertura.
 
-OWN-WORLD: Pranchas de guia de campo: papel branco de prancha, campos inteiros em azul-tocantins (tecido da capa) e laranja-sol (ipê), verde-buriti como terceira tinta. Abas de índice coloridas na borda (thumb index) como navegação. Fichas de herbário com etiqueta tabular (Localidade, Setor, Estágio), numeração de prancha "Prancha 03", legendas em itálico tipo nome científico. Display grotesca encorpada (Bricolage Grotesque), texto e legendas em Alegreya.
+OWN-WORLD: Papel frio quase branco, cartões brancos de 16px, faixas de 28px, ícones de traço azuis, CTA laranja com texto azul-noite, campo amarelo-ipê arredondado entrando pela borda esquerda. Ubuntu em toda a interface.
 
-STORY: O visitante entende que a Associação representa o Tocantins inteiro (139 municípios), vê quem dirige, o que acontece (eventos, editais) e quem participa (Vitrine), e se associa.
+STORY: O visitante vê a chamada "Conectando startups, pessoas e oportunidades no Tocantins", entende missão, visão e valores, encontra eventos e notícias, conhece a Vitrine e os Mantenedores, e se associa.
 
-FIRST VIEWPORT: Prancha 01. À esquerda, nome oficial em display grande e a missão curta; CTA "Associe-se" (laranja) e "Conheça a Vitrine". À direita, o mapa de coleta: 139 pontos, um por município, nas coordenadas reais, formando o Tocantins; hover/foco nomeia a cidade. Abas de índice na borda direita.
+FIRST VIEWPORT: Rótulo "Ecossistema de inovação do Tocantins", chamada em três linhas, primeiro parágrafo da introdução, CTAs "Associe-se agora →" e "Conheça a Associação"; à direita a foto de Palmas recortada em paralelogramo com filete laranja. A faixa Missão/Visão/Valores fecha a dobra.
 
-FORM: Guia de campo do cerrado, candidato 7 da lista ordenada. seed:e2ae67f03755f5fa
+FORM: Template de referência (design/design.png) — seguir o mais de perto possível; ver DESIGN.md.
 
-Signature interaction: mapa de coleta interativo (pontos por município; na Vitrine, filtra por cidade).
-
-Raises: disciplina de densidade (catálogo de brinquedos — Vitrine compacta em fichas, sem cards gigantes); estado vazio como convite (step row da drum machine).
+Signature: foto de Palmas em paralelogramo + campo ipê. O mapa de 139 municípios continua como filtro na Vitrine.
 
 FINISH: unreviewed and undocumented is unfinished

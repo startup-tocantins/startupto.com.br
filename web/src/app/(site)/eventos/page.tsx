@@ -4,7 +4,7 @@ import {Suspense} from 'react'
 import {connection} from 'next/server'
 import {getEventos} from '@/sanity/queries'
 import {ItemEvento} from '@/components/site/Itens'
-import {BotaoLink, EstadoVazio, Prancha} from '@/components/ui'
+import {BotaoLink, CabecalhoSecao, EstadoVazio, IconeAgenda, Prancha} from '@/components/ui'
 import {ROTAS_CONTA} from '@/components/site/navegacao'
 
 export const metadata: Metadata = {
@@ -23,11 +23,9 @@ async function Agenda() {
   return (
     <>
       <section aria-labelledby="proximos-titulo">
-        <h2 id="proximos-titulo" className="mb-6 font-display text-2xl font-extrabold text-azul-noite">
-          Próximos
-        </h2>
+        <CabecalhoSecao id="proximos-titulo" titulo="Próximos" icone={<IconeAgenda />} />
         {proximos.length ? (
-          <ul className="grid gap-4 md:grid-cols-2">
+          <ul className="grid gap-4 lg:grid-cols-2">
             {proximos.map((e) => (
               <li key={e._id}>
                 <ItemEvento evento={e} />
@@ -49,13 +47,11 @@ async function Agenda() {
       </section>
       {passados.length > 0 && (
         <section aria-labelledby="passados-titulo" className="mt-16">
-          <h2 id="passados-titulo" className="mb-6 font-display text-2xl font-extrabold text-azul-noite">
-            Já aconteceram
-          </h2>
-          <ul className="grid gap-4 md:grid-cols-2">
+          <CabecalhoSecao id="passados-titulo" titulo="Já aconteceram" />
+          <ul className="grid gap-4 lg:grid-cols-2">
             {passados.map((e) => (
               <li key={e._id}>
-                <ItemEvento evento={e} passado />
+                <ItemEvento evento={e} passado compacto />
               </li>
             ))}
           </ul>
@@ -69,10 +65,11 @@ export default function Eventos() {
   return (
     <Prancha
       nivel={1}
+      rotulo="Agenda do ecossistema"
       titulo="Eventos"
       introducao="Encontros, mentorias e capacitações em todas as regiões do estado."
       fundo="papel"
-      numero={1}
+     
     >
       <Suspense fallback={<div className="h-64 animate-pulse rounded-ficha bg-linha/40" aria-hidden="true" />}>
         <Agenda />

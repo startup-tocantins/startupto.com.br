@@ -40,13 +40,16 @@ export const configuracoesSite = defineType({
     }),
     defineField({
       name: 'heroTitulo',
-      title: 'Título principal da página inicial',
+      title: 'Chamada principal da página inicial',
+      description:
+        'Frase grande do topo da Home (ex.: “Conectando startups, pessoas e oportunidades no Tocantins”). Se ficar igual ao nome oficial, o site usa essa chamada padrão.',
       type: 'string',
       group: 'home',
     }),
     defineField({
       name: 'introducao',
       title: 'Introdução da página inicial',
+      description: 'O primeiro parágrafo aparece no topo da Home, abaixo da chamada.',
       type: 'array',
       of: [{type: 'block', styles: [{title: 'Parágrafo', value: 'normal'}], lists: []}],
       group: 'home',

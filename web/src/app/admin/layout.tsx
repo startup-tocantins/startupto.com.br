@@ -24,14 +24,14 @@ export default function AdminLayout({children}: {children: React.ReactNode}) {
       <header className="bg-azul-noite text-white">
         <Container className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-4">
           <Link href="/admin" className="flex items-baseline gap-3">
-            <span className="font-display text-lg font-extrabold leading-tight">Painel da Diretoria</span>
+            <span className="font-display text-lg font-bold leading-tight">Painel da Diretoria</span>
             <span className="hidden text-sm text-white/70 sm:inline">Associação Tocantinense de Startups</span>
           </Link>
           <div className="flex items-center gap-4 text-sm">
-            <a href={STUDIO} target="_blank" rel="noreferrer" className="font-semibold underline-offset-4 hover:underline">
+            <a href={STUDIO} target="_blank" rel="noreferrer" className="font-medium underline-offset-4 hover:underline">
               Editar conteúdo (Sanity)
             </a>
-            <Link href="/" className="font-semibold underline-offset-4 hover:underline">
+            <Link href="/" className="font-medium underline-offset-4 hover:underline">
               Ver site
             </Link>
             <Link href="/associado" className="text-white/80 underline-offset-4 hover:underline">

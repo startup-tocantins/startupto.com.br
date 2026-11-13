@@ -1,19 +1,14 @@
 import type {Metadata, Viewport} from 'next'
-import {Alegreya, Bricolage_Grotesque} from 'next/font/google'
+import {Ubuntu} from 'next/font/google'
 import {Analytics} from '@vercel/analytics/next'
 import {SanityLive} from '@/sanity/live'
 import {SITE_URL} from '@/lib/site'
 import './globals.css'
 
-const bricolage = Bricolage_Grotesque({
-  variable: '--font-bricolage',
+const ubuntu = Ubuntu({
+  variable: '--font-ubuntu',
   subsets: ['latin'],
-  display: 'swap',
-})
-
-const alegreya = Alegreya({
-  variable: '--font-alegreya',
-  subsets: ['latin'],
+  weight: ['400', '500', '700'],
   style: ['normal', 'italic'],
   display: 'swap',
 })
@@ -32,12 +27,12 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0a3f84',
+  themeColor: '#f5f8fd',
 }
 
 export default function RootLayout({children}: LayoutProps<'/'>) {
   return (
-    <html lang="pt-BR" className={`${bricolage.variable} ${alegreya.variable} h-full antialiased`}>
+    <html lang="pt-BR" className={`${ubuntu.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         {children}
         <SanityLive includeDrafts={false} />

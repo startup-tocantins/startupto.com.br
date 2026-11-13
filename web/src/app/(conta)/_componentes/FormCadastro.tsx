@@ -65,7 +65,7 @@ function AceitePrivacidade({estado}: {estado: EstadoForm}) {
       rotulo={
         <>
           Li e aceito a{' '}
-          <Link href="/privacidade" target="_blank" className="font-semibold text-azul underline underline-offset-2">
+          <Link href="/privacidade" target="_blank" className="font-medium text-azul underline underline-offset-2">
             Política de Privacidade
           </Link>
           .
@@ -123,7 +123,7 @@ export function FormAssociado({listas, declaracao}: {listas: ListasForm; declara
       <ResumoErros estado={estado} rotulos={ROTULOS} />
       <MensagemGeral estado={estado} />
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-4 font-display text-xl font-extrabold text-azul-noite">Seus dados</legend>
+        <legend className="mb-4 font-display text-xl font-bold text-azul-noite">Seus dados</legend>
         <CamposPessoais estado={estado} cidades={listas.cidades} />
         <CampoTexto
           nome="documento"
@@ -136,12 +136,12 @@ export function FormAssociado({listas, declaracao}: {listas: ListasForm; declara
         />
       </fieldset>
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-4 font-display text-xl font-extrabold text-azul-noite">Sua startup</legend>
+        <legend className="mb-4 font-display text-xl font-bold text-azul-noite">Sua startup</legend>
         <CamposStartup estado={estado} setores={listas.setores} estagios={listas.estagios} />
       </fieldset>
       <fieldset className="flex flex-col gap-4">
-        <legend className="mb-4 font-display text-xl font-extrabold text-azul-noite">Declaração de adesão</legend>
-        <div className="rounded-ficha bg-papel px-5 py-4 font-texto text-[1.0625rem] leading-relaxed text-tinta ring-1 ring-linha">
+        <legend className="mb-4 font-display text-xl font-bold text-azul-noite">Declaração de adesão</legend>
+        <div className="rounded-ficha bg-papel px-5 py-4 text-base leading-relaxed text-tinta ring-1 ring-linha">
           {declaracao.map((p) => (
             <p key={p} className="mb-2 last:mb-0">
               {p}
@@ -157,7 +157,7 @@ export function FormAssociado({listas, declaracao}: {listas: ListasForm; declara
           rotulo={
             <>
               Concordo com a declaração acima, com o{' '}
-              <Link href="/documentos" target="_blank" className="font-semibold text-azul underline underline-offset-2">
+              <Link href="/documentos" target="_blank" className="font-medium text-azul underline underline-offset-2">
                 Estatuto Social e o Regimento Interno
               </Link>
               .
@@ -170,7 +170,7 @@ export function FormAssociado({listas, declaracao}: {listas: ListasForm; declara
         <BotaoEnviar tamanho="lg" pendente="Enviando pedido…">
           Enviar pedido de associação
         </BotaoEnviar>
-        <p className="font-texto text-[1rem] text-tinta-suave">
+        <p className="text-[0.9375rem] text-tinta-suave">
           Nada é cobrado agora. A anuidade só é paga depois que a Diretoria aprovar o pedido.
         </p>
       </div>

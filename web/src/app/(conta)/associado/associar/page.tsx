@@ -25,7 +25,7 @@ export default async function AssociarPage() {
         anuidade{preco ? ` de ${preco.formatado}` : ''} no cartão de crédito.
       </CabecaConta>
       <Container className="py-12 sm:py-14">
-        <Link href="/associado" className="font-semibold text-azul underline underline-offset-4">
+        <Link href="/associado" className="font-medium text-azul underline underline-offset-4">
           ← Voltar para minha área
         </Link>
         <div className="mt-8 max-w-2xl">

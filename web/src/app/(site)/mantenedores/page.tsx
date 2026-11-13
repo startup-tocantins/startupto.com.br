@@ -17,10 +17,11 @@ export default async function Mantenedores() {
     <>
       <Prancha
         nivel={1}
+      rotulo="Quem sustenta a Associação"
         titulo="Mantenedores"
         introducao="Pessoas e organizações que contribuem anualmente para a manutenção da Associação. Os Mantenedores integram o Conselho Consultivo, órgão de assessoramento estratégico."
         fundo="papel"
-        numero={1}
+       
       >
         {mantenedores.length ? (
           <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -70,7 +71,7 @@ export default async function Mantenedores() {
           </EstadoVazio>
         )}
       </Prancha>
-      <Prancha titulo="Como se tornar mantenedor" fundo="branco" numero={2}>
+      <Prancha titulo="Como se tornar mantenedor" fundo="branco">
         <div className="grid gap-8 md:grid-cols-3">
           {[
             {
@@ -88,7 +89,7 @@ export default async function Mantenedores() {
           ].map((i) => (
             <div key={i.t} className="border-t-2 border-azul-noite pt-4">
               <h3 className="font-display text-lg font-bold text-azul-noite">{i.t}</h3>
-              <p className="mt-2 font-texto text-[1.0625rem] leading-relaxed text-tinta-suave">{i.d}</p>
+              <p className="mt-2 text-base leading-relaxed text-tinta-suave">{i.d}</p>
             </div>
           ))}
         </div>

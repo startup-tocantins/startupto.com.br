@@ -57,7 +57,7 @@ export default async function AreaAssociadoPage({searchParams}: PageProps<'/asso
         <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
           <Ficha className="p-6 sm:p-8" como="section">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="font-display text-2xl font-extrabold text-azul-noite">Situação</h2>
+              <h2 className="font-display text-2xl font-bold text-azul-noite">Situação</h2>
               <Selo tom={TOM[p.status]}>{ROTULO_STATUS[p.status]}</Selo>
             </div>
             <Etiqueta
@@ -100,8 +100,8 @@ export default async function AreaAssociadoPage({searchParams}: PageProps<'/asso
 
           <Ficha className="p-6 sm:p-8" como="section">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="font-display text-2xl font-extrabold text-azul-noite">Seus dados</h2>
-              <Link href="/associado/perfil" className="font-semibold text-azul underline underline-offset-4">
+              <h2 className="font-display text-2xl font-bold text-azul-noite">Seus dados</h2>
+              <Link href="/associado/perfil" className="font-medium text-azul underline underline-offset-4">
                 Editar
               </Link>
             </div>
@@ -122,10 +122,10 @@ export default async function AreaAssociadoPage({searchParams}: PageProps<'/asso
           <section aria-labelledby="vitrine-titulo">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <h2 id="vitrine-titulo" className="font-display text-2xl font-extrabold text-azul-noite">
+                <h2 id="vitrine-titulo" className="font-display text-2xl font-bold text-azul-noite">
                   Seu card na Vitrine
                 </h2>
-                <p className="mt-1 font-texto text-[1.0625rem] text-tinta-suave">
+                <p className="mt-1 text-base text-tinta-suave">
                   {!p.vitrine_opt_in
                     ? 'Você não autorizou a exibição. O card abaixo é só uma prévia.'
                     : p.status === 'ativo'
@@ -133,7 +133,7 @@ export default async function AreaAssociadoPage({searchParams}: PageProps<'/asso
                       : 'Prévia: o card aparece na Vitrine quando a associação estiver ativa.'}
                 </p>
               </div>
-              <Link href="/associado/perfil" className="font-semibold text-azul underline underline-offset-4">
+              <Link href="/associado/perfil" className="font-medium text-azul underline underline-offset-4">
                 Editar card
               </Link>
             </div>
@@ -157,11 +157,11 @@ export default async function AreaAssociadoPage({searchParams}: PageProps<'/asso
 
         {atas && (
           <section aria-labelledby="atas-titulo">
-            <h2 id="atas-titulo" className="font-display text-2xl font-extrabold text-azul-noite">
+            <h2 id="atas-titulo" className="font-display text-2xl font-bold text-azul-noite">
               Atas de Assembleia
             </h2>
             {atas.length === 0 ? (
-              <p className="mt-2 font-texto text-[1.0625rem] text-tinta-suave">Nenhuma ata publicada ainda.</p>
+              <p className="mt-2 text-base text-tinta-suave">Nenhuma ata publicada ainda.</p>
             ) : (
               <ul className="mt-4 divide-y divide-linha rounded-ficha bg-prancha ring-1 ring-linha">
                 {atas.map((a) => (
@@ -172,8 +172,8 @@ export default async function AreaAssociadoPage({searchParams}: PageProps<'/asso
                     >
                       <IconeDocumento className="size-5 text-azul" />
                       <span className="flex-1">
-                        <span className="font-semibold text-azul-noite">{a.titulo}</span>
-                        <span className="ml-2 font-texto text-tinta-suave">{formatarData(a.data_assembleia)}</span>
+                        <span className="font-medium text-azul-noite">{a.titulo}</span>
+                        <span className="ml-2 text-tinta-suave">{formatarData(a.data_assembleia)}</span>
                       </span>
                       <IconeDownload className="size-5 text-tinta-suave" />
                       <span className="sr-only">Baixar PDF</span>

@@ -45,10 +45,11 @@ export default function Vitrine() {
   return (
     <Prancha
       nivel={1}
+      rotulo="Startups associadas"
       titulo="Vitrine de startups"
       introducao="O retrato público do ecossistema tocantinense: startups associadas, de Palmas ao Bico do Papagaio."
       fundo="papel"
-      numero={1}
+     
     >
       <Suspense fallback={<div className="h-96 animate-pulse rounded-ficha bg-linha/40" aria-hidden="true" />}>
         <Conteudo />

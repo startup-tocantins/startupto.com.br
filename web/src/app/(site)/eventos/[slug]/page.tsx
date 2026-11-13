@@ -4,12 +4,15 @@ import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import {getEvento, getEventos} from '@/sanity/queries'
 import {urlFor} from '@/sanity/image'
-import {periodoEvento} from '@/lib/formatos'
+import {partesData, periodoEvento} from '@/lib/formatos'
 import {TextoRico} from '@/components/site/TextoRico'
 import {BotaoLink, Container, Etiqueta, IconeCalendario, IconeExterno} from '@/components/ui'
 
 const VAZIO = '__sem-eventos__'
 const FORMATO = {presencial: 'Presencial', online: 'Online', hibrido: 'Híbrido'}
+
+/** Página por slug, pré-gerada em generateStaticParams: sem validação de navegação instantânea. */
+export const instant = false
 
 export async function generateStaticParams() {
   const eventos = await getEventos()
@@ -58,20 +61,30 @@ export default async function EventoPage(props: PageProps<'/eventos/[slug]'>) {
   return (
     <article className="bg-papel">
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd).replace(/</g, '\\u003c')}} />
-      <header className="bg-buriti text-white">
-        <Container className="py-12 sm:py-16">
-          <Link href="/eventos" className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold text-white/85 hover:text-white hover:underline">
+      <header className="relative overflow-hidden">
+        <span aria-hidden="true" className="campo-ipe pointer-events-none absolute -left-10 top-6 hidden h-48 w-28 md:block" />
+        <Container className="relative pb-2 pt-10 sm:pt-12">
+          <Link href="/eventos" className="inline-flex min-h-11 items-center gap-1.5 text-[0.9375rem] font-medium text-azul hover:underline">
             ← Eventos
           </Link>
-          <h1 className="mt-3 max-w-[22ch] font-display text-[clamp(2.1rem,4.8vw,3.6rem)] font-extrabold leading-[1.04]">
-            {e.titulo}
-          </h1>
-          <p className="mt-4 font-texto text-[1.375rem] italic text-white/90 first-letter:uppercase">
-            {periodoEvento(e.inicio, e.fim)}
-          </p>
+          <div className="mt-3 flex items-start gap-5">
+            <div className="hidden size-[4.5rem] shrink-0 flex-col items-center justify-center rounded-[14px] bg-azul-claro text-azul ring-1 ring-azul-tinta sm:flex">
+              <span className="font-display text-[1.875rem] font-bold leading-none">{partesData(e.inicio).dia}</span>
+              <span className="mt-0.5 text-xs font-medium uppercase tracking-[0.06em]">{partesData(e.inicio).mes}</span>
+            </div>
+            <div>
+              <h1 className="max-w-[24ch] font-display text-[clamp(2rem,4.4vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.02em] text-azul-noite">
+                {e.titulo}
+              </h1>
+              <p className="mt-3 flex items-center gap-2 text-lg text-tinta first-letter:uppercase">
+                <IconeCalendario className="size-5 shrink-0 text-azul" />
+                {periodoEvento(e.inicio, e.fim)}
+              </p>
+            </div>
+          </div>
         </Container>
       </header>
-      <Container className="grid gap-10 py-12 lg:grid-cols-[1fr_22rem] lg:gap-16 lg:py-16">
+      <Container className="grid gap-10 pb-16 pt-8 lg:grid-cols-[1fr_22rem] lg:gap-14 lg:pb-20">
         <div>
           {e.capa?.asset && (
             <Image
@@ -80,10 +93,10 @@ export default async function EventoPage(props: PageProps<'/eventos/[slug]'>) {
               width={1400}
               height={788}
               priority
-              className="mb-10 aspect-[16/9] h-auto w-full rounded-ficha object-cover"
+              className="mb-10 aspect-[16/9] h-auto w-full rounded-faixa object-cover shadow-ficha"
             />
           )}
-          {e.resumo && <p className="mb-6 max-w-[60ch] font-texto text-[1.3125rem] leading-snug text-azul-noite">{e.resumo}</p>}
+          {e.resumo && <p className="mb-6 max-w-[60ch] text-lg leading-snug text-azul-noite">{e.resumo}</p>}
           <TextoRico valor={e.descricao} />
         </div>
         <aside className="self-start rounded-ficha bg-prancha p-6 ring-1 ring-linha shadow-ficha lg:sticky lg:top-28">

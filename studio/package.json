@@ -11,6 +11,8 @@
     "dev": "sanity dev",
     "start": "sanity start",
     "seed": "tsx scripts/seed.ts",
+    "demo": "tsx scripts/demo.ts",
+    "demo:remover": "tsx scripts/demo.ts --remover",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [

@@ -16,3 +16,6 @@ test-results/
 /.impeccable/review/
 /.impeccable/mocks/
 .impeccable/review/
+
+# Metadados do Dropbox
+*:com.dropbox.attrs

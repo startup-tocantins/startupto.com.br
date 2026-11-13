@@ -55,7 +55,7 @@ Sucesso = novos cadastros na Comunidade, conversão Comunidade → Associado, an
 
 **Páginas públicas**
 
-- **Home**, nesta ordem: hero (nome oficial + missão curta) → introdução → próximos eventos → últimas notícias/editais → prévia da Vitrine → comparativo de modalidades com CTA "Associe-se" → faixa de Mantenedores → rodapé.
+- **Home**, nesta ordem (template `design/design.png`, ver `DESIGN.md`): hero (chamada + 1º parágrafo da introdução, CTAs "Associe-se agora" e "Conheça a Associação", foto de Palmas) → faixa Missão/Visão/Valores → próximos eventos (carrossel) e últimas notícias/editais/benefícios lado a lado → prévia da Vitrine → faixa de Mantenedores → comparativo de modalidades com CTA "Associe-se" → rodapé.
 - **Quem somos**: bloco "Quem Somos", missão curta em destaque + missão longa, Visão, Valores. **Sem linha do tempo e sem "Áreas de atuação".**
 - **Diretoria**: 11 membros, Presidente primeiro, ordem do `sobre.md`. Foto (ou placeholder com iniciais), nome, cargo, mini bio **recolhida** (expandir/recolher acessível).
 - **Manifesto**: página própria com o texto de `manifesto.md` (versão aprovada), editável no Sanity.
@@ -109,7 +109,7 @@ Sucesso = novos cadastros na Comunidade, conversão Comunidade → Associado, an
 - `privacidade.md` — Política de Privacidade (LGPD).
 - `emails.md` — textos de todos os e-mails (auth, associado, alertas da Diretoria).
 - `logo.pdf` — logo vetorial.
-- `projeto.jpg` — esboço original do site no flipchart.
+- `design/` — template visual de referência (`design.png`) e assets (logo, ícones, fotos de Palmas e capas genéricas), base do `DESIGN.md`.
 - `sanity.md` — instruções de setup do Sanity.
 - Contatos atuais: `startuptocantins@gmail.com`, WhatsApp (63) 99235-3262, Instagram `@startuptocantins_`.
 

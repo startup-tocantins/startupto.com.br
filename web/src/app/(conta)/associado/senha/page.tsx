@@ -18,7 +18,7 @@ export default async function SenhaPage() {
         Crie ou troque a senha que você usa para entrar, junto com o e-mail <strong>{perfil.email}</strong>.
       </CabecaConta>
       <Container className="py-12 sm:py-14">
-        <Link href="/associado" className="font-semibold text-azul underline underline-offset-4">
+        <Link href="/associado" className="font-medium text-azul underline underline-offset-4">
           ← Voltar para minha área
         </Link>
         <Ficha className="mt-8 max-w-3xl p-6 sm:p-8" como="section">

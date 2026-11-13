@@ -26,20 +26,20 @@ export function FormPerfil({perfil, listas, logoUrl}: {perfil: Perfil; listas: L
       <ResumoErros estado={estado} rotulos={ROTULOS} />
       <MensagemGeral estado={estado} />
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-4 font-display text-xl font-extrabold text-azul-noite">Seus dados</legend>
+        <legend className="mb-4 font-display text-xl font-bold text-azul-noite">Seus dados</legend>
         <CampoTexto nome="nome" rotulo="Nome completo" estado={estado} obrigatorio padrao={perfil.nome} autoComplete="name" />
         <div className="grid gap-5 sm:grid-cols-2">
           <CampoTexto nome="whatsapp" rotulo="WhatsApp" estado={estado} obrigatorio padrao={perfil.whatsapp} type="tel" inputMode="tel" />
           <CampoSelecao nome="cidade" rotulo="Cidade" estado={estado} opcoes={listas.cidades} obrigatorio padrao={perfil.cidade} />
         </div>
-        <p className="font-texto text-[1rem] text-tinta-suave">
+        <p className="text-[0.9375rem] text-tinta-suave">
           E-mail: <strong>{perfil.email}</strong>. Para trocar o e-mail ou o CPF/CNPJ, escreva para
           startuptocantins@gmail.com.
         </p>
       </fieldset>
       {associado && (
         <fieldset className="flex flex-col gap-5">
-          <legend className="mb-4 font-display text-xl font-extrabold text-azul-noite">Sua startup e a Vitrine</legend>
+          <legend className="mb-4 font-display text-xl font-bold text-azul-noite">Sua startup e a Vitrine</legend>
           <CamposStartup
             estado={estado}
             setores={listas.setores}
@@ -82,7 +82,7 @@ export function FormAssociar({listas, declaracao, perfil}: {listas: ListasForm; 
       <ResumoErros estado={estado} rotulos={ROTULOS} />
       <MensagemGeral estado={estado} />
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-4 font-display text-xl font-extrabold text-azul-noite">Documento</legend>
+        <legend className="mb-4 font-display text-xl font-bold text-azul-noite">Documento</legend>
         <CampoTexto
           nome="documento"
           rotulo="CPF ou CNPJ"
@@ -93,7 +93,7 @@ export function FormAssociar({listas, declaracao, perfil}: {listas: ListasForm; 
         />
       </fieldset>
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-4 font-display text-xl font-extrabold text-azul-noite">Sua startup</legend>
+        <legend className="mb-4 font-display text-xl font-bold text-azul-noite">Sua startup</legend>
         <CamposStartup
           estado={estado}
           setores={listas.setores}
@@ -102,8 +102,8 @@ export function FormAssociar({listas, declaracao, perfil}: {listas: ListasForm; 
         />
       </fieldset>
       <fieldset className="flex flex-col gap-4">
-        <legend className="mb-4 font-display text-xl font-extrabold text-azul-noite">Declaração de adesão</legend>
-        <div className="rounded-ficha bg-papel px-5 py-4 font-texto text-[1.0625rem] leading-relaxed ring-1 ring-linha">
+        <legend className="mb-4 font-display text-xl font-bold text-azul-noite">Declaração de adesão</legend>
+        <div className="rounded-ficha bg-papel px-5 py-4 text-base leading-relaxed ring-1 ring-linha">
           {declaracao.map((p) => (
             <p key={p} className="mb-2 last:mb-0">
               {p}
@@ -118,7 +118,7 @@ export function FormAssociar({listas, declaracao, perfil}: {listas: ListasForm; 
           rotulo={
             <>
               Concordo com a declaração acima, com o{' '}
-              <Link href="/documentos" target="_blank" className="font-semibold text-azul underline underline-offset-2">
+              <Link href="/documentos" target="_blank" className="font-medium text-azul underline underline-offset-2">
                 Estatuto Social e o Regimento Interno
               </Link>
               .

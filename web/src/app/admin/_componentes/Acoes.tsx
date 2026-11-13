@@ -100,7 +100,7 @@ export function FormIsencao({id, isento, motivoAtual}: {id: string; isento: bool
     return (
       <form action={acaoR} className="flex flex-col gap-3">
         <input type="hidden" name="id" value={id} />
-        <p className="font-texto text-[1.0625rem]">
+        <p className="text-base">
           Isento da anuidade: <strong>{motivoAtual}</strong>
         </p>
         <Campo id="motivo-revogacao" rotulo="Motivo do encerramento (opcional)" ajuda="Ex.: fim do mandato na Diretoria. A pessoa recebe o link de pagamento por e-mail.">

@@ -38,7 +38,7 @@ export default async function PagamentoPage({searchParams}: PageProps<'/associad
             </Aviso>
           )}
           <Ficha className="p-6 sm:p-8" como="section">
-            <h2 className="font-display text-2xl font-extrabold text-azul-noite">Resumo</h2>
+            <h2 className="font-display text-2xl font-bold text-azul-noite">Resumo</h2>
             <Etiqueta
               className="mt-5"
               linhas={[
@@ -52,12 +52,12 @@ export default async function PagamentoPage({searchParams}: PageProps<'/associad
                 Ir para o pagamento seguro
               </BotaoEnviar>
             </form>
-            <p className="mt-4 font-texto text-[1rem] leading-snug text-tinta-suave">
+            <p className="mt-4 text-[0.9375rem] leading-snug text-tinta-suave">
               O pagamento é processado pelo Stripe. A Associação não recebe nem guarda o número do seu cartão. Você pode
               cancelar a renovação quando quiser pela sua área.
             </p>
           </Ficha>
-          <Link href="/associado" className="mt-6 inline-block font-semibold text-azul underline underline-offset-4">
+          <Link href="/associado" className="mt-6 inline-block font-medium text-azul underline underline-offset-4">
             ← Voltar para minha área
           </Link>
         </div>

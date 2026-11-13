@@ -3,7 +3,7 @@ import {notFound} from 'next/navigation'
 import {getPagina} from '@/sanity/queries'
 import {dataLonga} from '@/lib/formatos'
 import {TextoRico} from '@/components/site/TextoRico'
-import {Container} from '@/components/ui'
+import {Prancha} from '@/components/ui'
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade',
@@ -15,16 +15,18 @@ export default async function Privacidade() {
   const p = await getPagina('privacidade')
   if (!p) notFound()
   return (
-    <article className="bg-papel">
-      <Container className="py-14 sm:py-20">
-        <h1 className="font-display text-[clamp(2.2rem,5vw,3.6rem)] font-extrabold leading-[1.04] text-azul-noite">{p.titulo}</h1>
-        {p.dataAtualizacao && (
-          <p className="mt-3 font-texto text-[1.125rem] italic text-tinta-suave">
-            Última atualização: {dataLonga(`${p.dataAtualizacao}T12:00:00`)}
-          </p>
-        )}
-        <TextoRico valor={p.corpo} className="mt-10" />
-      </Container>
+    <article>
+      <Prancha
+        nivel={1}
+        rotulo="Documentos"
+        titulo={p.titulo}
+        introducao={p.dataAtualizacao ? `Última atualização: ${dataLonga(`${p.dataAtualizacao}T12:00:00`)}` : undefined}
+        fundo="papel"
+      >
+        <div className="rounded-faixa bg-prancha px-6 py-10 ring-1 ring-linha/70 shadow-ficha sm:px-12 sm:py-12">
+          <TextoRico valor={p.corpo} />
+        </div>
+      </Prancha>
     </article>
   )
 }

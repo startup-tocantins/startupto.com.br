@@ -5,6 +5,7 @@ import {
   Head,
   Hr,
   Html,
+  Img,
   Link,
   Preview,
   Section,
@@ -12,18 +13,21 @@ import {
 } from '@react-email/components'
 import type {ReactNode} from 'react'
 
+import {SITE_URL} from '../lib/site'
+
+/** Paleta do DESIGN.md (Tocantins luminoso). */
 export const cores = {
-  azul: '#0C4D9F',
-  laranja: '#FB9A17',
-  tinta: '#0B1E36',
+  azul: '#0B5BD3',
+  laranja: '#F7870F',
+  ipe: '#FEC446',
+  tinta: '#0E1E42',
   papel: '#FFFFFF',
-  fundo: '#EEF2F7',
-  suave: '#4A5B70',
-  linha: '#D5DEE9',
+  fundo: '#F5F8FD',
+  suave: '#475569',
+  linha: '#E3E9F2',
 }
 
-const fonte =
-  "'Atkinson Hyperlegible', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+const fonte = "Ubuntu, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
 
 export type Rodape = {whatsappContato: string; urlPrivacidade: string}
 
@@ -41,14 +45,25 @@ export function Layout({
       <Head />
       <Preview>{preview}</Preview>
       <Body style={{backgroundColor: cores.fundo, margin: 0, padding: '24px 0', fontFamily: fonte}}>
-        <Container style={{maxWidth: 560, margin: '0 auto', backgroundColor: cores.papel}}>
-          <Section style={{backgroundColor: cores.azul, padding: '20px 32px'}}>
-            <Text style={{margin: 0, color: '#FFFFFF', fontSize: 17, fontWeight: 700, lineHeight: '22px'}}>
-              Associação Tocantinense
-              <br />
-              de Startups
-            </Text>
-            <div style={{height: 4, width: 48, backgroundColor: cores.laranja, marginTop: 10}} />
+        <Container
+          style={{
+            maxWidth: 560,
+            margin: '0 auto',
+            backgroundColor: cores.papel,
+            borderRadius: 16,
+            border: `1px solid ${cores.linha}`,
+            overflow: 'hidden',
+          }}
+        >
+          <Section style={{padding: '24px 32px 0'}}>
+            <Img
+              src={`${SITE_URL}/logo.png`}
+              alt="Associação Tocantinense de Startups"
+              width={174}
+              height={60}
+              style={{display: 'block', height: 60, width: 'auto'}}
+            />
+            <div style={{height: 4, width: 56, backgroundColor: cores.laranja, borderRadius: 4, marginTop: 16}} />
           </Section>
           <Section style={{padding: '28px 32px 8px', color: cores.tinta, fontSize: 16, lineHeight: '26px'}}>
             {children}
@@ -86,6 +101,7 @@ export function Botao({href, children}: {href: string; children: ReactNode}) {
           fontWeight: 700,
           fontSize: 16,
           padding: '14px 24px',
+          borderRadius: 10,
           textDecoration: 'none',
           display: 'inline-block',
         }}
